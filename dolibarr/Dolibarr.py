@@ -72,3 +72,18 @@ class Dolibarr():
 
         return result
 
+    def get_shipments_by_status(self, status):
+        """
+        Get shipments by status
+        @param status: 0 => draft, 1 => validated
+        @return: list of orders
+        """
+        params = {
+            'limit': 500,
+            'sqlfilters': "(fk_statut:=:{})".format(status)
+        }
+
+        # and (fk_shipping_method:=:9)
+        erp_shipments = self.call_list_api('shipments', params=params)
+        return erp_shipments
+

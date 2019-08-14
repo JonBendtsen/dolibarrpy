@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'dolibarr',
   packages = ['dolibarr'],
-  version = '0.1.3',
+  version = '0.1.4',
   license='MIT',
   description = 'A python module for interacting with Dolibarr API',
   author = 'Mark Meadows',
