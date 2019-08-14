@@ -6,10 +6,12 @@ _logger = logging.getLogger(__name__)
 
 
 class Dolibarr():
+    url = 'https://example.com/api/'
+    token = 'your token'
 
-    def __init__(self):
-        self.token = 'your token'
-        self.url = 'https://example.com/api/'
+    def __init__(self, url, token):
+        self.url = url
+        self.token = token
 
     def get_headers(self):
         return {
