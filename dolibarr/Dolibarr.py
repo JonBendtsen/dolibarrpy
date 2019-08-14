@@ -6,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Dolibarr():
-    url = 'https://example.com/api/'
+    url = 'https://example.com/api/index.php/'
     token = 'your token'
 
     def __init__(self, url, token):
