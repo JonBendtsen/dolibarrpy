@@ -2,9 +2,9 @@ from distutils.core import setup
 setup(
   name = 'dolibarr',
   packages = ['dolibarr'],
-  version = '0.1.4',
+  version = '0.1.5',
   license='MIT',
-  description = 'A python module for interacting with Dolibarr API',
+  description = 'Added action method and order to draft function',
   author = 'Mark Meadows',
   author_email = 'mark@mvmdata.com',
   url = 'https://gitlab.com/mvmdata/dolibarr',

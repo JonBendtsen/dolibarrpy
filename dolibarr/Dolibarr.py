@@ -50,11 +50,10 @@ class Dolibarr():
             result = response
         return result
 
-    def call_delete_api(self, object, objid='TBD'):
-        url = self.url + object + '/' + str(objid)
+    def call_action_api(self, object, objid, action, params={}):
+        url = self.url + object + '/' + str(objid) + "/" + action
         headers = self.get_headers()
-
-        response = requests.post(url, json={'id': objid}, headers=headers, timeout=8)
+        response = requests.post(url, json=params, headers=headers, timeout=8)
         try:
             result = json.loads(response.text)
         except:
@@ -86,4 +85,12 @@ class Dolibarr():
         # and (fk_shipping_method:=:9)
         erp_shipments = self.call_list_api('shipments', params=params)
         return erp_shipments
+
+    def set_order_to_draft(self, order_id):
+        url = 'orders/{}/settodraft'.format(order_id)
+        params = {
+          "idwarehouse": 0
+        }
+        return self.call_action_api('orders', order_id, 'settodraft', params=params)
+
 
