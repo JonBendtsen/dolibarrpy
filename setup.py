@@ -1,10 +1,15 @@
 from distutils.core import setup
+
+with open("README.md", "r") as fh:
+  long_description = fh.read()
+
 setup(
   name = 'dolibarr',
   packages = ['dolibarr'],
-  version = '0.1.5',
+  version = '0.1.6',
   license='MIT',
-  description = 'Added action method and order to draft function',
+  description='Python wrapper for Dolibarr API',
+  long_description=long_description,
   author = 'Mark Meadows',
   author_email = 'mark@mvmdata.com',
   url = 'https://gitlab.com/mvmdata/dolibarr',

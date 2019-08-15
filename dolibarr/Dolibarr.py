@@ -71,11 +71,33 @@ class Dolibarr():
 
         return result
 
+    def get_orders_by_status(self, status):
+        """
+        Get orders by status
+        @param status: 0 => draft, 1 => validated
+        @return: list of orders
+        """
+        params = {
+            'limit': 500,
+            'sqlfilters': "(fk_statut:=:{})".format(status)
+        }
+
+        result = self.call_list_api('orders', params=params)
+        return result
+
+    def get_order_by_id(self, objid):
+        result = self.call_get_api('orders', objid=objid)
+        return result
+
+    def get_shipment_by_id(self, objid):
+        result = self.call_get_api('shipments', objid=objid)
+        return result
+
     def get_shipments_by_status(self, status):
         """
         Get shipments by status
         @param status: 0 => draft, 1 => validated
-        @return: list of orders
+        @return: list of shipments
         """
         params = {
             'limit': 500,
