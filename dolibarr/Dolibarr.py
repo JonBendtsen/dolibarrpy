@@ -86,11 +86,21 @@ class Dolibarr():
         erp_shipments = self.call_list_api('shipments', params=params)
         return erp_shipments
 
-    def set_order_to_draft(self, order_id):
-        url = 'orders/{}/settodraft'.format(order_id)
+    def set_order_to_draft(self, order_id, idwarehouse=1):
         params = {
-          "idwarehouse": 0
+          "idwarehouse": idwarehouse
         }
         return self.call_action_api('orders', order_id, 'settodraft', params=params)
 
+    def set_order_to_validated(self, order_id, idwarehouse=1):
+        params = {
+          "idwarehouse": idwarehouse
+        }
+        return self.call_action_api('orders', order_id, 'validate', params=params)
+
+    def set_shipment_to_validated(self, shipment_id):
+        params = {
+          "notrigger": 0
+        }
+        return self.call_action_api('shipment', shipment_id, 'validate', params=params)
 
