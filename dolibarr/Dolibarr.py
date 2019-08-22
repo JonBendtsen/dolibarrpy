@@ -57,8 +57,7 @@ class Dolibarr():
         try:
             result = json.loads(response.text)
         except:
-            _logger.error(response)
-            _logger.error(response.text)
+            raise Exception(response.text)
         return result
 
     def call_update_api(self, object, objid, params={}):
