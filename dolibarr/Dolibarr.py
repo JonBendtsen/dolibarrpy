@@ -71,6 +71,17 @@ class Dolibarr():
 
         return result
 
+    def call_delete_api(self, object, objid):
+        url = self.url + object + '/' + str(objid)
+        headers = self.get_headers()
+        print(url)
+        response = requests.delete(url, json={'id': objid}, headers=headers, timeout=8)
+        try:
+            result = json.loads(response.text)
+        except:
+            result = False
+        return result
+
     def get_orders_by_status(self, status):
         """
         Get orders by status
