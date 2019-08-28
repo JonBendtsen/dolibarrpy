@@ -1,15 +1,15 @@
 from distutils.core import setup
+import os
 
-# read the contents of your README file
-from os import path
-# this_directory = path.abspath(path.dirname(__file__))
-# with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-#     long_description = f.read()
+if os.environ.get('CI_COMMIT_TAG'):
+    version = os.environ['CI_COMMIT_TAG']
+else:
+    version = os.environ['CI_JOB_ID']
 
 setup(
     name='dolibarr',
     packages=['dolibarr'],
-    version='0.1.15',
+    version=version,
     license='MIT',
     description='Python wrapper for Dolibarr API',
     long_description='Python wrapper for Dolibarr',
