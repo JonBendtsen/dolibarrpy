@@ -13,7 +13,8 @@ deploy_production:
     TWINE_USERNAME: $PRODUCTION_USERNAME
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
   script:
-    - twine upload dist/*
     - echo "HI $TWINE_USERNAME ,"
+    - twine upload dist/*
+
   only:
     - tags
