@@ -14,6 +14,8 @@ deploy_production:
     TWINE_PASSWORD: $PRODUCTION_PASSWORD
   script:
     - echo $TWINE_USERNAME
+    - echo $CI_JOB_STAGE
+    - echo $PRODUCTION_USERNAME
     - twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
   only:
