@@ -9,7 +9,7 @@ from os import path
 setup(
     name='dolibarr',
     packages=['dolibarr'],
-    version='0.1.14',
+    version='0.1.15',
     license='MIT',
     description='Python wrapper for Dolibarr API',
     long_description='Python wrapper for Dolibarr',

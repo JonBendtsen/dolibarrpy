@@ -115,7 +115,9 @@ class Dolibarr():
         self.call_update_api('shipments', objid, params=params)
 
     def get_shipments_by_orderid(self, order_id):
-        shipment_list = self.get_order_by_id(order_id).get('linkedObjectsIds').get('shipping')
+        order = self.get_order_by_id(order_id)
+        links = order.get('linkedObjectsIds')
+        shipment_list = links.get('shipping')
         shipments = []
         for item in shipment_list:
             ship = self.get_shipment_by_id(shipment_list[item])
@@ -137,6 +139,59 @@ class Dolibarr():
         # and (fk_shipping_method:=:9)
         erp_shipments = self.call_list_api('shipments', params=params)
         return erp_shipments
+
+    def create_shipment_from_order(self, order_id, address_id=0, shipping_method_id=0, date_delivery=0, tracking_number=''):
+        # This creates a complete fulfillment shipment for an order
+        # get order
+        order = self.get_order_by_id(order_id)
+        # set defaults
+        shipment_data = {
+            'socid': order.get('socid'),
+            "origin_type": "commande",
+            "origin_id": str(order_id),
+            'tracking_number': tracking_number,
+            'date_delivery': date_delivery,
+            'fk_delivery_address': address_id,
+            'shipping_method_id': shipping_method_id,
+            "sizeS": "0",  # trueDepth
+            "sizeW": "0",  # trueWidth
+            "sizeH": "0",  # trueHeight
+            "weight": "0",
+            "weight_units": "0",
+            "size_units": "0",
+        }
+
+        shiplines = []
+        orderlines = order.get('lines')
+
+        # loop through order lines and create shipment lines
+        for oline in orderlines:
+            if oline.get('product_type') != "0":
+                # only ship products (not services)
+                continue
+            sline = {
+                "origin_line_id": oline.get('id'),
+                "fk_origin_line": oline.get('id'),
+                "qty": oline.get('qty'),
+                "qty_shipped": oline.get('qty'),
+                "fk_product": oline.get('fk_product'),
+                "qty_asked": oline.get('qty'),
+                "ref": oline.get('ref'),
+                "product_ref": oline.get('product_ref'),
+                "libelle": oline.get('libelle'),
+                "product_label": oline.get('libelle'),
+                "desc": oline.get('desc'),
+                "product_desc": oline.get('description'),
+                "description": oline.get('description'),
+                "fk_origin": "orderline",
+            }
+            shiplines.append(sline)
+
+        #add lines to shipment
+        shipment_data['lines'] = shiplines
+        ship_id = self.call_create_api('shipments', shipment_data)
+        return ship_id
+
 
     def set_shipment_to_validated(self, shipment_id):
         params = {
