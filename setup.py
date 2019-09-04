@@ -1,15 +1,10 @@
 from setuptools import setup
 import os
 
-if os.environ.get('CI_COMMIT_TAG'):
-    version = os.environ['CI_COMMIT_TAG']
-else:
-    version = os.environ['CI_JOB_ID']
-
 setup(
     name='dolibarr',
     packages=['dolibarr'],
-    version=version,
+    version="0.1.19",
     license='MIT',
     description='Python wrapper for Dolibarr API',
     long_description='Python wrapper for Dolibarr',

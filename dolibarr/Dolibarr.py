@@ -117,7 +117,10 @@ class Dolibarr():
     def get_shipments_by_orderid(self, order_id):
         order = self.get_order_by_id(order_id)
         links = order.get('linkedObjectsIds')
-        shipment_list = links.get('shipping')
+        if links:
+            shipment_list = links.get('shipping')
+        else:
+            shipment_list = self.call_list_api('shipments', params={})
         shipments = []
         for item in shipment_list:
             ship = self.get_shipment_by_id(shipment_list[item])
@@ -159,11 +162,11 @@ class Dolibarr():
             "weight": "0",
             "weight_units": "0",
             "size_units": "0",
+            "entrepot_id": "1"
         }
 
         shiplines = []
         orderlines = order.get('lines')
-
         # loop through order lines and create shipment lines
         for oline in orderlines:
             if oline.get('product_type') != "0":
@@ -184,6 +187,7 @@ class Dolibarr():
                 "product_desc": oline.get('description'),
                 "description": oline.get('description'),
                 "fk_origin": "orderline",
+                "entrepot_id": "1"
             }
             shiplines.append(sline)
 
