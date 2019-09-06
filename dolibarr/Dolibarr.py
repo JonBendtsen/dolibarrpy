@@ -201,7 +201,7 @@ class Dolibarr():
         params = {
           "notrigger": 0
         }
-        return self.call_action_api('shipment', shipment_id, 'validate', params=params)
+        return self.call_action_api('shipments', shipment_id, 'validate', params=params)
 
     # ORDERS
     def set_order_to_draft(self, order_id, idwarehouse=1):
