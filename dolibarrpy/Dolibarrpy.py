@@ -301,7 +301,11 @@ class Dolibarrpy():
         result = self.call_list_api('projects', params=params)
         return result
 
-    def get_project_by_id(self, objid):
+    def get_project_by_pid(self, objid):
+        """
+        Get project based on project id
+        @return: project 
+        """
         result = self.call_get_api('projects', objid=objid)
         return result
 
