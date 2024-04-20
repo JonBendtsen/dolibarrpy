@@ -1,6 +1,6 @@
 import requests
 import logging
-import json
+import json, urllib
 from dataclasses import dataclass, asdict
 from typing import Optional
 from icecream import install
@@ -329,3 +329,34 @@ class Dolibarrpy():
         result = self.call_get_api('projects', objid)
         return result
 
+    def get_project_by_ref(self, ref):
+        """
+        Get project tasks based on project ref
+        @return: project
+        """
+        if ref:
+            ref = 'ref/' + urllib.parse.quote(ref)
+            result = self.call_get_api('projects', ref)
+            return result
+        elif ref == '':
+            raise Exception("ref can not be empty")
+        elif ref is None:
+            raise Exception("ref can not be None")
+        else:
+            raise Exception("ref is wrong")
+
+    def get_project_by_ref_ext(self, ref_ext):
+        """
+        Get project tasks based on project ref
+        @return: project
+        """
+        if ref_ext:
+            ref_ext = 'ref_ext/' + urllib.parse.quote(ref_ext)
+            result = self.call_get_api('projects', ref_ext)
+            return result
+        elif ref_ext == '':
+            raise Exception("ref_ext can not be empty")
+        elif ref_ext is None:
+            raise Exception("ref_ext can not be None")
+        else:
+            raise Exception("ref_ext is wrong")
