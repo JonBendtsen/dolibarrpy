@@ -431,3 +431,47 @@ class Dolibarrpy():
         params = asdict(search_filter)
         result = self.call_list_api('members', params=params)
         return result
+
+    def get_member_by_mid(self, objid):
+        """
+        Get member based on member id
+        @return: member
+        """
+        result = self.call_get_api('members', objid=objid)
+        return result
+
+    def get_member_subscriptions_by_mid(self, objid):
+        """
+        Get member subscriptions based on member id
+        @return: list of member subscriptions
+        """
+        objid = str(objid) + '/subscriptions'
+        result = self.call_get_api('members', objid)
+        return result
+
+    def get_member_by_thirdparty_id(self, objid):
+        """
+        Get member based on thirdparty id
+        @return: member
+        """
+        objid = 'thirdparty/' + str(objid)
+        result = self.call_get_api('members', objid)
+        return result
+
+    def get_member_by_thirdparty_barcode(self, barcode):
+        """
+        Get member based on thirdparty barcode
+        @return: member
+        """
+        objid = 'thirdparty/barcode/' + str(barcode)
+        result = self.call_get_api('members', objid)
+        return result
+
+    def get_member_by_thirdparty_email(self, email):
+        """
+        Get member based on thirdparty email
+        @return: member
+        """
+        objid = 'thirdparty/email/' + str(email)
+        result = self.call_get_api('members', objid)
+        return result
