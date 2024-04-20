@@ -532,3 +532,67 @@ class Dolibarrpy():
             raise Exception("sorry, you can not use typeid in this filter, try without")
         result = self.call_list_api('members/types', params=params)
         return result
+
+    def get_all_member_categories_by_mid(self, objid, from_MemberFilter = None):
+        """
+        Get all categories for a member
+        @param from_MemberFilter:
+        @return: list of a members categories
+        """
+        if self.debug:
+            ic()
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        all_member_categories=[]
+        page = 0
+        while True:
+            some_member_categories = self.get_some_member_categories_by_mid(objid, search_filter, page)
+            if self.debug:
+                ic(some_member_categories)
+            if "error" in some_member_categories:
+                break
+            elif [] == some_member_categories:
+                break
+            elif {} == some_member_categories:
+                break
+            else:
+                page += 1
+                if some_member_categories == all_member_categories:
+                    break
+                all_member_categories = all_member_categories + list(some_member_categories)
+        return all_member_categories
+
+    def get_some_member_categories_by_mid(self, objid, from_MemberFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        category = params.get("category")
+        if category:
+            raise Exception("sorry, you can not use category in this filter, try without")
+        limit = params.get("limit")
+        if 0 == limit:
+            raise Exception("sorry, but a limit if 0 does not make sense, be sensible")
+        properties = params.get("properties")
+        if properties:
+            raise Exception("sorry, you can not use properties in this filter, try without")
+        sqlfilters = params.get("sqlfilters")
+        if sqlfilters:
+            raise Exception("sorry, you can not use sqlfilters in this filter, try without")
+        typeid = params.get("typeid")
+        if typeid:
+            raise Exception("sorry, you can not use typeid in this filter, try without")
+        api_path = 'members/' + str(objid) + '/categories'
+        result = self.call_list_api(api_path, params)
+        if self.debug:
+            ic(result)
+        return result
