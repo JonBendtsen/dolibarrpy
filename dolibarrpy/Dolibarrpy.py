@@ -408,14 +408,17 @@ class Dolibarrpy():
             search_filter = from_MemberFilter
         all_members=[]
         page = 0
-        some_members = self.find_some_members(search_filter, page)
-        while some_members:
-            all_members = all_members + list(some_members)
-            page += 1
+        while True:
             some_members = self.find_some_members(search_filter, page)
-            if len(some_members) < 100:
-                all_members = all_members + list(some_members)
+            if "error" in some_members:
                 break
+            elif [] == some_members:
+                break
+            elif {} == some_members:
+                break
+            else:
+                page += 1
+                all_members = all_members + list(some_members)
         return all_members
 
     def find_some_members(self, from_MemberFilter = None, page = 0):
@@ -429,6 +432,9 @@ class Dolibarrpy():
             search_filter = from_MemberFilter
         search_filter.page = page
         params = asdict(search_filter)
+        limit = params.get("limit")
+        if 0 == limit:
+            raise Exception("sorry, but a limit if 0 does not make sense, be sensible")
         result = self.call_list_api('members', params=params)
         return result
 
@@ -491,14 +497,17 @@ class Dolibarrpy():
             search_filter = from_MemberFilter
         all_member_types=[]
         page = 0
-        some_member_types = self.find_some_member_types(search_filter, page)
-        while some_member_types:
-            all_member_types = all_member_types + list(some_member_types)
-            page += 1
+        while True:
             some_member_types = self.find_some_member_types(search_filter, page)
-            if len(some_member_types) < 100:
-                all_member_types = all_member_types + list(some_member_types)
+            if "error" in some_member_types:
                 break
+            elif [] == some_member_types:
+                break
+            elif {} == some_member_types:
+                break
+            else:
+                page += 1
+                all_member_types = all_member_types + list(some_member_types)
         return all_member_types
 
     def find_some_member_types(self, from_MemberFilter = None, page = 0):
@@ -515,6 +524,9 @@ class Dolibarrpy():
         category = params.get("category")
         if category:
             raise Exception("sorry, you can not use category in this filter, try without")
+        limit = params.get("limit")
+        if 0 == limit:
+            raise Exception("sorry, but a limit if 0 does not make sense, be sensible")
         typeid = params.get("typeid")
         if typeid:
             raise Exception("sorry, you can not use typeid in this filter, try without")
