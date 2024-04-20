@@ -347,7 +347,7 @@ class Dolibarrpy():
 
     def get_project_by_ref_ext(self, ref_ext):
         """
-        Get project tasks based on project ref
+        Get project tasks based on project ref_ext
         @return: project
         """
         if ref_ext:
@@ -360,3 +360,19 @@ class Dolibarrpy():
             raise Exception("ref_ext can not be None")
         else:
             raise Exception("ref_ext is wrong")
+
+    def get_project_by_email_msgid(self, email_msgid):
+        """
+        Get project tasks based on project email_msgid
+        @return: project
+        """
+        if email_msgid:
+            email_msgid = 'email_msgid/' + urllib.parse.quote(email_msgid)
+            result = self.call_get_api('projects', email_msgid)
+            return result
+        elif email_msgid == '':
+            raise Exception("email_msgid can not be empty")
+        elif email_msgid is None:
+            raise Exception("email_msgid can not be None")
+        else:
+            raise Exception("email_msgid is wrong")
