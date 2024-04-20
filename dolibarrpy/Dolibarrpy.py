@@ -288,6 +288,9 @@ class Dolibarrpy():
                 sqlfilters="(t.fk_statut:=:2)"
             )
         params = asdict(search_filter)
-
         result = self.call_list_api('projects', params=params)
+        return result
+
+    def get_project_by_id(self, objid):
+        result = self.call_get_api('projects', objid=objid)
         return result
