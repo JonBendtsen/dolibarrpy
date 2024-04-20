@@ -4,6 +4,17 @@ import json
 
 _logger = logging.getLogger(__name__)
 
+@dataclass
+class ProjectFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    category: Optional[str] = None  # Type of category ('member', 'customer', 'supplier', 'product', 'contact')
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -16,8 +27,16 @@ class Dolibarrpy():
     def get_headers(self):
         return {
             'DOLAPIKEY': self.token,
-            'Content-Type': 'application/json'
+            'Accept': 'application/json',
         }
+
+    def post_headers(self):
+        return {
+            'DOLAPIKEY': self.token,
+            'Content-Type': 'application/json'
+            'Accept': 'application/json',
+        }
+
 
     def call_list_api(self, object, params={}):
         url = self.url + object
@@ -26,7 +45,7 @@ class Dolibarrpy():
         try:
             result = json.loads(response.text)
         except:
-            _logger.error('LIST API ERROR')
+            _logger.error('LIST API ERROR: ' + object)
             result = response.text
         return result
 
@@ -228,3 +247,42 @@ class Dolibarrpy():
         result = self.call_get_api('factory', objid=objid)
         return result
 
+    # PROJECTS
+    def find_all_projects(self, with_status = ''):
+        """
+        Get projects with status
+        @param status: 0 => draft, 1 => open, 2=> closed
+        @return: list of projects
+        """
+        all_projects=[]
+        page = 0
+        some_projects = find_some_projects(with_status, page)
+        while some_projects:
+            all_projects = all_projects + some_projects
+            page += 1
+            some_projects = find_some_projects(with_status, page)
+            if len(some_projects) < 100:
+                all_projects = all_projects + some_projects
+                break
+        return all_projects
+
+    def find_some_projects(self, with_status = '', page = 0):
+        if "draft" == with_status.lower():
+            search_filter = ProjectFilter(
+                page=page,
+                sqlfilters="(t.fk_statut:=:0)"
+            )
+        if "open" == with_status.lower():
+            search_filter = ProjectFilter(
+                page=page,
+                sqlfilters="(t.fk_statut:=:1)"
+            )
+        if "closed" == with_status.lower():
+            search_filter = ProjectFilter(
+                page=page,
+                sqlfilters="(t.fk_statut:=:2)"
+            )
+        params = asdict(search_filter)
+
+        result = self.call_list_api('projects', params=params)
+        return result
