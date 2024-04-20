@@ -1,6 +1,8 @@
 import requests
 import logging
 import json
+from dataclasses import dataclass, asdict
+from typing import Optional
 
 _logger = logging.getLogger(__name__)
 
@@ -19,21 +21,23 @@ class ProjectFilter():
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
+    timeout = 16
 
-    def __init__(self, url, token):
+    def __init__(self, url, token, timeout):
         self.url = url
         self.token = token
+        self.timeout = timeout
 
     def get_headers(self):
         return {
             'DOLAPIKEY': self.token,
-            'Accept': 'application/json',
+            'Accept': 'application/json'
         }
 
     def post_headers(self):
         return {
             'DOLAPIKEY': self.token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
         }
 
@@ -41,7 +45,7 @@ class Dolibarrpy():
     def call_list_api(self, object, params={}):
         url = self.url + object
         headers = self.get_headers()
-        response = requests.get(url, params=params, headers=headers, timeout=8)
+        response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
         try:
             result = json.loads(response.text)
         except:
@@ -52,15 +56,15 @@ class Dolibarrpy():
     def call_get_api(self, object, objid):
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
-        response = requests.get(url, headers=headers, timeout=8)
-        result = json.loads(response.text)
+        response = requests.get(url, headers=headers, timeout=self.timeout)
+        json_result = json.loads(response.text)
 
-        return result
+        return json_result
 
     def call_create_api(self, object, params={}):
         url = self.url + object
         headers = self.get_headers()
-        response = requests.post(url, json=params, headers=headers, timeout=8)
+        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
         try:
             result = json.loads(response.text)
         except:
@@ -72,7 +76,7 @@ class Dolibarrpy():
     def call_action_api(self, object, objid, action, params={}):
         url = self.url + object + '/' + str(objid) + "/" + action
         headers = self.get_headers()
-        response = requests.post(url, json=params, headers=headers, timeout=8)
+        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
         try:
             result = json.loads(response.text)
         except:
@@ -84,7 +88,7 @@ class Dolibarrpy():
 
         params.update({'id': int(objid)})
         headers = self.get_headers()
-        response = requests.put(url, json=params, headers=headers, timeout=8)
+        response = requests.put(url, json=params, headers=headers, timeout=self.timeout)
         result = json.loads(response.text)
 
         return result
@@ -93,7 +97,7 @@ class Dolibarrpy():
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
         print(url)
-        response = requests.delete(url, json={'id': objid}, headers=headers, timeout=8)
+        response = requests.delete(url, json={'id': objid}, headers=headers, timeout=self.timeout)
         try:
             result = json.loads(response.text)
         except:
@@ -256,17 +260,18 @@ class Dolibarrpy():
         """
         all_projects=[]
         page = 0
-        some_projects = find_some_projects(with_status, page)
+        some_projects = self.find_some_projects(with_status, page)
         while some_projects:
-            all_projects = all_projects + some_projects
+            all_projects = all_projects + list(some_projects)
             page += 1
-            some_projects = find_some_projects(with_status, page)
+            some_projects = self.find_some_projects(with_status, page)
             if len(some_projects) < 100:
-                all_projects = all_projects + some_projects
+                all_projects = all_projects + list(some_projects)
                 break
         return all_projects
 
     def find_some_projects(self, with_status = '', page = 0):
+        search_filter = ProjectFilter()
         if "draft" == with_status.lower():
             search_filter = ProjectFilter(
                 page=page,

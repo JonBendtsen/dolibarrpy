@@ -1,1 +1,1 @@
-from dolibarr.Dolibarr import Dolibarr
+from dolibarrpy.dolibarrpy import Dolibarrpy
