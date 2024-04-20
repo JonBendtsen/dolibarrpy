@@ -19,6 +19,17 @@ class ProjectFilter():
     sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class MemberFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None          # page number
+    typeid: Optional[str] = None        # only get members with this thirdparty_id
+    category: Optional[int] = None        # only get members with this status: draft | unpaid | paid | cancelled
+    sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
+    properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
+
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
@@ -49,6 +60,10 @@ class Dolibarrpy():
         url = self.url + object
         headers = self.get_headers()
         response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+        if self.debug:
+            ic(url)
+            ic(params)
+            ic(response)
         try:
             result = json.loads(response.text)
         except:
@@ -375,3 +390,44 @@ class Dolibarrpy():
             raise Exception("email_msgid can not be None")
         else:
             raise Exception("email_msgid is wrong")
+
+
+    # MEMBERS
+    def find_all_members(self, from_MemberFilter = None):
+        """
+        Get members with status
+        @param from_MemberFilter: 0 => draft, 1 => open, 2=> closed
+        @return: list of members
+        """
+        if self.debug:
+            ic()
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        all_members=[]
+        page = 0
+        some_members = self.find_some_members(search_filter, page)
+        while some_members:
+            all_members = all_members + list(some_members)
+            page += 1
+            some_members = self.find_some_members(search_filter, page)
+            if len(some_members) < 100:
+                all_members = all_members + list(some_members)
+                break
+        return all_members
+
+    def find_some_members(self, from_MemberFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('members', params=params)
+        return result
