@@ -3,6 +3,8 @@ import logging
 import json
 from dataclasses import dataclass, asdict
 from typing import Optional
+from icecream import install
+install()
 
 _logger = logging.getLogger(__name__)
 
@@ -22,11 +24,13 @@ class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
     timeout = 16
+    debug = False
 
-    def __init__(self, url, token, timeout):
+    def __init__(self, url, token, timeout, debug):
         self.url = url
         self.token = token
         self.timeout = timeout
+        self.debug = debug
 
     def get_headers(self):
         return {
@@ -57,6 +61,9 @@ class Dolibarrpy():
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
         response = requests.get(url, headers=headers, timeout=self.timeout)
+        if self.debug:
+            ic(url)
+            ic(response)
         json_result = json.loads(response.text)
 
         return json_result
@@ -75,8 +82,11 @@ class Dolibarrpy():
 
     def call_action_api(self, object, objid, action, params={}):
         url = self.url + object + '/' + str(objid) + "/" + action
-        headers = self.get_headers()
+        headers = self.post_headers()
         response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
+        if self.debug:
+            ic(url)
+            ic(response)
         try:
             result = json.loads(response.text)
         except:
@@ -294,3 +304,24 @@ class Dolibarrpy():
     def get_project_by_id(self, objid):
         result = self.call_get_api('projects', objid=objid)
         return result
+
+    def get_project_tasks_by_pid(self, objid, includetimespent=0):
+        """
+        Get project tasks based on project id
+        @param includetimespent: 0 => Return only list of tasks, 1 => Include a summary of time spent, 2=> Include details of time spent lines
+        @return: list of project tasks
+        """
+        objid = str(objid) + '/tasks?includetimespent=' + str(includetimespent)
+        result = self.call_get_api('projects', objid)
+        return result
+
+    def get_project_roles_by_pid(self, objid, userid=0):
+        """
+        Get project roles based on project id
+        @param userid: 0 => connected user, Any other number than 0 is interpretated as a user id and if that user has roles on that project, they are shown.
+        @return: list of project roles
+        """
+        objid = str(objid) + '/roles?userid=' + str(userid)
+        result = self.call_get_api('projects', objid)
+        return result
+
