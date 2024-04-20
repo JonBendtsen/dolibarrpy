@@ -475,3 +475,48 @@ class Dolibarrpy():
         objid = 'thirdparty/email/' + str(email)
         result = self.call_get_api('members', objid)
         return result
+
+    def find_all_member_types(self, from_MemberFilter = None):
+        """
+        Get member_types
+        @param from_MemberFilter: 0 => draft, 1 => open, 2=> closed
+        @return: list of member_types
+        """
+        if self.debug:
+            ic()
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        all_member_types=[]
+        page = 0
+        some_member_types = self.find_some_member_types(search_filter, page)
+        while some_member_types:
+            all_member_types = all_member_types + list(some_member_types)
+            page += 1
+            some_member_types = self.find_some_member_types(search_filter, page)
+            if len(some_member_types) < 100:
+                all_member_types = all_member_types + list(some_member_types)
+                break
+        return all_member_types
+
+    def find_some_member_types(self, from_MemberFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_MemberFilter)
+        if from_MemberFilter is None:
+            search_filter = MemberFilter()
+        else:
+            search_filter = from_MemberFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        category = params.get("category")
+        if category:
+            raise Exception("sorry, you can not use category in this filter, try without")
+        typeid = params.get("typeid")
+        if typeid:
+            raise Exception("sorry, you can not use typeid in this filter, try without")
+        result = self.call_list_api('members/types', params=params)
+        return result
