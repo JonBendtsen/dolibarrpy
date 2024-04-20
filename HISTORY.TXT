@@ -1,0 +1,6 @@
+2024-04-20 Jon Bendtsen decides to fork Mark Meadows seamingly dead project
+	from https://gitlab.com/mvmdata/dolibarr. Renamed to dolibarrpy such
+	that JonB can also release it at PyPi once he has extended it with
+	the needed functionality. Github was choosen as a new home because
+	JonB already has an account there and Dolibarr ERP & CRM itself is
+	already hosted at https://github.com/Dolibarr 
