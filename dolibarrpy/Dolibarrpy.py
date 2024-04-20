@@ -30,6 +30,17 @@ class MemberFilter():
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class ThirdpartyFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None          # page number
+    mode: Optional[int] = None          # Set to 1 to show only customers Set to 2 to show only prospects Set to 3 to show only those are not customer neither prospect Set to 4 to show only suppliers
+    category: Optional[int] = None      # only get members with this status: draft | unpaid | paid | cancelled
+    sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
+    properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
+
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
@@ -595,4 +606,50 @@ class Dolibarrpy():
         result = self.call_list_api(api_path, params)
         if self.debug:
             ic(result)
+        return result
+
+
+    # THIRDPARTIES
+    def find_all_thirdparty(self, from_ThirdpartyFilter = None):
+        """
+        Get all thirdparties
+        @param from_ThirdpartyFilter:
+        @return: list of a thirdparties
+        """
+        if self.debug:
+            ic()
+            ic(from_ThirdpartyFilter)
+        if from_ThirdpartyFilter is None:
+            search_filter = ThirdpartyFilter()
+        else:
+            search_filter = from_ThirdpartyFilter
+        all_thirdparty=[]
+        page = 0
+        while True:
+            some_thirdparty = self.find_some_thirdparty(search_filter, page)
+            if "error" in some_thirdparty:
+                break
+            elif [] == some_thirdparty:
+                break
+            elif {} == some_thirdparty:
+                break
+            else:
+                page += 1
+                if some_thirdparty == all_thirdparty:
+                    break
+                all_thirdparty = all_thirdparty + list(some_thirdparty)
+        return all_thirdparty
+
+    def find_some_thirdparty(self, from_ThirdpartyFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ThirdpartyFilter)
+        if from_ThirdpartyFilter is None:
+            search_filter = ThirdpartyFilter()
+        else:
+            search_filter = from_ThirdpartyFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('thirdparties', params)
         return result
