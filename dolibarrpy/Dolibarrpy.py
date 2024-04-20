@@ -19,7 +19,6 @@ class ProjectFilter():
     sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
-
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
@@ -265,7 +264,7 @@ class Dolibarrpy():
     def find_all_projects(self, with_status = ''):
         """
         Get projects with status
-        @param status: 0 => draft, 1 => open, 2=> closed
+        @param with_status: 0 => draft, 1 => open, 2=> closed
         @return: list of projects
         """
         all_projects=[]
