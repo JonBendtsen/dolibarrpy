@@ -715,3 +715,34 @@ class Dolibarrpy():
         objid = str(objid) + '/notifications'
         result = self.call_get_api('thirdparties', objid)
         return result
+
+    def get_thirdparties_outstandinginvoices_by_tid(self, objid, mode):
+        """
+        Get thirdparty outstandinginvoices based on thirdparty id and mode
+        @mode string 'customer' or 'supplier'
+        @return: list of thirdparty's outstanding invoices
+        """
+        objid = str(objid) + '/outstandinginvoices?mode=' + mode
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_outstandingorders_by_tid(self, objid, mode):
+        """
+        Get thirdparty outstandingorders based on thirdparty id and mode
+        @mode string 'customer' or 'supplier'
+        @return: list of thirdparty's outstanding invoices
+        """
+        objid = str(objid) + '/outstandingorders?mode=' + mode
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_outstandingproposals_by_tid(self, objid, mode):
+        """
+        Get thirdparty outstandingproposals based on thirdparty id and mode
+        @mode string 'customer' or 'supplier'
+        @return: list of thirdparty's outstanding invoices
+        """
+        objid = str(objid) + '/outstandingproposals?mode=' + mode
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
