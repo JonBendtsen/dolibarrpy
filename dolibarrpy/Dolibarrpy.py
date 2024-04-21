@@ -706,3 +706,12 @@ class Dolibarrpy():
         objid = str(objid) + '/getinvoicesqualifiedforreplacement'
         result = self.call_get_api('thirdparties', objid)
         return result
+
+    def get_thirdparties_notifications_by_tid(self, objid):
+        """
+        Get thirdparty notifications based on thirdparty id
+        @return: list of thirdparty notifications
+        """
+        objid = str(objid) + '/notifications'
+        result = self.call_get_api('thirdparties', objid)
+        return result
