@@ -826,3 +826,27 @@ class Dolibarrpy():
         result = self.call_list_api(api_path, params)
         ic(result)
         return result
+
+    def get_thirdparties_fixedamountdiscounts_by_tid(self, objid, filter):
+        """
+        Get thirdparty fixedamountdiscounts based on thirdparty id and filter
+        @filter Filter exceptional discount. "none" will return every discount, "available" returns unapplied discounts, "used" returns applied discounts
+        @return: list of thirdparty's fixedamountdiscounts
+        """
+        if filter:
+            objid = str(objid) + '/fixedamountdiscounts?filter=' + filter
+        else:
+            objid = str(objid) + '/fixedamountdiscounts'
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_generateBankAccountDocument_by_tid(self, objid, companybankid, model = 'sepamandate'):
+        """
+        Get thirdparty generateBankAccountDocument based on thirdparty id, companybankid and model
+        @companybankid
+        @model default is 'sepamandate'
+        @return: list of thirdparty's accounts
+        """
+        objid = str(objid) + '/generateBankAccountDocument/' + str(companybankid) + '/' + str(model)
+        result = self.call_get_api('thirdparties', objid)
+        return result
