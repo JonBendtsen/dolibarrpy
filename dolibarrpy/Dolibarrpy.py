@@ -653,3 +653,56 @@ class Dolibarrpy():
         params = asdict(search_filter)
         result = self.call_list_api('thirdparties', params)
         return result
+
+    def get_thirdparty_by_tid(self, objid):
+        """
+        Get project based on project id
+        @return: thirdparty
+        """
+        result = self.call_get_api('thirdparties', objid=objid)
+        return result
+
+    def get_thirdparty_by_barcode(self, barcode):
+        """
+        Get thirdparty from barcode
+        @return: thirdparty
+        """
+        objid = 'barcode/' + str(barcode)
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparty_by_email(self, email):
+        """
+        Get member based on thirdparty email
+        @return: thirdparty
+        """
+        objid = 'email/' + str(email)
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_bankaccounts_by_tid(self, objid):
+        """
+        Get thirdparty bankaccounts based on thirdparty id
+        @return: list of thirdparty bankaccounts
+        """
+        objid = str(objid) + '/bankaccounts'
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_getinvoicesqualifiedforcreditnote_by_tid(self, objid):
+        """
+        Get thirdparty invoices qualifiedforcreditnote based on thirdparty id
+        @return: list of thirdparty invoices qualifiedforcreditnote
+        """
+        objid = str(objid) + '/getinvoicesqualifiedforcreditnote'
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_thirdparties_getinvoicesqualifiedforreplacement_by_tid(self, objid):
+        """
+        Get thirdparty invoices qualifiedforreplacement based on thirdparty id
+        @return: list of thirdparty invoices qualifiedforreplacement
+        """
+        objid = str(objid) + '/getinvoicesqualifiedforreplacement'
+        result = self.call_get_api('thirdparties', objid)
+        return result
