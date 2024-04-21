@@ -41,6 +41,20 @@ class ThirdpartyFilter():
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class ContactFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None          # page number
+    thirdparty_ids: Optional[str] = None    # Thirdparty ids to filter contacts of (example '1' or '1,2,3')
+    category: Optional[int] = None      # only get members with this status: draft | unpaid | paid | cancelled
+    sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
+    includecount: Optional[int] = None      # Count and return also number of elements the contact is used as a link for
+    includeroles: Optional[int] = None      # Includes roles of the contact
+    properties: Optional[str] = None        # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
+
+
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
