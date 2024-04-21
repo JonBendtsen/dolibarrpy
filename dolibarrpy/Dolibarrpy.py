@@ -759,10 +759,11 @@ class Dolibarrpy():
         result = self.call_get_api('thirdparties', objid)
         return result
 
-    def get_all_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None):
+    def get_all_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None, mode = 'customer'):
         """
         Get all categories for a thirdparties based on it's thirdparty_id
         @param from_ThirdpartyFilter:
+        @mode string 'customer' or 'supplier'
         @return: list of a thirdpartiess categories
         """
         if self.debug:
@@ -775,7 +776,7 @@ class Dolibarrpy():
         all_thirdparties_categories=[]
         page = 0
         while True:
-            some_thirdparties_categories = self.get_some_thirdparties_categories_by_tid(objid, search_filter, page)
+            some_thirdparties_categories = self.get_some_thirdparties_categories_by_tid(objid, search_filter, mode, page)
             if self.debug:
                 ic(some_thirdparties_categories)
             if "error" in some_thirdparties_categories:
@@ -791,7 +792,7 @@ class Dolibarrpy():
                 all_thirdparties_categories = all_thirdparties_categories + list(some_thirdparties_categories)
         return all_thirdparties_categories
 
-    def get_some_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None, page = 0):
+    def get_some_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None, mode = 'customer', page = 0):
         if self.debug:
             ic()
             ic(page)
@@ -817,7 +818,11 @@ class Dolibarrpy():
         typeid = params.get("typeid")
         if typeid:
             raise Exception("sorry, you can not use typeid in this filter, try without")
-        api_path = 'thirdparties/' + str(objid) + '/categories'
+        if 'supplier' == mode:
+            api_path = 'thirdparties/' + str(objid) + '/supplier_categories'
+        else:
+            # assuming that they ask for customer
+            api_path = 'thirdparties/' + str(objid) + '/categories'
         result = self.call_list_api(api_path, params)
         ic(result)
         return result
