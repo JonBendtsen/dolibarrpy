@@ -7,7 +7,7 @@ setup(
     version="0.3.4",
     license='MIT',
     description='Python wrapper for Dolibarr API',
-    long_description='Python wrapper for Dolibarr',
+    long_description='This project is a python wrapper for the API for Dolibarr ERP & CRM found at dolbiarr.org. It is not yet complete, but most major GET endpoints has been implemented. In the beginning I will mostly focus on implementing the API endpoints that I use.',
     long_description_content_type='text/markdown',
     author='Jon Bendtsen',
     author_email='jon.bendtsen.github@jonb.dk',
