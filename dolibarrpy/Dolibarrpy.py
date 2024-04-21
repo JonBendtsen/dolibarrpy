@@ -673,7 +673,7 @@ class Dolibarrpy():
 
     def get_thirdparty_by_tid(self, objid):
         """
-        Get project based on project id
+        Get thirdparty based on thirdparty id
         @return: thirdparty
         """
         result = self.call_get_api('thirdparties', objid=objid)
@@ -909,4 +909,15 @@ class Dolibarrpy():
         search_filter.page = page
         params = asdict(search_filter)
         result = self.call_list_api('contacts', params)
+        return result
+
+    def get_contact_by_cid(self, objid, includecount = 0, includeroles = 0):
+        """
+        Get contact based on contact id
+        @includecount Count and return also number of elements the contact is used as a link for
+        @includeroles Includes roles of the contact
+        @return: contact
+        """
+        objid = str(objid) + '?includecount=' + str(includecount) + '&includeroles=' + str(includeroles)
+        result = self.call_get_api('contacts', objid=objid)
         return result
