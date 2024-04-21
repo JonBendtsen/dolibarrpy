@@ -75,6 +75,9 @@ class Dolibarrpy():
             ic(url)
             ic(params)
             ic(response)
+        if '<Response [501]>' == str(response):
+            _logger.error('LIST API ERROR: ' + str(response))
+            raise Exception(str(response))
         try:
             result = json.loads(response.text)
         except:
@@ -754,4 +757,67 @@ class Dolibarrpy():
         else:
             objid = str(objid) + '/accounts'
         result = self.call_get_api('thirdparties', objid)
+        return result
+
+    def get_all_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None):
+        """
+        Get all categories for a thirdparties based on it's thirdparty_id
+        @param from_ThirdpartyFilter:
+        @return: list of a thirdpartiess categories
+        """
+        if self.debug:
+            ic()
+            ic(from_ThirdpartyFilter)
+        if from_ThirdpartyFilter is None:
+            search_filter = ThirdpartyFilter()
+        else:
+            search_filter = from_ThirdpartyFilter
+        all_thirdparties_categories=[]
+        page = 0
+        while True:
+            some_thirdparties_categories = self.get_some_thirdparties_categories_by_tid(objid, search_filter, page)
+            if self.debug:
+                ic(some_thirdparties_categories)
+            if "error" in some_thirdparties_categories:
+                break
+            elif [] == some_thirdparties_categories:
+                break
+            elif {} == some_thirdparties_categories:
+                break
+            else:
+                page += 1
+                if some_thirdparties_categories == all_thirdparties_categories:
+                    break
+                all_thirdparties_categories = all_thirdparties_categories + list(some_thirdparties_categories)
+        return all_thirdparties_categories
+
+    def get_some_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ThirdpartyFilter)
+        if from_ThirdpartyFilter is None:
+            search_filter = ThirdpartyFilter()
+        else:
+            search_filter = from_ThirdpartyFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        category = params.get("category")
+        if category:
+            raise Exception("sorry, you can not use category in this filter, try without")
+        limit = params.get("limit")
+        if 0 == limit:
+            raise Exception("sorry, but a limit if 0 does not make sense, be sensible")
+        properties = params.get("properties")
+        if properties:
+            raise Exception("sorry, you can not use properties in this filter, try without")
+        sqlfilters = params.get("sqlfilters")
+        if sqlfilters:
+            raise Exception("sorry, you can not use sqlfilters in this filter, try without")
+        typeid = params.get("typeid")
+        if typeid:
+            raise Exception("sorry, you can not use typeid in this filter, try without")
+        api_path = 'thirdparties/' + str(objid) + '/categories'
+        result = self.call_list_api(api_path, params)
+        ic(result)
         return result
