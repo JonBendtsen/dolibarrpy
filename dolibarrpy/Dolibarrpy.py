@@ -864,3 +864,49 @@ class Dolibarrpy():
         objid = str(objid) + '/generateBankAccountDocument/' + str(companybankid) + '/' + str(model)
         result = self.call_get_api('thirdparties', objid)
         return result
+
+
+    # CONTACTS
+    def find_all_contacts(self, from_ContactFilter = None):
+        """
+        Get all thirdparties
+        @param from_ContactFilter:
+        @return: list of a thirdparties
+        """
+        if self.debug:
+            ic()
+            ic(from_ContactFilter)
+        if from_ContactFilter is None:
+            search_filter = ContactFilter()
+        else:
+            search_filter = from_ContactFilter
+        all_contacts=[]
+        page = 0
+        while True:
+            some_contacts = self.find_some_contacts(search_filter, page)
+            if "error" in some_contacts:
+                break
+            elif [] == some_contacts:
+                break
+            elif {} == some_contacts:
+                break
+            else:
+                page += 1
+                if some_contacts == all_contacts:
+                    break
+                all_contacts = all_contacts + list(some_contacts)
+        return all_contacts
+
+    def find_some_contacts(self, from_ContactFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ContactFilter)
+        if from_ContactFilter is None:
+            search_filter = ContactFilter()
+        else:
+            search_filter = from_ContactFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('contacts', params)
+        return result
