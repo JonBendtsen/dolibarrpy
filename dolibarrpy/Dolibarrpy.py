@@ -838,7 +838,6 @@ class Dolibarrpy():
             # assuming that they ask for customer
             api_path = 'thirdparties/' + str(objid) + '/categories'
         result = self.call_list_api(api_path, params)
-        ic(result)
         return result
 
     def get_thirdparties_fixedamountdiscounts_by_tid(self, objid, filter):
@@ -920,4 +919,79 @@ class Dolibarrpy():
         """
         objid = str(objid) + '?includecount=' + str(includecount) + '&includeroles=' + str(includeroles)
         result = self.call_get_api('contacts', objid=objid)
+        return result
+
+    def get_contact_by_email(self, email, includecount = 0, includeroles = 0):
+        """
+        Get contact based on contact email
+        @includecount Count and return also number of elements the contact is used as a link for
+        @includeroles Includes roles of the contact
+        @return: contact
+        """
+        email = urllib.parse.quote(email) + '?includecount=' + str(includecount) + '&includeroles=' + str(includeroles)
+        result = self.call_get_api('contacts/email', email)
+        return result
+
+    def get_all_contacts_categories_by_cid(self, objid, from_ContactFilter = None):
+        """
+        Get all categories for a contact based on it's contact_id
+        @param from_ContactFilter:
+        @return: list of a contacts categories
+        """
+        if self.debug:
+            ic()
+            ic(from_ContactFilter)
+        if from_ContactFilter is None:
+            search_filter = ContactFilter()
+        else:
+            search_filter = from_ContactFilter
+        all_contacts_categories=[]
+        page = 0
+        while True:
+            some_contacts_categories = self.get_some_contacts_categories_by_cid(objid, search_filter, page)
+            if self.debug:
+                ic(some_contacts_categories)
+            if 0 == some_contacts_categories:
+                break
+            elif [] == some_contacts_categories:
+                break
+            elif {} == some_contacts_categories:
+                break
+            elif "error" in some_contacts_categories:
+                break
+            else:
+                page += 1
+                if some_contacts_categories == all_contacts_categories:
+                    break
+                all_contacts_categories = all_contacts_categories + list(some_contacts_categories)
+        return all_contacts_categories
+
+    def get_some_contacts_categories_by_cid(self, objid, from_ContactFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ContactFilter)
+        if from_ContactFilter is None:
+            search_filter = ContactFilter()
+        else:
+            search_filter = from_ContactFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        category = params.get("category")
+        if category:
+            raise Exception("sorry, you can not use category in this filter, try without")
+        limit = params.get("limit")
+        if 0 == limit:
+            raise Exception("sorry, but a limit if 0 does not make sense, be sensible")
+        properties = params.get("properties")
+        if properties:
+            raise Exception("sorry, you can not use properties in this filter, try without")
+        sqlfilters = params.get("sqlfilters")
+        if sqlfilters:
+            raise Exception("sorry, you can not use sqlfilters in this filter, try without")
+        typeid = params.get("typeid")
+        if typeid:
+            raise Exception("sorry, you can not use typeid in this filter, try without")
+        api_path = 'contacts/' + str(objid) + '/categories'
+        result = self.call_list_api(api_path, params)
         return result

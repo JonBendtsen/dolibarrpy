@@ -4,7 +4,7 @@ import os
 setup(
     name='dolibarrpy',
     packages=['dolibarrpy'],
-    version="0.3.2",
+    version="0.3.3",
     license='MIT',
     description='Python wrapper for Dolibarr API',
     long_description='Python wrapper for Dolibarr',
