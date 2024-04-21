@@ -746,3 +746,13 @@ class Dolibarrpy():
         result = self.call_get_api('thirdparties', objid)
         return result
 
+    def get_thirdparties_representatives_by_tid(self, objid, mode):
+        """
+        Get thirdparty representatives based on thirdparty id and mode
+        @mode string 0=Array with properties, 1=Array of id.
+        @return: list of thirdparty's representatives
+        """
+        objid = str(objid) + '/representatives?mode=' + mode
+        result = self.call_get_api('thirdparties', objid)
+        return result
+
