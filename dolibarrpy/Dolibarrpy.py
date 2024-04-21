@@ -716,33 +716,17 @@ class Dolibarrpy():
         result = self.call_get_api('thirdparties', objid)
         return result
 
-    def get_thirdparties_outstandinginvoices_by_tid(self, objid, mode):
+    def get_thirdparties_outstanding_by_tid(self, objid, otype, mode):
         """
-        Get thirdparty outstandinginvoices based on thirdparty id and mode
+        Get thirdparty outstanding <otype> based on thirdparty id, otype and mode
+        @otype string 'invoices', 'orders' or 'proposals' 
         @mode string 'customer' or 'supplier'
-        @return: list of thirdparty's outstanding invoices
+        @return: list of thirdparty's <otype> invoices
         """
-        objid = str(objid) + '/outstandinginvoices?mode=' + mode
-        result = self.call_get_api('thirdparties', objid)
-        return result
-
-    def get_thirdparties_outstandingorders_by_tid(self, objid, mode):
-        """
-        Get thirdparty outstandingorders based on thirdparty id and mode
-        @mode string 'customer' or 'supplier'
-        @return: list of thirdparty's outstanding invoices
-        """
-        objid = str(objid) + '/outstandingorders?mode=' + mode
-        result = self.call_get_api('thirdparties', objid)
-        return result
-
-    def get_thirdparties_outstandingproposals_by_tid(self, objid, mode):
-        """
-        Get thirdparty outstandingproposals based on thirdparty id and mode
-        @mode string 'customer' or 'supplier'
-        @return: list of thirdparty's outstanding invoices
-        """
-        objid = str(objid) + '/outstandingproposals?mode=' + mode
+        if mode:
+            objid = str(objid) + '/outstanding' + otype + '?mode=' + mode
+        else:
+            objid = str(objid) + '/outstanding' + otype
         result = self.call_get_api('thirdparties', objid)
         return result
 
@@ -752,7 +736,22 @@ class Dolibarrpy():
         @mode string 0=Array with properties, 1=Array of id.
         @return: list of thirdparty's representatives
         """
-        objid = str(objid) + '/representatives?mode=' + mode
+        if mode:
+            objid = str(objid) + '/representatives?mode=' + mode
+        else:
+            objid = str(objid) + '/representatives'
         result = self.call_get_api('thirdparties', objid)
         return result
 
+    def get_thirdparties_accounts_by_tid(self, objid, site):
+        """
+        Get thirdparty accounts based on thirdparty id and site
+        @mode string 0=Array with properties, 1=Array of id.
+        @return: list of thirdparty's accounts
+        """
+        if site:
+            objid = str(objid) + '/accounts?site=' + site
+        else:
+            objid = str(objid) + '/accounts'
+        result = self.call_get_api('thirdparties', objid)
+        return result
