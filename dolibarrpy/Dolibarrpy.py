@@ -54,6 +54,15 @@ class ContactFilter():
     includeroles: Optional[int] = None      # Includes roles of the contact
     properties: Optional[str] = None        # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class SubscriptionFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None          # page number
+    sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
+    properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -868,9 +877,9 @@ class Dolibarrpy():
     # CONTACTS
     def find_all_contacts(self, from_ContactFilter = None):
         """
-        Get all thirdparties
+        Get all contacts
         @param from_ContactFilter:
-        @return: list of a thirdparties
+        @return: list of a contacts
         """
         if self.debug:
             ic()
@@ -995,3 +1004,57 @@ class Dolibarrpy():
         api_path = 'contacts/' + str(objid) + '/categories'
         result = self.call_list_api(api_path, params)
         return result
+
+    # SUBSCRIPTIONS
+    def find_all_subscriptions(self, from_SubscriptionFilter = None):
+        """
+        Get all subscriptions
+        @param from_SubscriptionFilter:
+        @return: list of a subscriptions
+        """
+        if self.debug:
+            ic()
+            ic(from_SubscriptionFilter)
+        if from_SubscriptionFilter is None:
+            search_filter = SubscriptionFilter()
+        else:
+            search_filter = from_SubscriptionFilter
+        all_subscriptions=[]
+        page = 0
+        while True:
+            some_subscriptions = self.find_some_subscriptions(search_filter, page)
+            if "error" in some_subscriptions:
+                break
+            elif [] == some_subscriptions:
+                break
+            elif {} == some_subscriptions:
+                break
+            else:
+                page += 1
+                if some_subscriptions == all_subscriptions:
+                    break
+                all_subscriptions = all_subscriptions + list(some_subscriptions)
+        return all_subscriptions
+
+    def find_some_subscriptions(self, from_SubscriptionFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_SubscriptionFilter)
+        if from_SubscriptionFilter is None:
+            search_filter = SubscriptionFilter()
+        else:
+            search_filter = from_SubscriptionFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('subscriptions', params)
+        return result
+
+    def get_subscription_by_sid(self, objid):
+        """
+        Get subscription based on subscription id
+        @return: contact
+        """
+        result = self.call_get_api('subscriptions', objid=objid)
+        return result
+
