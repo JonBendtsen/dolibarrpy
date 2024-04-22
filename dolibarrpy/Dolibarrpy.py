@@ -125,6 +125,17 @@ class TicketFilter():
     sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class UserFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    user_ids: Optional[str] = None
+    category: Optional[int] = None      # only get members with this status: draft | unpaid | paid | cancelled
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -1571,7 +1582,7 @@ class Dolibarrpy():
     def get_ticket_by_iid(self, objid):
         """
         Get ticket based on ticket id
-        @return: invoice
+        @return: ticket
         """
         objid = str(objid)
         result = self.call_get_api('tickets', objid=objid)
@@ -1580,7 +1591,7 @@ class Dolibarrpy():
     def get_ticket_by_ref(self, objref):
         """
         Get ticket based on ticket ref
-        @return: invoice
+        @return: ticket
         """
         objref = 'ref/' + str(objref)
         result = self.call_get_api('tickets', objid=objref)
@@ -1589,8 +1600,100 @@ class Dolibarrpy():
     def get_ticket_by_track_id(self, objtrack_id):
         """
         Get ticket based on ticket track_id
-        @return: invoice
+        @return: ticket
         """
         objtrack_id = 'track_id/' + str(objtrack_id)
         result = self.call_get_api('tickets', objid=objtrack_id)
         return result
+
+
+    # USERS
+    def find_all_users(self, from_UserFilter = None):
+        """
+        Get all users
+        @param from_UserFilter:
+        @return: list of a users
+        """
+        if self.debug:
+            ic()
+            ic(from_UserFilter)
+        if from_UserFilter is None:
+            search_filter = UserFilter()
+        else:
+            search_filter = from_UserFilter
+        all_users=[]
+        page = 0
+        while True:
+            some_users = self.find_some_users(search_filter, page)
+            if "error" in some_users:
+                break
+            elif [] == some_users:
+                break
+            elif {} == some_users:
+                break
+            else:
+                page += 1
+                if some_users == all_users:
+                    break
+                all_users = all_users + list(some_users)
+        return all_users
+
+    def find_some_users(self, from_UserFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_UserFilter)
+        if from_UserFilter is None:
+            search_filter = UserFilter()
+        else:
+            search_filter = from_UserFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('users', params)
+        return result
+
+    def get_user_by_uid(self, objid, includepermissions = 0):
+        """
+        Get user based on user id
+        @includepermissions int default 0, Set this to 1 to have the array of permissions loaded (not done by default for performance purpose)
+        @return: user
+        """
+        if includepermissions:
+            objid = str(objid)  + '?includepermissions=' + includepermissions
+        else:
+            objid = str(objid)
+        result = self.call_get_api('users', objid=objid)
+        return result
+
+    def get_user_groups_uid(self, objid):
+        """
+        Get user groups based on user id
+        @return: list of user groups
+        """
+        objid = str(objid) + '/groups'
+        result = self.call_get_api('users', objid)
+        return result
+
+    def setgroup_user_uid(self, objid, groupid, entity = 1):
+        """
+        Set group for user based on user and group id
+        @groupid int Group ID
+        @entity int Entity ID (valid only for superadmin in multicompany transverse mode) default = 1
+        @return: int
+        """
+        objid = str(objid) + '/setGroup/' + str(groupid) + '?entity=' + str(entity)
+        result = self.call_get_api('users', objid)
+        return result
+
+    def get_user_by_email(self, email, includepermissions = 0):
+        """
+        Get user groups based on user id
+        @return: list of user groups
+        """
+        if includepermissions:
+            objid = 'email/' + urllib.parse.quote(email)  + '?includepermissions=' + includepermissions
+        else:
+            objid = str(objid)
+        result = self.call_get_api('users', objid=objid)
+        return result
+
