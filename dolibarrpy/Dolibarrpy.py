@@ -115,6 +115,16 @@ class InterventionFilter():
     sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class TicketFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -1510,4 +1520,77 @@ class Dolibarrpy():
         """
         objid = str(objid)
         result = self.call_get_api('interventions', objid=objid)
+        return result
+
+
+    # TICKETS
+    def find_all_tickets(self, from_TicketFilter = None):
+        """
+        Get all tickets
+        @param from_TicketFilter:
+        @return: list of a tickets
+        """
+        if self.debug:
+            ic()
+            ic(from_TicketFilter)
+        if from_TicketFilter is None:
+            search_filter = TicketFilter()
+        else:
+            search_filter = from_TicketFilter
+        all_tickets=[]
+        page = 0
+        while True:
+            some_tickets = self.find_some_tickets(search_filter, page)
+            if "error" in some_tickets:
+                break
+            elif [] == some_tickets:
+                break
+            elif {} == some_tickets:
+                break
+            else:
+                page += 1
+                if some_tickets == all_tickets:
+                    break
+                all_tickets = all_tickets + list(some_tickets)
+        return all_tickets
+
+    def find_some_tickets(self, from_TicketFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_TicketFilter)
+        if from_TicketFilter is None:
+            search_filter = TicketFilter()
+        else:
+            search_filter = from_TicketFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('tickets', params)
+        return result
+
+    def get_ticket_by_iid(self, objid):
+        """
+        Get ticket based on ticket id
+        @return: invoice
+        """
+        objid = str(objid)
+        result = self.call_get_api('tickets', objid=objid)
+        return result
+
+    def get_ticket_by_ref(self, objref):
+        """
+        Get ticket based on ticket ref
+        @return: invoice
+        """
+        objref = 'ref/' + str(objref)
+        result = self.call_get_api('tickets', objid=objref)
+        return result
+
+    def get_ticket_by_track_id(self, objtrack_id):
+        """
+        Get ticket based on ticket track_id
+        @return: invoice
+        """
+        objtrack_id = 'track_id/' + str(objtrack_id)
+        result = self.call_get_api('tickets', objid=objtrack_id)
         return result
