@@ -85,6 +85,16 @@ class OrderFilter():
     sqlfilterslines: Optional[str] = None    # Other criteria to filter answers separated by a comma. Syntax example "(tl.fk_product:=:'17') and (tl.price:
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class InvoiceFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    sqlfilters: Optional[str] = None    # Other criteria to filter answers separated by a comma. Syntax example "(t.ref:like:'SO-%') and (t.date_creation:
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -1270,3 +1280,115 @@ class Dolibarrpy():
         result = self.call_get_api('orders', objid=objid)
         return result
 
+    # INVOICES
+    def find_all_invoices(self, from_InvoiceFilter = None):
+        """
+        Get all invoices
+        @param from_InvoiceFilter:
+        @return: list of a invoices
+        """
+        if self.debug:
+            ic()
+            ic(from_InvoiceFilter)
+        if from_InvoiceFilter is None:
+            search_filter = InvoiceFilter()
+        else:
+            search_filter = from_InvoiceFilter
+        all_invoices=[]
+        page = 0
+        while True:
+            some_invoices = self.find_some_invoices(search_filter, page)
+            if "error" in some_invoices:
+                break
+            elif [] == some_invoices:
+                break
+            elif {} == some_invoices:
+                break
+            else:
+                page += 1
+                if some_invoices == all_invoices:
+                    break
+                all_invoices = all_invoices + list(some_invoices)
+        return all_invoices
+
+    def find_some_invoices(self, from_InvoiceFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_InvoiceFilter)
+        if from_InvoiceFilter is None:
+            search_filter = InvoiceFilter()
+        else:
+            search_filter = from_InvoiceFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('invoices', params)
+        return result
+
+    def get_invoice_by_iid(self, objid, contact_list = 1):
+        """
+        Get invoice based on invoice id
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: invoice
+        """
+        objid = str(objid) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('invoices', objid=objid)
+        return result
+
+    def get_invoice_discounts_by_iid(self, objid):
+        """
+        Get invoice discounts based on invoice id
+        @return: discount
+        """
+        objid = str(objid) + '/discount'
+        result = self.call_get_api('invoices', objid=objid)
+        return result
+
+    def get_invoice_by_ref(self, objref, contact_list = 1):
+        """
+        Get invoice based on invoice ref
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: invoice
+        """
+        objref = 'ref/' + urllib.parse.quote(objref) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('invoices', objid=objref)
+        return result
+
+    # 2024-04-22 doesn't work for me in my Dolibarr
+    def get_invoice_by_ref_ext(self, objref_ext, contact_list = 1):
+        """
+        Get invoice based on invoice ref_ext
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: invoice
+        """
+        objref_ext = 'ref_ext/' + urllib.parse.quote(objref_ext) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('invoices', objid=objref_ext)
+        return result
+
+    def get_invoice_lines_by_iid(self, objid):
+        """
+        Get invoice lines based on invoice id
+        @return: invoice lines
+        """
+        objid = str(objid) + '/lines'
+        result = self.call_get_api('invoices', objid=objid)
+        return result
+
+    def get_invoice_payments_by_iid(self, objid):
+        """
+        Get invoice payments based on invoice id
+        @return: invoice payments
+        """
+        objid = str(objid) + '/payments'
+        result = self.call_get_api('invoices', objid=objid)
+        return result
+
+    def get_invoice_template_by_tid(self, objid, contact_list = 1):
+        """
+        Get invoice payments based on invoice template id
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: invoice payments
+        """
+        objid = 'payments/' + str(objid) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('invoices', objid=objid)
+        return result
