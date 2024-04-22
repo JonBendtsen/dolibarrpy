@@ -64,6 +64,17 @@ class SubscriptionFilter():
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
 
+@dataclass
+class ProposalFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
+
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
     token = 'your token'
@@ -1053,8 +1064,93 @@ class Dolibarrpy():
     def get_subscription_by_sid(self, objid):
         """
         Get subscription based on subscription id
-        @return: contact
+        @return: subscription
         """
         result = self.call_get_api('subscriptions', objid=objid)
         return result
 
+    # PROPOSALS
+    def find_all_proposals(self, from_ProposalFilter = None):
+        """
+        Get all proposals
+        @param from_ProposalFilter:
+        @return: list of a proposals
+        """
+        if self.debug:
+            ic()
+            ic(from_ProposalFilter)
+        if from_ProposalFilter is None:
+            search_filter = ProposalFilter()
+        else:
+            search_filter = from_ProposalFilter
+        all_proposals=[]
+        page = 0
+        while True:
+            some_proposals = self.find_some_proposals(search_filter, page)
+            if "error" in some_proposals:
+                break
+            elif [] == some_proposals:
+                break
+            elif {} == some_proposals:
+                break
+            else:
+                page += 1
+                if some_proposals == all_proposals:
+                    break
+                all_proposals = all_proposals + list(some_proposals)
+        return all_proposals
+
+    def find_some_proposals(self, from_ProposalFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ProposalFilter)
+        if from_ProposalFilter is None:
+            search_filter = ProposalFilter()
+        else:
+            search_filter = from_ProposalFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('proposals', params)
+        return result
+
+    def get_proposal_by_pid(self, objid, contact_list = 1):
+        """
+        Get proposal based on proposal id
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: proposal
+        """
+        objid = str(objid) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('proposals', objid=objid)
+        return result
+
+    def get_proposal_by_ref(self, objref, contact_list = 1):
+        """
+        Get proposal based on proposal ref
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: proposal
+        """
+        objref = 'ref/' + urllib.parse.quote(objref) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('proposals', objid=objref)
+        return result
+
+    # 2024-04-22 doesn't work for me in my Dolibarr
+    def get_proposal_by_ref_ext(self, objref_ext, contact_list = 1):
+        """
+        Get proposal based on proposal ref_ext
+        @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
+        @return: proposal
+        """
+        objref_ext = 'ref_ext/' + urllib.parse.quote(objref_ext) + '?contact_list=' + str(contact_list)
+        result = self.call_get_api('proposals', objid=objref_ext)
+        return result
+
+    def get_proposal_lines_by_pid(self, objid, sqlfilters):
+        """
+        Get proposal lines based on proposal id
+        @sqlfilters string Other criteria to filter answers separated by a comma. d is the alias for proposal lines table, p is the alias for product table. "Syntax example "(p.ref:like:'SO-%') AND (d.date_start:
+        @return: proposal lines
+        """
+        objid = str(objid) + '/lines?sqlfilters=' + str(sqlfilters)
+        result = self.call_get_api('proposals', objid=objid)
+        return result
