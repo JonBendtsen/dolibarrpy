@@ -95,6 +95,26 @@ class InvoiceFilter():
     sqlfilters: Optional[str] = None    # Other criteria to filter answers separated by a comma. Syntax example "(t.ref:like:'SO-%') and (t.date_creation:
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class ShipmentFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
+@dataclass
+class InterventionFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    thirdparty_ids: Optional[str] = None
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
+
 
 class Dolibarrpy():
     url = 'https://dolibarr.example.com/api/index.php/'
@@ -216,6 +236,50 @@ class Dolibarrpy():
         return result
 
     # SHIPMENTS
+    def find_all_shipments(self, from_ShipmentFilter = None):
+        """
+        Get all shipments
+        @param from_ShipmentFilter:
+        @return: list of a shipments
+        """
+        if self.debug:
+            ic()
+            ic(from_ShipmentFilter)
+        if from_ShipmentFilter is None:
+            search_filter = ShipmentFilter()
+        else:
+            search_filter = from_ShipmentFilter
+        all_shipments=[]
+        page = 0
+        while True:
+            some_shipments = self.find_some_shipments(search_filter, page)
+            if "error" in some_shipments:
+                break
+            elif [] == some_shipments:
+                break
+            elif {} == some_shipments:
+                break
+            else:
+                page += 1
+                if some_shipments == all_shipments:
+                    break
+                all_shipments = all_shipments + list(some_shipments)
+        return all_shipments
+
+    def find_some_shipments(self, from_ShipmentFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_ShipmentFilter)
+        if from_ShipmentFilter is None:
+            search_filter = ShipmentFilter()
+        else:
+            search_filter = from_ShipmentFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('shipments', params)
+        return result
+
     def get_shipment_by_id(self, objid):
         result = self.call_get_api('shipments', objid=objid)
         return result
@@ -1391,4 +1455,59 @@ class Dolibarrpy():
         """
         objid = 'payments/' + str(objid) + '?contact_list=' + str(contact_list)
         result = self.call_get_api('invoices', objid=objid)
+        return result
+
+
+    # INTERVENTIONS
+    def find_all_interventions(self, from_InterventionFilter = None):
+        """
+        Get all interventions
+        @param from_InterventionFilter:
+        @return: list of a interventions
+        """
+        if self.debug:
+            ic()
+            ic(from_InterventionFilter)
+        if from_InterventionFilter is None:
+            search_filter = InterventionFilter()
+        else:
+            search_filter = from_InterventionFilter
+        all_interventions=[]
+        page = 0
+        while True:
+            some_interventions = self.find_some_interventions(search_filter, page)
+            if "error" in some_interventions:
+                break
+            elif [] == some_interventions:
+                break
+            elif {} == some_interventions:
+                break
+            else:
+                page += 1
+                if some_interventions == all_interventions:
+                    break
+                all_interventions = all_interventions + list(some_interventions)
+        return all_interventions
+
+    def find_some_interventions(self, from_InterventionFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_InterventionFilter)
+        if from_InterventionFilter is None:
+            search_filter = InterventionFilter()
+        else:
+            search_filter = from_InterventionFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('interventions', params)
+        return result
+
+    def get_intervention_by_iid(self, objid):
+        """
+        Get intervention based on intervention id
+        @return: invoice
+        """
+        objid = str(objid)
+        result = self.call_get_api('interventions', objid=objid)
         return result
