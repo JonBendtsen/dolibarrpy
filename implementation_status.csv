@@ -1,3 +1,5 @@
+# the data in this file is incorrect, there are actually more implementations than this file indicates, please check the dolibarrpy/Dolibarrpy.py source file
+
 #COUNT	ENDPOINT
 0	get /agendaevents
 0	post /agendaevents
