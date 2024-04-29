@@ -819,6 +819,7 @@ class Dolibarrpy():
 
     def get_thirdparty_by_email(self, email):
         """
+        @endpoint 'get /thirdparties/email/{email}'
         Get member based on thirdparty email
         @return: thirdparty
         """
@@ -838,6 +839,7 @@ class Dolibarrpy():
 
     def get_thirdparties_getinvoicesqualifiedforcreditnote_by_tid(self, objid):
         """
+        @endpoint 'get /thirdparties/{id}/getinvoicesqualifiedforcreditnote'
         Get thirdparty invoices qualifiedforcreditnote based on thirdparty id
         @return: list of thirdparty invoices qualifiedforcreditnote
         """
@@ -847,6 +849,7 @@ class Dolibarrpy():
 
     def get_thirdparties_getinvoicesqualifiedforreplacement_by_tid(self, objid):
         """
+        @endpoint 'get /thirdparties/{id}/getinvoicesqualifiedforreplacement'
         Get thirdparty invoices qualifiedforreplacement based on thirdparty id
         @return: list of thirdparty invoices qualifiedforreplacement
         """
@@ -856,6 +859,7 @@ class Dolibarrpy():
 
     def get_thirdparties_notifications_by_tid(self, objid):
         """
+        @endpoint 'get /thirdparties/{id}/notifications'
         Get thirdparty notifications based on thirdparty id
         @return: list of thirdparty notifications
         """
@@ -865,6 +869,9 @@ class Dolibarrpy():
 
     def get_thirdparties_outstanding_by_tid(self, objid, otype, mode):
         """
+        @endpoint 'get /thirdparties/{id}/outstandinginvoices'
+        @endpoint 'get /thirdparties/{id}/outstandingorders'
+        @endpoint 'get /thirdparties/{id}/outstandingproposals'
         Get thirdparty outstanding <otype> based on thirdparty id, otype and mode
         @otype string 'invoices', 'orders' or 'proposals' 
         @mode string 'customer' or 'supplier'
@@ -879,6 +886,7 @@ class Dolibarrpy():
 
     def get_thirdparties_representatives_by_tid(self, objid, mode):
         """
+        @endpoint 'get /thirdparties/{id}/representatives'
         Get thirdparty representatives based on thirdparty id and mode
         @mode string 0=Array with properties, 1=Array of id.
         @return: list of thirdparty's representatives
@@ -892,6 +900,7 @@ class Dolibarrpy():
 
     def get_thirdparties_accounts_by_tid(self, objid, site):
         """
+        @endpoint 'get /thirdparties/{id}/accounts'
         Get thirdparty accounts based on thirdparty id and site
         @mode string 0=Array with properties, 1=Array of id.
         @return: list of thirdparty's accounts
@@ -905,6 +914,8 @@ class Dolibarrpy():
 
     def get_all_thirdparties_categories_by_tid(self, objid, from_ThirdpartyFilter = None, mode = 'customer'):
         """
+        @endpoint 'get /thirdparties/{id}/categories'
+        @endpoint 'get /thirdparties/{id}/supplier_categories'
         Get all categories for a thirdparties based on it's thirdparty_id
         @param from_ThirdpartyFilter:
         @mode string 'customer' or 'supplier'
@@ -972,6 +983,7 @@ class Dolibarrpy():
 
     def get_thirdparties_fixedamountdiscounts_by_tid(self, objid, filter):
         """
+        @endpoint 'get /thirdparties/{id}/fixedamountdiscounts'
         Get thirdparty fixedamountdiscounts based on thirdparty id and filter
         @filter Filter exceptional discount. "none" will return every discount, "available" returns unapplied discounts, "used" returns applied discounts
         @return: list of thirdparty's fixedamountdiscounts
@@ -985,6 +997,7 @@ class Dolibarrpy():
 
     def get_thirdparties_generateBankAccountDocument_by_tid(self, objid, companybankid, model = 'sepamandate'):
         """
+        @endpoint 'get /thirdparties/{id}/generateBankAccountDocument/{companybankid}/{model}'
         Get thirdparty generateBankAccountDocument based on thirdparty id, companybankid and model
         @companybankid
         @model default is 'sepamandate'
