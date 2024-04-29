@@ -307,10 +307,10 @@
 0	delete /tasks/{id}/timespent/{timespent_id}
 0	put /tasks/{id}/timespent/{timespent_id}
 0	get /tasks/timespentrecordchecks/{id}
-0	get /thirdparties
+1	get /thirdparties
 0	post /thirdparties
 0	delete /thirdparties/{id}
-0	get /thirdparties/{id}
+1	get /thirdparties/{id}
 0	put /thirdparties/{id}
 0	delete /thirdparties/{id}/accounts
 0	get /thirdparties/{id}/accounts
@@ -344,7 +344,7 @@
 0	get /thirdparties/{id}/supplier_categories
 0	delete /thirdparties/{id}/supplier_categories/{category_id}
 0	put /thirdparties/{id}/supplier_categories/{category_id}
-0	get /thirdparties/barcode/{barcode}
+1	get /thirdparties/barcode/{barcode}
 0	get /thirdparties/email/{email}
 0	get /tickets
 0	post /tickets

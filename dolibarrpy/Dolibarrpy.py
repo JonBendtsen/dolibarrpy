@@ -755,6 +755,7 @@ class Dolibarrpy():
     # THIRDPARTIES
     def find_all_thirdparty(self, from_ThirdpartyFilter = None):
         """
+        @endpoint 'get /thirdparties'
         Get all thirdparties
         @param from_ThirdpartyFilter:
         @return: list of a thirdparties
@@ -799,6 +800,7 @@ class Dolibarrpy():
 
     def get_thirdparty_by_tid(self, objid):
         """
+        @endpoint 'get /thirdparties/{id}'
         Get thirdparty based on thirdparty id
         @return: thirdparty
         """
@@ -807,6 +809,7 @@ class Dolibarrpy():
 
     def get_thirdparty_by_barcode(self, barcode):
         """
+        @endpoint 'get /thirdparties/barcode/{barcode}'
         Get thirdparty from barcode
         @return: thirdparty
         """
