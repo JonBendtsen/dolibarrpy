@@ -1,0 +1,34 @@
+    contacts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /contacts
+
+                List contacts 🔐
+            post /contacts
+
+                Create contact object 🔐
+            delete /contacts/{id}
+
+                Delete contact 🔐
+            get /contacts/{id}
+
+                Get properties of a contact object 🔐
+            put /contacts/{id}
+
+                Update contact 🔐
+            get /contacts/{id}/categories
+
+                Get categories for a contact 🔐
+            delete /contacts/{id}/categories/{category_id}
+
+                Remove the link between a category and a contact 🔐
+            put /contacts/{id}/categories/{category_id}
+
+                Add a category to a contact 🔐
+            post /contacts/{id}/createUser
+
+                Create an user account object from contact (external user) 🔐
+            get /contacts/email/{email}
+
+                Get properties of a contact object by Email 🔐

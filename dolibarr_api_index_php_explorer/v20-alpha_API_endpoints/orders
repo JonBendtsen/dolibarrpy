@@ -1,0 +1,70 @@
+    orders
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /orders
+
+                List orders 🔐
+            post /orders
+
+                Create a sale order 🔐
+            delete /orders/{id}
+
+                Delete order 🔐
+            get /orders/{id}
+
+                Get properties of an order object by id 🔐
+            put /orders/{id}
+
+                Update order general fields (won't touch lines of order) 🔐
+            post /orders/{id}/close
+
+                Close an order (Classify it as "Delivered") 🔐
+            delete /orders/{id}/contact/{contactid}/{type}
+
+                Unlink a contact type of given order 🔐
+            post /orders/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given order 🔐
+            get /orders/{id}/contacts
+
+                Get contacts of given order 🔐
+            get /orders/{id}/lines
+
+                Get lines of an order 🔐
+            post /orders/{id}/lines
+
+                Add a line to given order 🔐
+            delete /orders/{id}/lines/{lineid}
+
+                Delete a line of a given order 🔐
+            put /orders/{id}/lines/{lineid}
+
+                Update a line to given order 🔐
+            post /orders/{id}/reopen
+
+                Tag the order as validated (opened) 🔐
+            post /orders/{id}/setinvoiced
+
+                Classify the order as invoiced. Could be also called setbilled 🔐
+            post /orders/{id}/settodraft
+
+                Set an order to draft 🔐
+            get /orders/{id}/shipment
+
+                Get the shipments of an order 🔐
+            post /orders/{id}/shipment/{warehouse_id}
+
+                Create the shipment of an order 🔐
+            post /orders/{id}/validate
+
+                Validate an order 🔐
+            post /orders/createfromproposal/{proposalid}
+
+                Create an order using an existing proposal. 🔐
+            get /orders/ref_ext/{ref_ext}
+
+                Get properties of an order object by ref_ext 🔐
+            get /orders/ref/{ref}
+
+                Get properties of an order object by ref 🔐

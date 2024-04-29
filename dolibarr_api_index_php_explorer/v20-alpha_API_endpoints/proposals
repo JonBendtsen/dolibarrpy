@@ -1,0 +1,58 @@
+    proposals
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /proposals
+
+                List commercial proposals 🔐
+            post /proposals
+
+                Create commercial proposal object 🔐
+            delete /proposals/{id}
+
+                Delete commercial proposal 🔐
+            get /proposals/{id}
+
+                Get properties of a commercial proposal object 🔐
+            put /proposals/{id}
+
+                Update commercial proposal general fields (won't touch lines of commercial proposal) 🔐
+            post /proposals/{id}/close
+
+                Close (Accept or refuse) a quote / commercial proposal 🔐
+            delete /proposals/{id}/contact/{contactid}/{type}
+
+                Delete a contact type of given commercial proposal 🔐
+            post /proposals/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given commercial proposal 🔐
+            post /proposals/{id}/line
+
+                Add a line to given commercial proposal 🔐
+            get /proposals/{id}/lines
+
+                Get lines of a commercial proposal 🔐
+            post /proposals/{id}/lines
+
+                Add lines to given commercial proposal 🔐
+            delete /proposals/{id}/lines/{lineid}
+
+                Delete a line of given commercial proposal 🔐
+            put /proposals/{id}/lines/{lineid}
+
+                Update a line of given commercial proposal 🔐
+            post /proposals/{id}/setinvoiced
+
+                Set a commercial proposal billed. Could be also called setbilled 🔐
+            post /proposals/{id}/settodraft
+
+                Set a proposal to draft 🔐
+            post /proposals/{id}/validate
+
+                Validate a commercial proposal 🔐
+            get /proposals/ref_ext/{ref_ext}
+
+                Get properties of an proposal object by ref_ext 🔐
+            get /proposals/ref/{ref}
+
+                Get properties of an proposal object by ref 🔐

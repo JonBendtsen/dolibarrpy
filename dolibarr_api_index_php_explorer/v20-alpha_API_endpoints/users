@@ -1,0 +1,40 @@
+    users
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /users
+
+                List Users 🔐
+            post /users
+
+                Create user account 🔐
+            delete /users/{id}
+
+                Delete account/user 🔐
+            get /users/{id}
+
+                Get properties of an user object 🔐
+            put /users/{id}
+
+                Update user account 🔐
+            get /users/{id}/groups
+
+                List the groups of a user 🔐
+            get /users/{id}/setGroup/{group}
+
+                Add a user into a group 🔐
+            get /users/email/{email}
+
+                Get properties of an user object by Email 🔐
+            get /users/groups
+
+                List Groups 🔐
+            get /users/groups/{group}
+
+                Get properties of an group object 🔐
+            get /users/info
+
+                Get more properties of a user 🔐
+            get /users/login/{login}
+
+                Get properties of an user object by login 🔐

@@ -1,0 +1,37 @@
+    projects
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /projects
+
+                List projects 🔐
+            post /projects
+
+                Create project object 🔐
+            delete /projects/{id}
+
+                Delete project 🔐
+            get /projects/{id}
+
+                Get properties of a project object 🔐
+            put /projects/{id}
+
+                Update project general fields (won't touch lines of project) 🔐
+            get /projects/{id}/roles
+
+                Get roles a user is assigned to a project with 🔐
+            get /projects/{id}/tasks
+
+                Get tasks of a project. 🔐
+            post /projects/{id}/validate
+
+                Validate a project. 🔐
+            get /projects/email_msgid/{email_msgid}
+
+                Get properties of a project object 🔐
+            get /projects/ref_ext/{ref_ext}
+
+                Get properties of a project object 🔐
+            get /projects/ref/{ref}
+
+                Get properties of a project object 🔐

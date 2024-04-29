@@ -1,0 +1,19 @@
+    documents
+        Show/Hide
+        List Operations
+        Expand Operations
+            delete /documents
+
+                Delete a document. 🔐
+            get /documents
+
+                Return the list of documents of a dedicated element (from its ID or Ref) 🔐
+            put /documents/builddoc
+
+                Build a document. 🔐
+            get /documents/download
+
+                Download a document. 🔐
+            post /documents/upload
+
+                Upload a document. 🔐

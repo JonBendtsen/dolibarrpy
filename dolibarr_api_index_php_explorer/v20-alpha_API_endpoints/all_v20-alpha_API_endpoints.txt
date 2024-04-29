@@ -1,0 +1,1233 @@
+Dolibarr REST API Explorer
+Explore
+
+    agendaevents
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /agendaevents
+
+                List Agenda Events 🔐
+            post /agendaevents
+
+                Create Agenda Event object 🔐
+            delete /agendaevents/{id}
+
+                Delete Agenda Event 🔐
+            get /agendaevents/{id}
+
+                Get properties of a Agenda Events object 🔐
+            put /agendaevents/{id}
+
+                Update Agenda Event general fields 🔐
+    bankaccounts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /bankaccounts
+
+                Get the list of accounts. 🔐
+            post /bankaccounts
+
+                Create account object 🔐
+            delete /bankaccounts/{id}
+
+                Delete account 🔐
+            get /bankaccounts/{id}
+
+                Get account by ID. 🔐
+            put /bankaccounts/{id}
+
+                Update account 🔐
+            get /bankaccounts/{id}/lines
+
+                Get the list of lines of the account. 🔐
+            post /bankaccounts/{id}/lines
+
+                Add a line to an account 🔐
+            delete /bankaccounts/{id}/lines/{line_id}
+
+                Delete an account line 🔐
+            put /bankaccounts/{id}/lines/{line_id}
+
+                Update an account line 🔐
+            get /bankaccounts/{id}/lines/{line_id}/links
+
+                Get the list of links for a line of the account. 🔐
+            post /bankaccounts/{id}/lines/{line_id}/links
+
+                Add a link to an account line 🔐
+            post /bankaccounts/transfer
+
+                Create an internal wire transfer between two bank accounts 🔐
+    categories
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /categories
+
+                List categories 🔐
+            post /categories
+
+                Create category object 🔐
+            delete /categories/{id}
+
+                Delete category 🔐
+            get /categories/{id}
+
+                Get properties of a category object 🔐
+            put /categories/{id}
+
+                Update category 🔐
+            get /categories/{id}/objects
+
+                Get the list of objects in a category. 🔐
+            delete /categories/{id}/objects/{type}/{object_id}
+
+                Unlink an object from a category by id 🔐
+            post /categories/{id}/objects/{type}/{object_id}
+
+                Link an object to a category by id 🔐
+            delete /categories/{id}/objects/{type}/ref/{object_ref}
+
+                Unlink an object from a category by ref 🔐
+            post /categories/{id}/objects/{type}/ref/{object_ref}
+
+                Link an object to a category by ref 🔐
+            get /categories/object/{type}/{id}
+
+                List categories of an object 🔐
+    contacts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /contacts
+
+                List contacts 🔐
+            post /contacts
+
+                Create contact object 🔐
+            delete /contacts/{id}
+
+                Delete contact 🔐
+            get /contacts/{id}
+
+                Get properties of a contact object 🔐
+            put /contacts/{id}
+
+                Update contact 🔐
+            get /contacts/{id}/categories
+
+                Get categories for a contact 🔐
+            delete /contacts/{id}/categories/{category_id}
+
+                Remove the link between a category and a contact 🔐
+            put /contacts/{id}/categories/{category_id}
+
+                Add a category to a contact 🔐
+            post /contacts/{id}/createUser
+
+                Create an user account object from contact (external user) 🔐
+            get /contacts/email/{email}
+
+                Get properties of a contact object by Email 🔐
+    contracts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /contracts
+
+                List contracts 🔐
+            post /contracts
+
+                Create contract object 🔐
+            delete /contracts/{id}
+
+                Delete contract 🔐
+            get /contracts/{id}
+
+                Get properties of a contract object 🔐
+            put /contracts/{id}
+
+                Update contract general fields (won't touch lines of contract) 🔐
+            post /contracts/{id}/close
+
+                Close all services of a contract 🔐
+            get /contracts/{id}/lines
+
+                Get lines of a contract 🔐
+            post /contracts/{id}/lines
+
+                Add a line to given contract 🔐
+            delete /contracts/{id}/lines/{lineid}
+
+                Delete a line to given contract 🔐
+            put /contracts/{id}/lines/{lineid}
+
+                Update a line to given contract 🔐
+            put /contracts/{id}/lines/{lineid}/activate
+
+                Activate a service line of a given contract 🔐
+            put /contracts/{id}/lines/{lineid}/unactivate
+
+                Unactivate a service line of a given contract 🔐
+            post /contracts/{id}/validate
+
+                Validate a contract 🔐
+    documents
+        Show/Hide
+        List Operations
+        Expand Operations
+            delete /documents
+
+                Delete a document. 🔐
+            get /documents
+
+                Return the list of documents of a dedicated element (from its ID or Ref) 🔐
+            put /documents/builddoc
+
+                Build a document. 🔐
+            get /documents/download
+
+                Download a document. 🔐
+            post /documents/upload
+
+                Upload a document. 🔐
+    donations
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /donations
+
+                List donations 🔐
+            post /donations
+
+                Create donation object 🔐
+            delete /donations/{id}
+
+                Delete donation 🔐
+            get /donations/{id}
+
+                Get properties of an donation object 🔐
+            put /donations/{id}
+
+                Update order general fields (won't touch lines of order) 🔐
+            post /donations/{id}/validate
+
+                Validate an donation 🔐
+    expensereports
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /expensereports
+
+                List Expense Reports 🔐
+            post /expensereports
+
+                Create Expense Report object 🔐
+            delete /expensereports/{id}
+
+                Delete Expense Report 🔐
+            get /expensereports/{id}
+
+                Get properties of an Expense Report 🔐
+            put /expensereports/{id}
+
+                Update Expense Report general fields (won't touch lines of expensereport) 🔐
+            post /expensereports/{id}/payments
+
+                Create payment of ExpenseReport 🔐
+            put /expensereports/{id}/payments
+
+                Update a payment of ExpenseReport 🔐
+            get /expensereports/payments
+
+                Get the list of payments of expensereport. 🔐
+            get /expensereports/payments/{pid}
+
+                Get a given payment. 🔐
+    interventions
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /interventions
+
+                List of interventions Return a list of interventions 🔐
+            post /interventions
+
+                Create intervention object 🔐
+            delete /interventions/{id}
+
+                Delete order 🔐
+            get /interventions/{id}
+
+                Get properties of a Expense Report object Return an array with Expense Report information 🔐
+            post /interventions/{id}/close
+
+                Close an intervention 🔐
+            post /interventions/{id}/lines
+
+                Add a line to a given intervention 🔐
+            post /interventions/{id}/validate
+
+                Validate an intervention 🔐
+    invoices
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /invoices
+
+                List invoices 🔐
+            post /invoices
+
+                Create invoice object 🔐
+            delete /invoices/{id}
+
+                Delete invoice 🔐
+            get /invoices/{id}
+
+                Get properties of a invoice object 🔐
+            put /invoices/{id}
+
+                Update invoice 🔐
+            delete /invoices/{id}/contact/{contactid}/{type}
+
+                Delete a contact type of given invoice 🔐
+            post /invoices/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given invoice 🔐
+            post /invoices/{id}/contacts
+
+                Adds a contact to an invoice 🔐
+            get /invoices/{id}/discount
+
+                Get discount from invoice 🔐
+            get /invoices/{id}/lines
+
+                Get lines of an invoice 🔐
+            post /invoices/{id}/lines
+
+                Add a line to a given invoice 🔐
+            delete /invoices/{id}/lines/{lineid}
+
+                Deletes a line of a given invoice 🔐
+            put /invoices/{id}/lines/{lineid}
+
+                Update a line to a given invoice 🔐
+            post /invoices/{id}/markAsCreditAvailable
+
+                Create a discount (credit available) for a credit note or a deposit. 🔐
+            get /invoices/{id}/payments
+
+                Get list of payments of a given invoice 🔐
+            post /invoices/{id}/payments
+
+                Add payment line to a specific invoice with the remain to pay as amount. 🔐
+            post /invoices/{id}/settodraft
+
+                Sets an invoice as draft 🔐
+            post /invoices/{id}/settopaid
+
+                Sets an invoice as paid 🔐
+            post /invoices/{id}/settounpaid
+
+                Sets an invoice as unpaid 🔐
+            post /invoices/{id}/usecreditnote/{discountid}
+
+                Add an available credit note discount to payments of an existing invoice. 🔐
+            post /invoices/{id}/usediscount/{discountid}
+
+                Add a discount line into an invoice (as an invoice line) using an existing absolute discount 🔐
+            post /invoices/{id}/validate
+
+                Validate an invoice 🔐
+            post /invoices/createfromcontract/{contractid}
+
+                Create an invoice using a contract. 🔐
+            post /invoices/createfromorder/{orderid}
+
+                Create an invoice using an existing order. 🔐
+            put /invoices/payments/{id}
+
+                Update a payment 🔐
+            post /invoices/paymentsdistributed
+
+                Add a payment to pay partially or completely one or several invoices. 🔐
+            get /invoices/ref_ext/{ref_ext}
+
+                Get properties of an invoice object by ref_ext 🔐
+            get /invoices/ref/{ref}
+
+                Get properties of an invoice object by ref 🔐
+            get /invoices/templates/{id}
+
+                Get properties of a template invoice object 🔐
+    login
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /login
+
+                Login 🔓
+            post /login
+
+                Login 🔓
+    members
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /members
+
+                List members 🔐
+            post /members
+
+                Create member object 🔐
+            delete /members/{id}
+
+                Delete member 🔐
+            get /members/{id}
+
+                Get properties of a member object 🔐
+            put /members/{id}
+
+                Update member 🔐
+            get /members/{id}/categories
+
+                Get categories for a member 🔐
+            get /members/{id}/subscriptions
+
+                List subscriptions of a member 🔐
+            post /members/{id}/subscriptions
+
+                Add a subscription for a member 🔐
+            get /members/thirdparty/{thirdparty}
+
+                Get properties of a member object by linked thirdparty 🔐
+            get /members/thirdparty/barcode/{barcode}
+
+                Get properties of a member object by linked thirdparty barcode 🔐
+            get /members/thirdparty/email/{email}
+
+                Get properties of a member object by linked thirdparty email 🔐
+            get /members/types
+
+                List members types 🔐
+            post /members/types
+
+                Create member type object 🔐
+            delete /members/types/{id}
+
+                Delete member type 🔐
+            get /members/types/{id}
+
+                Get properties of a member type object 🔐
+            put /members/types/{id}
+
+                Update member type 🔐
+    orders
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /orders
+
+                List orders 🔐
+            post /orders
+
+                Create a sale order 🔐
+            delete /orders/{id}
+
+                Delete order 🔐
+            get /orders/{id}
+
+                Get properties of an order object by id 🔐
+            put /orders/{id}
+
+                Update order general fields (won't touch lines of order) 🔐
+            post /orders/{id}/close
+
+                Close an order (Classify it as "Delivered") 🔐
+            delete /orders/{id}/contact/{contactid}/{type}
+
+                Unlink a contact type of given order 🔐
+            post /orders/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given order 🔐
+            get /orders/{id}/contacts
+
+                Get contacts of given order 🔐
+            get /orders/{id}/lines
+
+                Get lines of an order 🔐
+            post /orders/{id}/lines
+
+                Add a line to given order 🔐
+            delete /orders/{id}/lines/{lineid}
+
+                Delete a line of a given order 🔐
+            put /orders/{id}/lines/{lineid}
+
+                Update a line to given order 🔐
+            post /orders/{id}/reopen
+
+                Tag the order as validated (opened) 🔐
+            post /orders/{id}/setinvoiced
+
+                Classify the order as invoiced. Could be also called setbilled 🔐
+            post /orders/{id}/settodraft
+
+                Set an order to draft 🔐
+            get /orders/{id}/shipment
+
+                Get the shipments of an order 🔐
+            post /orders/{id}/shipment/{warehouse_id}
+
+                Create the shipment of an order 🔐
+            post /orders/{id}/validate
+
+                Validate an order 🔐
+            post /orders/createfromproposal/{proposalid}
+
+                Create an order using an existing proposal. 🔐
+            get /orders/ref_ext/{ref_ext}
+
+                Get properties of an order object by ref_ext 🔐
+            get /orders/ref/{ref}
+
+                Get properties of an order object by ref 🔐
+    products
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /products
+
+                List products 🔐
+            post /products
+
+                Create product object 🔐
+            delete /products/{id}
+
+                Delete product 🔐
+            get /products/{id}
+
+                Get properties of a product object by id 🔐
+            put /products/{id}
+
+                Update product. 🔐
+            get /products/{id}/categories
+
+                Get categories for a product 🔐
+            get /products/{id}/purchase_prices
+
+                Get purchase prices for a product 🔐
+            post /products/{id}/purchase_prices
+
+                Add/Update purchase prices for a product. 🔐
+            delete /products/{id}/purchase_prices/{priceid}
+
+                Delete purchase price for a product 🔐
+            get /products/{id}/selling_multiprices/per_customer
+
+                Get prices per customer for a product 🔐
+            get /products/{id}/selling_multiprices/per_quantity
+
+                Get prices per quantity for a product 🔐
+            get /products/{id}/selling_multiprices/per_segment
+
+                Get prices per segment for a product 🔐
+            get /products/{id}/stock
+
+                Get stock data for the product id given. 🔐
+            get /products/{id}/subproducts
+
+                Get the list of subproducts of the product. 🔐
+            post /products/{id}/subproducts/add
+
+                Add subproduct. 🔐
+            delete /products/{id}/subproducts/remove/{subproduct_id}
+
+                Remove subproduct. 🔐
+            get /products/{id}/variants
+
+                Get product variants. 🔐
+            post /products/{id}/variants
+
+                Add variant. 🔐
+            get /products/attributes
+
+                Get attributes. 🔐
+            post /products/attributes
+
+                Add attributes. 🔐
+            delete /products/attributes/{id}
+
+                Delete attributes by id. 🔐
+            get /products/attributes/{id}
+
+                Get attribute by ID. 🔐
+            put /products/attributes/{id}
+
+                Update attributes by id. 🔐
+            get /products/attributes/{id}/values
+
+                Get all values for an attribute id. 🔐
+            post /products/attributes/{id}/values
+
+                Add attribute value. 🔐
+            delete /products/attributes/{id}/values/ref/{ref}
+
+                Delete attribute value by ref. 🔐
+            get /products/attributes/{id}/values/ref/{ref}
+
+                Get attribute value by ref. 🔐
+            get /products/attributes/ref_ext/{ref_ext}
+
+                Get attributes by ref_ext. 🔐
+            get /products/attributes/ref/{ref}
+
+                Get attributes by ref. 🔐
+            get /products/attributes/ref/{ref}/values
+
+                Get all values for an attribute ref. 🔐
+            delete /products/attributes/values/{id}
+
+                Delete attribute value by id. 🔐
+            get /products/attributes/values/{id}
+
+                Get attribute value by id. 🔐
+            put /products/attributes/values/{id}
+
+                Update attribute value. 🔐
+            get /products/barcode/{barcode}
+
+                Get properties of a product object by barcode 🔐
+            get /products/purchase_prices
+
+                Get a list of all purchase prices of products 🔐
+            get /products/ref_ext/{ref_ext}
+
+                Get properties of a product object by ref_ext 🔐
+            get /products/ref/{ref}
+
+                Get properties of a product object by ref 🔐
+            get /products/ref/{ref}/variants
+
+                Get product variants by Product ref. 🔐
+            post /products/ref/{ref}/variants
+
+                Add variant by product ref. 🔐
+            delete /products/variants/{id}
+
+                Delete product variants. 🔐
+            put /products/variants/{id}
+
+                Put product variants. 🔐
+    projects
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /projects
+
+                List projects 🔐
+            post /projects
+
+                Create project object 🔐
+            delete /projects/{id}
+
+                Delete project 🔐
+            get /projects/{id}
+
+                Get properties of a project object 🔐
+            put /projects/{id}
+
+                Update project general fields (won't touch lines of project) 🔐
+            get /projects/{id}/roles
+
+                Get roles a user is assigned to a project with 🔐
+            get /projects/{id}/tasks
+
+                Get tasks of a project. 🔐
+            post /projects/{id}/validate
+
+                Validate a project. 🔐
+            get /projects/email_msgid/{email_msgid}
+
+                Get properties of a project object 🔐
+            get /projects/ref_ext/{ref_ext}
+
+                Get properties of a project object 🔐
+            get /projects/ref/{ref}
+
+                Get properties of a project object 🔐
+    proposals
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /proposals
+
+                List commercial proposals 🔐
+            post /proposals
+
+                Create commercial proposal object 🔐
+            delete /proposals/{id}
+
+                Delete commercial proposal 🔐
+            get /proposals/{id}
+
+                Get properties of a commercial proposal object 🔐
+            put /proposals/{id}
+
+                Update commercial proposal general fields (won't touch lines of commercial proposal) 🔐
+            post /proposals/{id}/close
+
+                Close (Accept or refuse) a quote / commercial proposal 🔐
+            delete /proposals/{id}/contact/{contactid}/{type}
+
+                Delete a contact type of given commercial proposal 🔐
+            post /proposals/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given commercial proposal 🔐
+            post /proposals/{id}/line
+
+                Add a line to given commercial proposal 🔐
+            get /proposals/{id}/lines
+
+                Get lines of a commercial proposal 🔐
+            post /proposals/{id}/lines
+
+                Add lines to given commercial proposal 🔐
+            delete /proposals/{id}/lines/{lineid}
+
+                Delete a line of given commercial proposal 🔐
+            put /proposals/{id}/lines/{lineid}
+
+                Update a line of given commercial proposal 🔐
+            post /proposals/{id}/setinvoiced
+
+                Set a commercial proposal billed. Could be also called setbilled 🔐
+            post /proposals/{id}/settodraft
+
+                Set a proposal to draft 🔐
+            post /proposals/{id}/validate
+
+                Validate a commercial proposal 🔐
+            get /proposals/ref_ext/{ref_ext}
+
+                Get properties of an proposal object by ref_ext 🔐
+            get /proposals/ref/{ref}
+
+                Get properties of an proposal object by ref 🔐
+    setup
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /setup/checkintegrity
+
+                Do a test of integrity for files and setup. 🔐
+            get /setup/company
+
+                Get properties of company 🔐
+            get /setup/conf/{constantname}
+
+                Get value of a setup variables 🔐
+            get /setup/dictionary/availability
+
+                Get the list of delivery times. 🔐
+            get /setup/dictionary/civilities
+
+                Get the list of civilities. 🔐
+            get /setup/dictionary/contact_types
+
+                Get the list of contacts types. 🔐
+            get /setup/dictionary/countries
+
+                Get the list of countries. 🔐
+            get /setup/dictionary/countries/{id}
+
+                Get country by ID. 🔐
+            get /setup/dictionary/countries/byCode/{code}
+
+                Get country by Code. 🔐
+            get /setup/dictionary/countries/byISO/{iso}
+
+                Get country by Iso. 🔐
+            get /setup/dictionary/currencies
+
+                Get the list of currencies. 🔐
+            get /setup/dictionary/event_types
+
+                Get the list of events types. 🔐
+            get /setup/dictionary/expensereport_types
+
+                Get the list of Expense Report types. 🔐
+            get /setup/dictionary/incoterms
+
+                Get the list of incoterms. 🔐
+            get /setup/dictionary/legal_form
+
+                Get the list of legal form of business. 🔐
+            get /setup/dictionary/ordering_methods
+
+                Get the list of ordering methods. 🔐
+            get /setup/dictionary/ordering_origins
+
+                Get the list of ordering origins. 🔐
+            get /setup/dictionary/payment_terms
+
+                Get the list of payments terms. 🔐
+            get /setup/dictionary/payment_types
+
+                Get the list of payments types. 🔐
+            get /setup/dictionary/regions
+
+                Get the list of regions. 🔐
+            get /setup/dictionary/regions/{id}
+
+                Get region by ID. 🔐
+            get /setup/dictionary/regions/byCode/{code}
+
+                Get region by Code. 🔐
+            get /setup/dictionary/shipping_methods
+
+                Get the list of shipping methods. 🔐
+            get /setup/dictionary/socialnetworks
+
+                Get the list of social networks. 🔐
+            get /setup/dictionary/staff
+
+                Get the list of staff. 🔐
+            get /setup/dictionary/states
+
+                Get the list of states/provinces. 🔐
+            get /setup/dictionary/states/{id}
+
+                Get state by ID. 🔐
+            get /setup/dictionary/states/byCode/{code}
+
+                Get state by Code. 🔐
+            get /setup/dictionary/ticket_categories
+
+                Get the list of tickets categories. 🔐
+            get /setup/dictionary/ticket_severities
+
+                Get the list of tickets severity. 🔐
+            get /setup/dictionary/ticket_types
+
+                Get the list of tickets types. 🔐
+            get /setup/dictionary/towns
+
+                Get the list of towns. 🔐
+            get /setup/dictionary/units
+
+                Get the list of measuring units. 🔐
+            get /setup/establishments
+
+                Get the list of establishments. 🔐
+            get /setup/establishments/{id}
+
+                Get establishment by ID. 🔐
+            get /setup/extrafields
+
+                Get the list of extra fields. 🔐
+            delete /setup/extrafields/{elementtype}/{attrname}
+
+                Delete extrafield 🔐
+            get /setup/extrafields/{elementtype}/{attrname}
+
+                🔐
+            post /setup/extrafields/{elementtype}/{attrname}
+
+                Create Extrafield object 🔐
+            put /setup/extrafields/{elementtype}/{attrname}
+
+                Update Extrafield object 🔐
+            get /setup/modules
+
+                Get list of enabled modules 🔐
+    shipments
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /shipments
+
+                List shipments 🔐
+            post /shipments
+
+                Create shipment object 🔐
+            delete /shipments/{id}
+
+                Delete shipment 🔐
+            get /shipments/{id}
+
+                Get properties of a shipment object 🔐
+            put /shipments/{id}
+
+                Update shipment general fields (won't touch lines of shipment) 🔐
+            post /shipments/{id}/close
+
+                Close a shipment (Classify it as "Delivered") 🔐
+            delete /shipments/{id}/lines/{lineid}
+
+                Delete a line to given shipment 🔐
+            post /shipments/{id}/validate
+
+                Validate a shipment 🔐
+    status
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /status
+
+                Get status (Dolibarr version) 🔐
+    stockmovements
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /stockmovements
+
+                Get a list of stock movement 🔐
+            post /stockmovements
+
+                Create stock movement object. 🔐
+    subscriptions
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /subscriptions
+
+                List subscriptions 🔐
+            post /subscriptions
+
+                Create subscription object 🔐
+            delete /subscriptions/{id}
+
+                Delete subscription 🔐
+            get /subscriptions/{id}
+
+                Get properties of a subscription object 🔐
+            put /subscriptions/{id}
+
+                Update subscription 🔐
+    supplierinvoices
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /supplierinvoices
+
+                List invoices 🔐
+            post /supplierinvoices
+
+                Create supplier invoice object 🔐
+            delete /supplierinvoices/{id}
+
+                Delete supplier invoice 🔐
+            get /supplierinvoices/{id}
+
+                Get properties of a supplier invoice object 🔐
+            put /supplierinvoices/{id}
+
+                Update supplier invoice 🔐
+            get /supplierinvoices/{id}/lines
+
+                Get lines of a supplier invoice 🔐
+            post /supplierinvoices/{id}/lines
+
+                Add a line to given supplier invoice 🔐
+            delete /supplierinvoices/{id}/lines/{lineid}
+
+                Deletes a line of a given supplier invoice 🔐
+            put /supplierinvoices/{id}/lines/{lineid}
+
+                Update a line to a given supplier invoice 🔐
+            get /supplierinvoices/{id}/payments
+
+                Get list of payments of a given supplier invoice 🔐
+            post /supplierinvoices/{id}/payments
+
+                Add payment line to a specific supplier invoice with the remain to pay as amount. 🔐
+            post /supplierinvoices/{id}/validate
+
+                Validate an invoice 🔐
+    supplierorders
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /supplierorders
+
+                List orders 🔐
+            post /supplierorders
+
+                Create supplier order object 🔐
+            delete /supplierorders/{id}
+
+                Delete supplier order 🔐
+            get /supplierorders/{id}
+
+                Get properties of a supplier order object 🔐
+            put /supplierorders/{id}
+
+                Update supplier order 🔐
+            post /supplierorders/{id}/approve
+
+                Approve an order 🔐
+            delete /supplierorders/{id}/contact/{contactid}/{type}/{source}
+
+                Unlink a contact type of given supplier order 🔐
+            post /supplierorders/{id}/contact/{contactid}/{type}/{source}
+
+                Add a contact type of given supplier order 🔐
+            get /supplierorders/{id}/contacts
+
+                Get contacts of given supplier order 🔐
+            post /supplierorders/{id}/makeorder
+
+                Sends an order to the vendor 🔐
+            post /supplierorders/{id}/receive
+
+                Receives the order, dispatches products. 🔐
+            post /supplierorders/{id}/validate
+
+                Validate an order 🔐
+    tasks
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /tasks
+
+                List tasks 🔐
+            post /tasks
+
+                Create task object 🔐
+            delete /tasks/{id}
+
+                Delete task 🔐
+            get /tasks/{id}
+
+                Get properties of a task object 🔐
+            put /tasks/{id}
+
+                Update task general fields (won't touch time spent of task) 🔐
+            post /tasks/{id}/addtimespent
+
+                Add time spent to a task of a project. 🔐
+            get /tasks/{id}/roles
+
+                Get roles a user is assigned to a task with 🔐
+            delete /tasks/{id}/timespent/{timespent_id}
+
+                Delete time spent for a task of a project. 🔐
+            put /tasks/{id}/timespent/{timespent_id}
+
+                Update time spent for a task of a project. 🔐
+            get /tasks/timespentrecordchecks/{id}
+
+                Validate task & timespent IDs for timespent API methods. 🔐
+    thirdparties
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /thirdparties
+
+                List thirdparties 🔐
+            post /thirdparties
+
+                Create thirdparty object 🔐
+            delete /thirdparties/{id}
+
+                Delete thirdparty 🔐
+            get /thirdparties/{id}
+
+                Get properties of a thirdparty object 🔐
+            put /thirdparties/{id}
+
+                Update thirdparty 🔐
+            delete /thirdparties/{id}/accounts
+
+                Delete all accounts attached to a thirdparty 🔐
+            get /thirdparties/{id}/accounts
+
+                Get a specific account attached to a thirdparty (by specifying the site key) 🔐
+            post /thirdparties/{id}/accounts
+
+                Create and attach a new account to an existing thirdparty 🔐
+            delete /thirdparties/{id}/accounts/{site}
+
+                Delete a specific site account attached to a thirdparty (by account id) 🔐
+            patch /thirdparties/{id}/accounts/{site}
+
+                Update specified values of a specific account attached to a thirdparty 🔐
+            put /thirdparties/{id}/accounts/{site}
+
+                Create and attach a new (or replace an existing) specific site account to a thirdparty 🔐
+            get /thirdparties/{id}/bankaccounts
+
+                Get CompanyBankAccount objects for thirdparty 🔐
+            post /thirdparties/{id}/bankaccounts
+
+                Create CompanyBankAccount object for thirdparty 🔐
+            delete /thirdparties/{id}/bankaccounts/{bankaccount_id}
+
+                Delete a bank account attached to a thirdparty 🔐
+            put /thirdparties/{id}/bankaccounts/{bankaccount_id}
+
+                Update CompanyBankAccount object for thirdparty 🔐
+            get /thirdparties/{id}/categories
+
+                Get customer categories for a thirdparty 🔐
+            delete /thirdparties/{id}/categories/{category_id}
+
+                Remove the link between a customer category and the thirdparty 🔐
+            put /thirdparties/{id}/categories/{category_id}
+
+                Add a customer category to a thirdparty 🔐
+            get /thirdparties/{id}/fixedamountdiscounts
+
+                Get fixed amount discount of a thirdparty (all sources: deposit, credit note, commercial offers...) 🔐
+            get /thirdparties/{id}/generateBankAccountDocument/{companybankid}/{model}
+
+                Generate a Document from a bank account record (like SEPA mandate) 🔐
+            get /thirdparties/{id}/getinvoicesqualifiedforcreditnote
+
+                Return list of invoices qualified to be corrected by a credit note. 🔐
+            get /thirdparties/{id}/getinvoicesqualifiedforreplacement
+
+                Return list of invoices qualified to be replaced by another invoice. 🔐
+            put /thirdparties/{id}/merge/{idtodelete}
+
+                Merge a third party into another one. 🔐
+            get /thirdparties/{id}/notifications
+
+                Get CompanyNotification objects for thirdparty 🔐
+            post /thirdparties/{id}/notifications
+
+                Create CompanyNotification object for thirdparty 🔐
+            delete /thirdparties/{id}/notifications/{notification_id}
+
+                Delete a CompanyNotification attached to a thirdparty 🔐
+            put /thirdparties/{id}/notifications/{notification_id}
+
+                Update CompanyNotification object for thirdparty 🔐
+            get /thirdparties/{id}/outstandinginvoices
+
+                Get outstanding invoices of thirdparty 🔐
+            get /thirdparties/{id}/outstandingorders
+
+                Get outstanding orders of thirdparty 🔐
+            get /thirdparties/{id}/outstandingproposals
+
+                Get outstanding proposals of thirdparty 🔐
+            delete /thirdparties/{id}/representative/{representative_id}
+
+                Delete a customer representative to a thirdparty 🔐
+            post /thirdparties/{id}/representative/{representative_id}
+
+                Add a customer representative to a thirdparty 🔐
+            get /thirdparties/{id}/representatives
+
+                Get representatives of thirdparty 🔐
+            put /thirdparties/{id}/setpricelevel/{priceLevel}
+
+                Set new price level for the given thirdparty 🔐
+            get /thirdparties/{id}/supplier_categories
+
+                Get supplier categories for a thirdparty 🔐
+            delete /thirdparties/{id}/supplier_categories/{category_id}
+
+                Remove the link between a category and the thirdparty 🔐
+            put /thirdparties/{id}/supplier_categories/{category_id}
+
+                Add a supplier category to a thirdparty 🔐
+            get /thirdparties/barcode/{barcode}
+
+                Get properties of a thirdparty object by barcode. 🔐
+            get /thirdparties/email/{email}
+
+                Get properties of a thirdparty object by email. 🔐
+    tickets
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /tickets
+
+                List tickets 🔐
+            post /tickets
+
+                Create ticket object 🔐
+            delete /tickets/{id}
+
+                Delete ticket 🔐
+            get /tickets/{id}
+
+                Get properties of a Ticket object. 🔐
+            put /tickets/{id}
+
+                Update ticket 🔐
+            post /tickets/newmessage
+
+                Add a new message to an existing ticket identified by property ->track_id into request. 🔐
+            get /tickets/ref/{ref}
+
+                Get properties of a Ticket object from ref 🔐
+            get /tickets/track_id/{track_id}
+
+                Get properties of a Ticket object from track id 🔐
+    users
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /users
+
+                List Users 🔐
+            post /users
+
+                Create user account 🔐
+            delete /users/{id}
+
+                Delete account/user 🔐
+            get /users/{id}
+
+                Get properties of an user object 🔐
+            put /users/{id}
+
+                Update user account 🔐
+            get /users/{id}/groups
+
+                List the groups of a user 🔐
+            get /users/{id}/setGroup/{group}
+
+                Add a user into a group 🔐
+            get /users/email/{email}
+
+                Get properties of an user object by Email 🔐
+            get /users/groups
+
+                List Groups 🔐
+            get /users/groups/{group}
+
+                Get properties of an group object 🔐
+            get /users/info
+
+                Get more properties of a user 🔐
+            get /users/login/{login}
+
+                Get properties of an user object by login 🔐
+    warehouses
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /warehouses
+
+                List warehouses 🔐
+            post /warehouses
+
+                Create warehouse object 🔐
+            delete /warehouses/{id}
+
+                Delete warehouse 🔐
+            get /warehouses/{id}
+
+                Get properties of a warehouse object 🔐
+            put /warehouses/{id}
+
+                Update warehouse 🔐
+
+[ base url: /api/index.php , api version: 1 ]

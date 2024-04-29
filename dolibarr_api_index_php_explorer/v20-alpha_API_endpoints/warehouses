@@ -1,0 +1,21 @@
+    warehouses
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /warehouses
+
+                List warehouses 🔐
+            post /warehouses
+
+                Create warehouse object 🔐
+            delete /warehouses/{id}
+
+                Delete warehouse 🔐
+            get /warehouses/{id}
+
+                Get properties of a warehouse object 🔐
+            put /warehouses/{id}
+
+                Update warehouse 🔐
+
+[ base url: /api/index.php , api version: 1 ]

@@ -1,0 +1,7 @@
+    status
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /status
+
+                Get status (Dolibarr version) 🔐

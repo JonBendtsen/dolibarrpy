@@ -1,0 +1,127 @@
+    setup
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /setup/checkintegrity
+
+                Do a test of integrity for files and setup. 🔐
+            get /setup/company
+
+                Get properties of company 🔐
+            get /setup/conf/{constantname}
+
+                Get value of a setup variables 🔐
+            get /setup/dictionary/availability
+
+                Get the list of delivery times. 🔐
+            get /setup/dictionary/civilities
+
+                Get the list of civilities. 🔐
+            get /setup/dictionary/contact_types
+
+                Get the list of contacts types. 🔐
+            get /setup/dictionary/countries
+
+                Get the list of countries. 🔐
+            get /setup/dictionary/countries/{id}
+
+                Get country by ID. 🔐
+            get /setup/dictionary/countries/byCode/{code}
+
+                Get country by Code. 🔐
+            get /setup/dictionary/countries/byISO/{iso}
+
+                Get country by Iso. 🔐
+            get /setup/dictionary/currencies
+
+                Get the list of currencies. 🔐
+            get /setup/dictionary/event_types
+
+                Get the list of events types. 🔐
+            get /setup/dictionary/expensereport_types
+
+                Get the list of Expense Report types. 🔐
+            get /setup/dictionary/incoterms
+
+                Get the list of incoterms. 🔐
+            get /setup/dictionary/legal_form
+
+                Get the list of legal form of business. 🔐
+            get /setup/dictionary/ordering_methods
+
+                Get the list of ordering methods. 🔐
+            get /setup/dictionary/ordering_origins
+
+                Get the list of ordering origins. 🔐
+            get /setup/dictionary/payment_terms
+
+                Get the list of payments terms. 🔐
+            get /setup/dictionary/payment_types
+
+                Get the list of payments types. 🔐
+            get /setup/dictionary/regions
+
+                Get the list of regions. 🔐
+            get /setup/dictionary/regions/{id}
+
+                Get region by ID. 🔐
+            get /setup/dictionary/regions/byCode/{code}
+
+                Get region by Code. 🔐
+            get /setup/dictionary/shipping_methods
+
+                Get the list of shipping methods. 🔐
+            get /setup/dictionary/socialnetworks
+
+                Get the list of social networks. 🔐
+            get /setup/dictionary/staff
+
+                Get the list of staff. 🔐
+            get /setup/dictionary/states
+
+                Get the list of states/provinces. 🔐
+            get /setup/dictionary/states/{id}
+
+                Get state by ID. 🔐
+            get /setup/dictionary/states/byCode/{code}
+
+                Get state by Code. 🔐
+            get /setup/dictionary/ticket_categories
+
+                Get the list of tickets categories. 🔐
+            get /setup/dictionary/ticket_severities
+
+                Get the list of tickets severity. 🔐
+            get /setup/dictionary/ticket_types
+
+                Get the list of tickets types. 🔐
+            get /setup/dictionary/towns
+
+                Get the list of towns. 🔐
+            get /setup/dictionary/units
+
+                Get the list of measuring units. 🔐
+            get /setup/establishments
+
+                Get the list of establishments. 🔐
+            get /setup/establishments/{id}
+
+                Get establishment by ID. 🔐
+            get /setup/extrafields
+
+                Get the list of extra fields. 🔐
+            delete /setup/extrafields/{elementtype}/{attrname}
+
+                Delete extrafield 🔐
+            get /setup/extrafields/{elementtype}/{attrname}
+
+                🔐
+            post /setup/extrafields/{elementtype}/{attrname}
+
+                Create Extrafield object 🔐
+            put /setup/extrafields/{elementtype}/{attrname}
+
+                Update Extrafield object 🔐
+            get /setup/modules
+
+                Get list of enabled modules 🔐

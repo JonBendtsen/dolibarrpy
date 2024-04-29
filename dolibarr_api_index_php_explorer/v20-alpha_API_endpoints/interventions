@@ -1,0 +1,25 @@
+    interventions
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /interventions
+
+                List of interventions Return a list of interventions 🔐
+            post /interventions
+
+                Create intervention object 🔐
+            delete /interventions/{id}
+
+                Delete order 🔐
+            get /interventions/{id}
+
+                Get properties of a Expense Report object Return an array with Expense Report information 🔐
+            post /interventions/{id}/close
+
+                Close an intervention 🔐
+            post /interventions/{id}/lines
+
+                Add a line to a given intervention 🔐
+            post /interventions/{id}/validate
+
+                Validate an intervention 🔐

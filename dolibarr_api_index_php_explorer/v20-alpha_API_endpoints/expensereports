@@ -1,0 +1,31 @@
+    expensereports
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /expensereports
+
+                List Expense Reports 🔐
+            post /expensereports
+
+                Create Expense Report object 🔐
+            delete /expensereports/{id}
+
+                Delete Expense Report 🔐
+            get /expensereports/{id}
+
+                Get properties of an Expense Report 🔐
+            put /expensereports/{id}
+
+                Update Expense Report general fields (won't touch lines of expensereport) 🔐
+            post /expensereports/{id}/payments
+
+                Create payment of ExpenseReport 🔐
+            put /expensereports/{id}/payments
+
+                Update a payment of ExpenseReport 🔐
+            get /expensereports/payments
+
+                Get the list of payments of expensereport. 🔐
+            get /expensereports/payments/{pid}
+
+                Get a given payment. 🔐

@@ -1,0 +1,121 @@
+    thirdparties
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /thirdparties
+
+                List thirdparties 🔐
+            post /thirdparties
+
+                Create thirdparty object 🔐
+            delete /thirdparties/{id}
+
+                Delete thirdparty 🔐
+            get /thirdparties/{id}
+
+                Get properties of a thirdparty object 🔐
+            put /thirdparties/{id}
+
+                Update thirdparty 🔐
+            delete /thirdparties/{id}/accounts
+
+                Delete all accounts attached to a thirdparty 🔐
+            get /thirdparties/{id}/accounts
+
+                Get a specific account attached to a thirdparty (by specifying the site key) 🔐
+            post /thirdparties/{id}/accounts
+
+                Create and attach a new account to an existing thirdparty 🔐
+            delete /thirdparties/{id}/accounts/{site}
+
+                Delete a specific site account attached to a thirdparty (by account id) 🔐
+            patch /thirdparties/{id}/accounts/{site}
+
+                Update specified values of a specific account attached to a thirdparty 🔐
+            put /thirdparties/{id}/accounts/{site}
+
+                Create and attach a new (or replace an existing) specific site account to a thirdparty 🔐
+            get /thirdparties/{id}/bankaccounts
+
+                Get CompanyBankAccount objects for thirdparty 🔐
+            post /thirdparties/{id}/bankaccounts
+
+                Create CompanyBankAccount object for thirdparty 🔐
+            delete /thirdparties/{id}/bankaccounts/{bankaccount_id}
+
+                Delete a bank account attached to a thirdparty 🔐
+            put /thirdparties/{id}/bankaccounts/{bankaccount_id}
+
+                Update CompanyBankAccount object for thirdparty 🔐
+            get /thirdparties/{id}/categories
+
+                Get customer categories for a thirdparty 🔐
+            delete /thirdparties/{id}/categories/{category_id}
+
+                Remove the link between a customer category and the thirdparty 🔐
+            put /thirdparties/{id}/categories/{category_id}
+
+                Add a customer category to a thirdparty 🔐
+            get /thirdparties/{id}/fixedamountdiscounts
+
+                Get fixed amount discount of a thirdparty (all sources: deposit, credit note, commercial offers...) 🔐
+            get /thirdparties/{id}/generateBankAccountDocument/{companybankid}/{model}
+
+                Generate a Document from a bank account record (like SEPA mandate) 🔐
+            get /thirdparties/{id}/getinvoicesqualifiedforcreditnote
+
+                Return list of invoices qualified to be corrected by a credit note. 🔐
+            get /thirdparties/{id}/getinvoicesqualifiedforreplacement
+
+                Return list of invoices qualified to be replaced by another invoice. 🔐
+            put /thirdparties/{id}/merge/{idtodelete}
+
+                Merge a third party into another one. 🔐
+            get /thirdparties/{id}/notifications
+
+                Get CompanyNotification objects for thirdparty 🔐
+            post /thirdparties/{id}/notifications
+
+                Create CompanyNotification object for thirdparty 🔐
+            delete /thirdparties/{id}/notifications/{notification_id}
+
+                Delete a CompanyNotification attached to a thirdparty 🔐
+            put /thirdparties/{id}/notifications/{notification_id}
+
+                Update CompanyNotification object for thirdparty 🔐
+            get /thirdparties/{id}/outstandinginvoices
+
+                Get outstanding invoices of thirdparty 🔐
+            get /thirdparties/{id}/outstandingorders
+
+                Get outstanding orders of thirdparty 🔐
+            get /thirdparties/{id}/outstandingproposals
+
+                Get outstanding proposals of thirdparty 🔐
+            delete /thirdparties/{id}/representative/{representative_id}
+
+                Delete a customer representative to a thirdparty 🔐
+            post /thirdparties/{id}/representative/{representative_id}
+
+                Add a customer representative to a thirdparty 🔐
+            get /thirdparties/{id}/representatives
+
+                Get representatives of thirdparty 🔐
+            put /thirdparties/{id}/setpricelevel/{priceLevel}
+
+                Set new price level for the given thirdparty 🔐
+            get /thirdparties/{id}/supplier_categories
+
+                Get supplier categories for a thirdparty 🔐
+            delete /thirdparties/{id}/supplier_categories/{category_id}
+
+                Remove the link between a category and the thirdparty 🔐
+            put /thirdparties/{id}/supplier_categories/{category_id}
+
+                Add a supplier category to a thirdparty 🔐
+            get /thirdparties/barcode/{barcode}
+
+                Get properties of a thirdparty object by barcode. 🔐
+            get /thirdparties/email/{email}
+
+                Get properties of a thirdparty object by email. 🔐

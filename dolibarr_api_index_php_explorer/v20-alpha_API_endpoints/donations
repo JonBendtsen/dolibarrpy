@@ -1,0 +1,22 @@
+    donations
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /donations
+
+                List donations 🔐
+            post /donations
+
+                Create donation object 🔐
+            delete /donations/{id}
+
+                Delete donation 🔐
+            get /donations/{id}
+
+                Get properties of an donation object 🔐
+            put /donations/{id}
+
+                Update order general fields (won't touch lines of order) 🔐
+            post /donations/{id}/validate
+
+                Validate an donation 🔐

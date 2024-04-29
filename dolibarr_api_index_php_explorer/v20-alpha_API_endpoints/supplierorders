@@ -1,0 +1,40 @@
+    supplierorders
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /supplierorders
+
+                List orders 🔐
+            post /supplierorders
+
+                Create supplier order object 🔐
+            delete /supplierorders/{id}
+
+                Delete supplier order 🔐
+            get /supplierorders/{id}
+
+                Get properties of a supplier order object 🔐
+            put /supplierorders/{id}
+
+                Update supplier order 🔐
+            post /supplierorders/{id}/approve
+
+                Approve an order 🔐
+            delete /supplierorders/{id}/contact/{contactid}/{type}/{source}
+
+                Unlink a contact type of given supplier order 🔐
+            post /supplierorders/{id}/contact/{contactid}/{type}/{source}
+
+                Add a contact type of given supplier order 🔐
+            get /supplierorders/{id}/contacts
+
+                Get contacts of given supplier order 🔐
+            post /supplierorders/{id}/makeorder
+
+                Sends an order to the vendor 🔐
+            post /supplierorders/{id}/receive
+
+                Receives the order, dispatches products. 🔐
+            post /supplierorders/{id}/validate
+
+                Validate an order 🔐

@@ -1,0 +1,19 @@
+    agendaevents
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /agendaevents
+
+                List Agenda Events 🔐
+            post /agendaevents
+
+                Create Agenda Event object 🔐
+            delete /agendaevents/{id}
+
+                Delete Agenda Event 🔐
+            get /agendaevents/{id}
+
+                Get properties of a Agenda Events object 🔐
+            put /agendaevents/{id}
+
+                Update Agenda Event general fields 🔐

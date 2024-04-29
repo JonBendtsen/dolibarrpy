@@ -1,0 +1,34 @@
+    tasks
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /tasks
+
+                List tasks 🔐
+            post /tasks
+
+                Create task object 🔐
+            delete /tasks/{id}
+
+                Delete task 🔐
+            get /tasks/{id}
+
+                Get properties of a task object 🔐
+            put /tasks/{id}
+
+                Update task general fields (won't touch time spent of task) 🔐
+            post /tasks/{id}/addtimespent
+
+                Add time spent to a task of a project. 🔐
+            get /tasks/{id}/roles
+
+                Get roles a user is assigned to a task with 🔐
+            delete /tasks/{id}/timespent/{timespent_id}
+
+                Delete time spent for a task of a project. 🔐
+            put /tasks/{id}/timespent/{timespent_id}
+
+                Update time spent for a task of a project. 🔐
+            get /tasks/timespentrecordchecks/{id}
+
+                Validate task & timespent IDs for timespent API methods. 🔐

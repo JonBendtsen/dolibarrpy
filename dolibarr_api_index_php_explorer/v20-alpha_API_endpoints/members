@@ -1,0 +1,52 @@
+    members
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /members
+
+                List members 🔐
+            post /members
+
+                Create member object 🔐
+            delete /members/{id}
+
+                Delete member 🔐
+            get /members/{id}
+
+                Get properties of a member object 🔐
+            put /members/{id}
+
+                Update member 🔐
+            get /members/{id}/categories
+
+                Get categories for a member 🔐
+            get /members/{id}/subscriptions
+
+                List subscriptions of a member 🔐
+            post /members/{id}/subscriptions
+
+                Add a subscription for a member 🔐
+            get /members/thirdparty/{thirdparty}
+
+                Get properties of a member object by linked thirdparty 🔐
+            get /members/thirdparty/barcode/{barcode}
+
+                Get properties of a member object by linked thirdparty barcode 🔐
+            get /members/thirdparty/email/{email}
+
+                Get properties of a member object by linked thirdparty email 🔐
+            get /members/types
+
+                List members types 🔐
+            post /members/types
+
+                Create member type object 🔐
+            delete /members/types/{id}
+
+                Delete member type 🔐
+            get /members/types/{id}
+
+                Get properties of a member type object 🔐
+            put /members/types/{id}
+
+                Update member type 🔐

@@ -1,0 +1,40 @@
+    supplierinvoices
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /supplierinvoices
+
+                List invoices 🔐
+            post /supplierinvoices
+
+                Create supplier invoice object 🔐
+            delete /supplierinvoices/{id}
+
+                Delete supplier invoice 🔐
+            get /supplierinvoices/{id}
+
+                Get properties of a supplier invoice object 🔐
+            put /supplierinvoices/{id}
+
+                Update supplier invoice 🔐
+            get /supplierinvoices/{id}/lines
+
+                Get lines of a supplier invoice 🔐
+            post /supplierinvoices/{id}/lines
+
+                Add a line to given supplier invoice 🔐
+            delete /supplierinvoices/{id}/lines/{lineid}
+
+                Deletes a line of a given supplier invoice 🔐
+            put /supplierinvoices/{id}/lines/{lineid}
+
+                Update a line to a given supplier invoice 🔐
+            get /supplierinvoices/{id}/payments
+
+                Get list of payments of a given supplier invoice 🔐
+            post /supplierinvoices/{id}/payments
+
+                Add payment line to a specific supplier invoice with the remain to pay as amount. 🔐
+            post /supplierinvoices/{id}/validate
+
+                Validate an invoice 🔐

@@ -1,0 +1,37 @@
+    categories
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /categories
+
+                List categories 🔐
+            post /categories
+
+                Create category object 🔐
+            delete /categories/{id}
+
+                Delete category 🔐
+            get /categories/{id}
+
+                Get properties of a category object 🔐
+            put /categories/{id}
+
+                Update category 🔐
+            get /categories/{id}/objects
+
+                Get the list of objects in a category. 🔐
+            delete /categories/{id}/objects/{type}/{object_id}
+
+                Unlink an object from a category by id 🔐
+            post /categories/{id}/objects/{type}/{object_id}
+
+                Link an object to a category by id 🔐
+            delete /categories/{id}/objects/{type}/ref/{object_ref}
+
+                Unlink an object from a category by ref 🔐
+            post /categories/{id}/objects/{type}/ref/{object_ref}
+
+                Link an object to a category by ref 🔐
+            get /categories/object/{type}/{id}
+
+                List categories of an object 🔐

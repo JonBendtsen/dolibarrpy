@@ -1,0 +1,10 @@
+    stockmovements
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /stockmovements
+
+                Get a list of stock movement 🔐
+            post /stockmovements
+
+                Create stock movement object. 🔐

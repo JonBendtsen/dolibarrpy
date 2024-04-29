@@ -1,0 +1,28 @@
+    tickets
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /tickets
+
+                List tickets 🔐
+            post /tickets
+
+                Create ticket object 🔐
+            delete /tickets/{id}
+
+                Delete ticket 🔐
+            get /tickets/{id}
+
+                Get properties of a Ticket object. 🔐
+            put /tickets/{id}
+
+                Update ticket 🔐
+            post /tickets/newmessage
+
+                Add a new message to an existing ticket identified by property ->track_id into request. 🔐
+            get /tickets/ref/{ref}
+
+                Get properties of a Ticket object from ref 🔐
+            get /tickets/track_id/{track_id}
+
+                Get properties of a Ticket object from track id 🔐

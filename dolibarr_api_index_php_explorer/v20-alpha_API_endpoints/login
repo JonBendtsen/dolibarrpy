@@ -1,0 +1,10 @@
+    login
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /login
+
+                Login 🔓
+            post /login
+
+                Login 🔓

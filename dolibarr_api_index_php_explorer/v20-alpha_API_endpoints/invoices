@@ -1,0 +1,91 @@
+    invoices
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /invoices
+
+                List invoices 🔐
+            post /invoices
+
+                Create invoice object 🔐
+            delete /invoices/{id}
+
+                Delete invoice 🔐
+            get /invoices/{id}
+
+                Get properties of a invoice object 🔐
+            put /invoices/{id}
+
+                Update invoice 🔐
+            delete /invoices/{id}/contact/{contactid}/{type}
+
+                Delete a contact type of given invoice 🔐
+            post /invoices/{id}/contact/{contactid}/{type}
+
+                Add a contact type of given invoice 🔐
+            post /invoices/{id}/contacts
+
+                Adds a contact to an invoice 🔐
+            get /invoices/{id}/discount
+
+                Get discount from invoice 🔐
+            get /invoices/{id}/lines
+
+                Get lines of an invoice 🔐
+            post /invoices/{id}/lines
+
+                Add a line to a given invoice 🔐
+            delete /invoices/{id}/lines/{lineid}
+
+                Deletes a line of a given invoice 🔐
+            put /invoices/{id}/lines/{lineid}
+
+                Update a line to a given invoice 🔐
+            post /invoices/{id}/markAsCreditAvailable
+
+                Create a discount (credit available) for a credit note or a deposit. 🔐
+            get /invoices/{id}/payments
+
+                Get list of payments of a given invoice 🔐
+            post /invoices/{id}/payments
+
+                Add payment line to a specific invoice with the remain to pay as amount. 🔐
+            post /invoices/{id}/settodraft
+
+                Sets an invoice as draft 🔐
+            post /invoices/{id}/settopaid
+
+                Sets an invoice as paid 🔐
+            post /invoices/{id}/settounpaid
+
+                Sets an invoice as unpaid 🔐
+            post /invoices/{id}/usecreditnote/{discountid}
+
+                Add an available credit note discount to payments of an existing invoice. 🔐
+            post /invoices/{id}/usediscount/{discountid}
+
+                Add a discount line into an invoice (as an invoice line) using an existing absolute discount 🔐
+            post /invoices/{id}/validate
+
+                Validate an invoice 🔐
+            post /invoices/createfromcontract/{contractid}
+
+                Create an invoice using a contract. 🔐
+            post /invoices/createfromorder/{orderid}
+
+                Create an invoice using an existing order. 🔐
+            put /invoices/payments/{id}
+
+                Update a payment 🔐
+            post /invoices/paymentsdistributed
+
+                Add a payment to pay partially or completely one or several invoices. 🔐
+            get /invoices/ref_ext/{ref_ext}
+
+                Get properties of an invoice object by ref_ext 🔐
+            get /invoices/ref/{ref}
+
+                Get properties of an invoice object by ref 🔐
+            get /invoices/templates/{id}
+
+                Get properties of a template invoice object 🔐

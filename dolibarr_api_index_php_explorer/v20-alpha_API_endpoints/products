@@ -1,0 +1,127 @@
+    products
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /products
+
+                List products 🔐
+            post /products
+
+                Create product object 🔐
+            delete /products/{id}
+
+                Delete product 🔐
+            get /products/{id}
+
+                Get properties of a product object by id 🔐
+            put /products/{id}
+
+                Update product. 🔐
+            get /products/{id}/categories
+
+                Get categories for a product 🔐
+            get /products/{id}/purchase_prices
+
+                Get purchase prices for a product 🔐
+            post /products/{id}/purchase_prices
+
+                Add/Update purchase prices for a product. 🔐
+            delete /products/{id}/purchase_prices/{priceid}
+
+                Delete purchase price for a product 🔐
+            get /products/{id}/selling_multiprices/per_customer
+
+                Get prices per customer for a product 🔐
+            get /products/{id}/selling_multiprices/per_quantity
+
+                Get prices per quantity for a product 🔐
+            get /products/{id}/selling_multiprices/per_segment
+
+                Get prices per segment for a product 🔐
+            get /products/{id}/stock
+
+                Get stock data for the product id given. 🔐
+            get /products/{id}/subproducts
+
+                Get the list of subproducts of the product. 🔐
+            post /products/{id}/subproducts/add
+
+                Add subproduct. 🔐
+            delete /products/{id}/subproducts/remove/{subproduct_id}
+
+                Remove subproduct. 🔐
+            get /products/{id}/variants
+
+                Get product variants. 🔐
+            post /products/{id}/variants
+
+                Add variant. 🔐
+            get /products/attributes
+
+                Get attributes. 🔐
+            post /products/attributes
+
+                Add attributes. 🔐
+            delete /products/attributes/{id}
+
+                Delete attributes by id. 🔐
+            get /products/attributes/{id}
+
+                Get attribute by ID. 🔐
+            put /products/attributes/{id}
+
+                Update attributes by id. 🔐
+            get /products/attributes/{id}/values
+
+                Get all values for an attribute id. 🔐
+            post /products/attributes/{id}/values
+
+                Add attribute value. 🔐
+            delete /products/attributes/{id}/values/ref/{ref}
+
+                Delete attribute value by ref. 🔐
+            get /products/attributes/{id}/values/ref/{ref}
+
+                Get attribute value by ref. 🔐
+            get /products/attributes/ref_ext/{ref_ext}
+
+                Get attributes by ref_ext. 🔐
+            get /products/attributes/ref/{ref}
+
+                Get attributes by ref. 🔐
+            get /products/attributes/ref/{ref}/values
+
+                Get all values for an attribute ref. 🔐
+            delete /products/attributes/values/{id}
+
+                Delete attribute value by id. 🔐
+            get /products/attributes/values/{id}
+
+                Get attribute value by id. 🔐
+            put /products/attributes/values/{id}
+
+                Update attribute value. 🔐
+            get /products/barcode/{barcode}
+
+                Get properties of a product object by barcode 🔐
+            get /products/purchase_prices
+
+                Get a list of all purchase prices of products 🔐
+            get /products/ref_ext/{ref_ext}
+
+                Get properties of a product object by ref_ext 🔐
+            get /products/ref/{ref}
+
+                Get properties of a product object by ref 🔐
+            get /products/ref/{ref}/variants
+
+                Get product variants by Product ref. 🔐
+            post /products/ref/{ref}/variants
+
+                Add variant by product ref. 🔐
+            delete /products/variants/{id}
+
+                Delete product variants. 🔐
+            put /products/variants/{id}
+
+                Put product variants. 🔐

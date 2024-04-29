@@ -1,0 +1,43 @@
+    contracts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /contracts
+
+                List contracts 🔐
+            post /contracts
+
+                Create contract object 🔐
+            delete /contracts/{id}
+
+                Delete contract 🔐
+            get /contracts/{id}
+
+                Get properties of a contract object 🔐
+            put /contracts/{id}
+
+                Update contract general fields (won't touch lines of contract) 🔐
+            post /contracts/{id}/close
+
+                Close all services of a contract 🔐
+            get /contracts/{id}/lines
+
+                Get lines of a contract 🔐
+            post /contracts/{id}/lines
+
+                Add a line to given contract 🔐
+            delete /contracts/{id}/lines/{lineid}
+
+                Delete a line to given contract 🔐
+            put /contracts/{id}/lines/{lineid}
+
+                Update a line to given contract 🔐
+            put /contracts/{id}/lines/{lineid}/activate
+
+                Activate a service line of a given contract 🔐
+            put /contracts/{id}/lines/{lineid}/unactivate
+
+                Unactivate a service line of a given contract 🔐
+            post /contracts/{id}/validate
+
+                Validate a contract 🔐

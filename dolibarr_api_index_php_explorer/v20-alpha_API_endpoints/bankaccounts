@@ -1,0 +1,40 @@
+    bankaccounts
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /bankaccounts
+
+                Get the list of accounts. 🔐
+            post /bankaccounts
+
+                Create account object 🔐
+            delete /bankaccounts/{id}
+
+                Delete account 🔐
+            get /bankaccounts/{id}
+
+                Get account by ID. 🔐
+            put /bankaccounts/{id}
+
+                Update account 🔐
+            get /bankaccounts/{id}/lines
+
+                Get the list of lines of the account. 🔐
+            post /bankaccounts/{id}/lines
+
+                Add a line to an account 🔐
+            delete /bankaccounts/{id}/lines/{line_id}
+
+                Delete an account line 🔐
+            put /bankaccounts/{id}/lines/{line_id}
+
+                Update an account line 🔐
+            get /bankaccounts/{id}/lines/{line_id}/links
+
+                Get the list of links for a line of the account. 🔐
+            post /bankaccounts/{id}/lines/{line_id}/links
+
+                Add a link to an account line 🔐
+            post /bankaccounts/transfer
+
+                Create an internal wire transfer between two bank accounts 🔐

@@ -1,0 +1,28 @@
+    shipments
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /shipments
+
+                List shipments 🔐
+            post /shipments
+
+                Create shipment object 🔐
+            delete /shipments/{id}
+
+                Delete shipment 🔐
+            get /shipments/{id}
+
+                Get properties of a shipment object 🔐
+            put /shipments/{id}
+
+                Update shipment general fields (won't touch lines of shipment) 🔐
+            post /shipments/{id}/close
+
+                Close a shipment (Classify it as "Delivered") 🔐
+            delete /shipments/{id}/lines/{lineid}
+
+                Delete a line to given shipment 🔐
+            post /shipments/{id}/validate
+
+                Validate a shipment 🔐

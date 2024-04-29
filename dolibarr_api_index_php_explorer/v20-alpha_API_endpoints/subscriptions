@@ -1,0 +1,19 @@
+    subscriptions
+        Show/Hide
+        List Operations
+        Expand Operations
+            get /subscriptions
+
+                List subscriptions 🔐
+            post /subscriptions
+
+                Create subscription object 🔐
+            delete /subscriptions/{id}
+
+                Delete subscription 🔐
+            get /subscriptions/{id}
+
+                Get properties of a subscription object 🔐
+            put /subscriptions/{id}
+
+                Update subscription 🔐
