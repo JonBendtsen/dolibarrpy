@@ -825,6 +825,7 @@ class Dolibarrpy():
 
     def get_thirdparties_bankaccounts_by_tid(self, objid):
         """
+        @endpoint 'get /thirdparties/{id}/bankaccounts'
         Get thirdparty bankaccounts based on thirdparty id
         @return: list of thirdparty bankaccounts
         """
