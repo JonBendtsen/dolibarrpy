@@ -1011,6 +1011,7 @@ class Dolibarrpy():
     # CONTACTS
     def find_all_contacts(self, from_ContactFilter = None):
         """
+        @endpoint 'get /contacts'
         Get all contacts
         @param from_ContactFilter:
         @return: list of a contacts
@@ -1055,6 +1056,7 @@ class Dolibarrpy():
 
     def get_contact_by_cid(self, objid, includecount = 0, includeroles = 0):
         """
+        @endpoint 'get /contacts/{id}'
         Get contact based on contact id
         @includecount Count and return also number of elements the contact is used as a link for
         @includeroles Includes roles of the contact
@@ -1066,6 +1068,7 @@ class Dolibarrpy():
 
     def get_contact_by_email(self, email, includecount = 0, includeroles = 0):
         """
+        @endpoint 'get /contacts/email/{email}'
         Get contact based on contact email
         @includecount Count and return also number of elements the contact is used as a link for
         @includeroles Includes roles of the contact
@@ -1077,6 +1080,7 @@ class Dolibarrpy():
 
     def get_all_contacts_categories_by_cid(self, objid, from_ContactFilter = None):
         """
+        @endpoint 'get /contacts/{id}/categories'
         Get all categories for a contact based on it's contact_id
         @param from_ContactFilter:
         @return: list of a contacts categories
