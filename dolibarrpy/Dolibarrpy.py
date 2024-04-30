@@ -240,6 +240,7 @@ class Dolibarrpy():
 
     def get_orders_by_status(self, status):
         """
+        @endpoint 'get /orders'
         Get orders by status
         @param status: 0 => draft, 1 => validated
         @return: list of orders
@@ -253,12 +254,16 @@ class Dolibarrpy():
         return result
 
     def get_order_by_id(self, objid):
+        """
+        @endpoint 'get /orders/{id}'
+        """
         result = self.call_get_api('orders', objid=objid)
         return result
 
     # SHIPMENTS
     def find_all_shipments(self, from_ShipmentFilter = None):
         """
+        @endpoint 'get /shipments'
         Get all shipments
         @param from_ShipmentFilter:
         @return: list of a shipments
@@ -302,6 +307,9 @@ class Dolibarrpy():
         return result
 
     def get_shipment_by_id(self, objid):
+        """
+        @endpoint 'get /shipments/{id}'
+        """
         result = self.call_get_api('shipments', objid=objid)
         return result
 
@@ -316,6 +324,9 @@ class Dolibarrpy():
         self.call_update_api('shipments', objid, params=params)
 
     def get_shipments_by_orderid(self, order_id):
+        """
+        @endpoint 'get /orders/{id}/shipment'
+        """
         order = self.get_order_by_id(order_id)
         links = order.get('linkedObjectsIds')
         if links:
@@ -330,6 +341,7 @@ class Dolibarrpy():
 
     def get_shipments_by_status(self, status):
         """
+        @endpoint 'get /shipments'
         Get shipments by status
         @param status: 0 => draft, 1 => validated
         @return: list of shipments
@@ -345,6 +357,9 @@ class Dolibarrpy():
         return erp_shipments
 
     def create_shipment_from_order(self, order_id, address_id=0, shipping_method_id=0, date_delivery=0, tracking_number=''):
+        """
+        @endpoint 'post /orders/{id}/shipment/{warehouse_id}'
+        """
         # This creates a complete fulfillment shipment for an order
         # get order
         order = self.get_order_by_id(order_id)
@@ -399,6 +414,9 @@ class Dolibarrpy():
 
 
     def set_shipment_to_validated(self, shipment_id):
+        """
+        @endpoint 'post /shipments/{id}/validate'
+        """
         params = {
           "notrigger": 0
         }
@@ -406,12 +424,18 @@ class Dolibarrpy():
 
     # ORDERS
     def set_order_to_draft(self, order_id, idwarehouse=1):
+        """
+        @endpoint 'post /orders/{id}/settodraft'
+        """
         params = {
           "idwarehouse": idwarehouse
         }
         return self.call_action_api('orders', order_id, 'settodraft', params=params)
 
     def set_order_to_validated(self, order_id, idwarehouse=1):
+        """
+        @endpoint 'post /orders/{id}/validate'
+        """
         params = {
           "idwarehouse": idwarehouse
         }
@@ -419,6 +443,9 @@ class Dolibarrpy():
 
     # PRODUCTS
     def get_product_by_id(self, objid, includestockdata=1):
+        """
+        @endpoint 'get /products/{id}'
+        """
         if includestockdata == 1:
             objid = str(objid) + '?includestockdata=1'
         result = self.call_get_api('products', objid=objid)
@@ -432,6 +459,7 @@ class Dolibarrpy():
     # PROJECTS
     def find_all_projects(self, with_status = ''):
         """
+        @endpoint 'get /projects'
         Get projects with status
         @param with_status: 0 => draft, 1 => open, 2=> closed
         @return: list of projects
@@ -471,6 +499,7 @@ class Dolibarrpy():
 
     def get_project_by_pid(self, objid):
         """
+        @endpoint 'get /projects/{id}'
         Get project based on project id
         @return: project 
         """
@@ -479,6 +508,7 @@ class Dolibarrpy():
 
     def get_project_tasks_by_pid(self, objid, includetimespent=0):
         """
+        @endpoint 'get /projects/{id}/tasks'
         Get project tasks based on project id
         @param includetimespent: 0 => Return only list of tasks, 1 => Include a summary of time spent, 2=> Include details of time spent lines
         @return: list of project tasks
@@ -489,6 +519,7 @@ class Dolibarrpy():
 
     def get_project_roles_by_pid(self, objid, userid=0):
         """
+        @endpoint 'get /projects/{id}/roles'
         Get project roles based on project id
         @param userid: 0 => connected user, Any other number than 0 is interpretated as a user id and if that user has roles on that project, they are shown.
         @return: list of project roles
@@ -499,6 +530,7 @@ class Dolibarrpy():
 
     def get_project_by_ref(self, ref):
         """
+        @endpoint 'get /projects/ref/{ref}'
         Get project tasks based on project ref
         @return: project
         """
@@ -515,6 +547,7 @@ class Dolibarrpy():
 
     def get_project_by_ref_ext(self, ref_ext):
         """
+        @endpoint 'get /projects/ref_ext/{ref_ext}'
         Get project tasks based on project ref_ext
         @return: project
         """
@@ -531,6 +564,7 @@ class Dolibarrpy():
 
     def get_project_by_email_msgid(self, email_msgid):
         """
+        @endpoint 'get /projects/email_msgid/{email_msgid}'
         Get project tasks based on project email_msgid
         @return: project
         """
@@ -549,6 +583,7 @@ class Dolibarrpy():
     # MEMBERS
     def find_all_members(self, from_MemberFilter = None):
         """
+        @endpoint 'get /members'
         Get members with status
         @param from_MemberFilter: 0 => draft, 1 => open, 2=> closed
         @return: list of members
@@ -594,6 +629,7 @@ class Dolibarrpy():
 
     def get_member_by_mid(self, objid):
         """
+        @endpoint 'get /members/{id}'
         Get member based on member id
         @return: member
         """
@@ -602,6 +638,7 @@ class Dolibarrpy():
 
     def get_member_subscriptions_by_mid(self, objid):
         """
+        @endpoint 'get /members/{id}/subscriptions'
         Get member subscriptions based on member id
         @return: list of member subscriptions
         """
@@ -611,6 +648,7 @@ class Dolibarrpy():
 
     def get_member_by_thirdparty_id(self, objid):
         """
+        @endpoint 'get /members/thirdparty/{thirdparty}'
         Get member based on thirdparty id
         @return: member
         """
@@ -620,6 +658,7 @@ class Dolibarrpy():
 
     def get_member_by_thirdparty_barcode(self, barcode):
         """
+        @endpoint 'get /members/thirdparty/barcode/{barcode}'
         Get member based on thirdparty barcode
         @return: member
         """
@@ -629,6 +668,7 @@ class Dolibarrpy():
 
     def get_member_by_thirdparty_email(self, email):
         """
+        @endpoint 'get /members/thirdparty/email/{email}'
         Get member based on thirdparty email
         @return: member
         """
@@ -638,6 +678,7 @@ class Dolibarrpy():
 
     def find_all_member_types(self, from_MemberFilter = None):
         """
+        @endpoint 'get /members/types'
         Get member_types
         @param from_MemberFilter: 0 => draft, 1 => open, 2=> closed
         @return: list of member_types
@@ -689,6 +730,7 @@ class Dolibarrpy():
 
     def get_all_member_categories_by_mid(self, objid, from_MemberFilter = None):
         """
+        @endpoint 'get /members/{id}/categories'
         Get all categories for a member
         @param from_MemberFilter:
         @return: list of a members categories
@@ -1146,6 +1188,7 @@ class Dolibarrpy():
     # SUBSCRIPTIONS
     def find_all_subscriptions(self, from_SubscriptionFilter = None):
         """
+        @endpoint 'get /subscriptions'
         Get all subscriptions
         @param from_SubscriptionFilter:
         @return: list of a subscriptions
@@ -1190,6 +1233,7 @@ class Dolibarrpy():
 
     def get_subscription_by_sid(self, objid):
         """
+        @endpoint 'get /subscriptions/{id}'
         Get subscription based on subscription id
         @return: subscription
         """
@@ -1199,6 +1243,7 @@ class Dolibarrpy():
     # PROPOSALS
     def find_all_proposals(self, from_ProposalFilter = None):
         """
+        @endpoint 'get /proposals'
         Get all proposals
         @param from_ProposalFilter:
         @return: list of a proposals
@@ -1243,6 +1288,7 @@ class Dolibarrpy():
 
     def get_proposal_by_pid(self, objid, contact_list = 1):
         """
+        @endpoint 'get /proposals/{id}'
         Get proposal based on proposal id
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: proposal
@@ -1253,6 +1299,7 @@ class Dolibarrpy():
 
     def get_proposal_by_ref(self, objref, contact_list = 1):
         """
+        @endpoint 'get /proposals/ref/{ref}'
         Get proposal based on proposal ref
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: proposal
@@ -1264,6 +1311,7 @@ class Dolibarrpy():
     # 2024-04-22 doesn't work for me in my Dolibarr
     def get_proposal_by_ref_ext(self, objref_ext, contact_list = 1):
         """
+        @endpoint 'get /proposals/ref_ext/{ref_ext}'
         Get proposal based on proposal ref_ext
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: proposal
@@ -1274,6 +1322,7 @@ class Dolibarrpy():
 
     def get_proposal_lines_by_pid(self, objid, sqlfilters):
         """
+        @endpoint 'get /proposals/{id}/lines'
         Get proposal lines based on proposal id
         @sqlfilters string Other criteria to filter answers separated by a comma. d is the alias for proposal lines table, p is the alias for product table. "Syntax example "(p.ref:like:'SO-%') AND (d.date_start:
         @return: proposal lines
@@ -1285,6 +1334,7 @@ class Dolibarrpy():
     # ORDERS
     def find_all_orders(self, from_OrderFilter = None):
         """
+        @endpoint 'get /orders'
         Get all orders
         @param from_OrderFilter:
         @return: list of a orders
@@ -1329,6 +1379,7 @@ class Dolibarrpy():
 
     def get_order_by_oid(self, objid, contact_list = 1):
         """
+        @endpoint 'get /orders/{id}'
         Get order based on order id
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: order
@@ -1339,6 +1390,7 @@ class Dolibarrpy():
 
     def get_order_contacts_by_oid(self, objid, ctype = ''):
         """
+        @endpoint 'get /orders/{id}/contacts'
         Get order based on order id and contact type
         @ctype string Type of the contact (BILLING, SHIPPING, CUSTOMER)
         @return: order
@@ -1349,6 +1401,7 @@ class Dolibarrpy():
 
     def get_order_by_ref(self, objref, contact_list = 1):
         """
+        @endpoint 'get /orders/ref/{ref}'
         Get order based on order ref
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: order
@@ -1360,6 +1413,7 @@ class Dolibarrpy():
     # 2024-04-22 doesn't work for me in my Dolibarr
     def get_order_by_ref_ext(self, objref_ext, contact_list = 1):
         """
+        @endpoint 'get /orders/ref_ext/{ref_ext}'
         Get order based on order ref_ext
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: order
@@ -1370,6 +1424,7 @@ class Dolibarrpy():
 
     def get_order_lines_by_oid(self, objid):
         """
+        @endpoint 'get /orders/{id}/lines'
         Get order lines based on order id
         @return: order lines
         """
@@ -1379,6 +1434,7 @@ class Dolibarrpy():
 
     def get_order_shipment_by_oid(self, objid):
         """
+        @endpoint 'get /orders/{id}/shipment'
         Get order shipment based on order id
         @return: order shipment
         """
@@ -1389,6 +1445,7 @@ class Dolibarrpy():
     # INVOICES
     def find_all_invoices(self, from_InvoiceFilter = None):
         """
+        @endpoint 'get /invoices'
         Get all invoices
         @param from_InvoiceFilter:
         @return: list of a invoices
@@ -1433,6 +1490,7 @@ class Dolibarrpy():
 
     def get_invoice_by_iid(self, objid, contact_list = 1):
         """
+        @endpoint 'get /invoices/{id}'
         Get invoice based on invoice id
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: invoice
@@ -1443,6 +1501,7 @@ class Dolibarrpy():
 
     def get_invoice_discounts_by_iid(self, objid):
         """
+        @endpoint 'get /invoices/{id}/discount'
         Get invoice discounts based on invoice id
         @return: discount
         """
@@ -1452,6 +1511,7 @@ class Dolibarrpy():
 
     def get_invoice_by_ref(self, objref, contact_list = 1):
         """
+        @endpoint 'get /invoices/ref/{ref}'
         Get invoice based on invoice ref
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: invoice
@@ -1463,6 +1523,7 @@ class Dolibarrpy():
     # 2024-04-22 doesn't work for me in my Dolibarr
     def get_invoice_by_ref_ext(self, objref_ext, contact_list = 1):
         """
+        @endpoint 'get /invoices/ref_ext/{ref_ext}'
         Get invoice based on invoice ref_ext
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: invoice
@@ -1473,6 +1534,7 @@ class Dolibarrpy():
 
     def get_invoice_lines_by_iid(self, objid):
         """
+        @endpoint 'get /invoices/{id}/lines'
         Get invoice lines based on invoice id
         @return: invoice lines
         """
@@ -1482,6 +1544,7 @@ class Dolibarrpy():
 
     def get_invoice_payments_by_iid(self, objid):
         """
+        @endpoint 'get /invoices/{id}/payments'
         Get invoice payments based on invoice id
         @return: invoice payments
         """
@@ -1491,6 +1554,7 @@ class Dolibarrpy():
 
     def get_invoice_template_by_tid(self, objid, contact_list = 1):
         """
+        @endpoint 'get /invoices/templates/{id}'
         Get invoice payments based on invoice template id
         @contact_list int 1: Return array contains just id (default), 0: Returned array of contacts/addresses contains all properties
         @return: invoice payments
@@ -1503,6 +1567,7 @@ class Dolibarrpy():
     # INTERVENTIONS
     def find_all_interventions(self, from_InterventionFilter = None):
         """
+        @endpoint 'get /interventions'
         Get all interventions
         @param from_InterventionFilter:
         @return: list of a interventions
@@ -1547,6 +1612,7 @@ class Dolibarrpy():
 
     def get_intervention_by_iid(self, objid):
         """
+        @endpoint 'get /interventions/{id}'
         Get intervention based on intervention id
         @return: invoice
         """
@@ -1558,6 +1624,7 @@ class Dolibarrpy():
     # TICKETS
     def find_all_tickets(self, from_TicketFilter = None):
         """
+        @endpoint 'get /tickets'
         Get all tickets
         @param from_TicketFilter:
         @return: list of a tickets
@@ -1602,6 +1669,7 @@ class Dolibarrpy():
 
     def get_ticket_by_iid(self, objid):
         """
+        @endpoint 'get /tickets/{id}'
         Get ticket based on ticket id
         @return: ticket
         """
@@ -1611,6 +1679,7 @@ class Dolibarrpy():
 
     def get_ticket_by_ref(self, objref):
         """
+        @endpoint 'get /tickets/ref/{ref}'
         Get ticket based on ticket ref
         @return: ticket
         """
@@ -1620,6 +1689,7 @@ class Dolibarrpy():
 
     def get_ticket_by_track_id(self, objtrack_id):
         """
+        @endpoint 'get /tickets/track_id/{track_id}'
         Get ticket based on ticket track_id
         @return: ticket
         """
@@ -1631,6 +1701,7 @@ class Dolibarrpy():
     # USERS
     def find_all_users(self, from_UserFilter = None):
         """
+        @endpoint 'get /users'
         Get all users
         @param from_UserFilter:
         @return: list of a users
@@ -1675,6 +1746,7 @@ class Dolibarrpy():
 
     def get_user_by_uid(self, objid, includepermissions = 0):
         """
+        @endpoint 'get /users/{id}'
         Get user based on user id
         @includepermissions int default 0, Set this to 1 to have the array of permissions loaded (not done by default for performance purpose)
         @return: user
@@ -1688,6 +1760,7 @@ class Dolibarrpy():
 
     def get_user_groups_uid(self, objid):
         """
+        @endpoint 'get /users/{id}/groups'
         Get user groups based on user id
         @return: list of user groups
         """
@@ -1697,6 +1770,7 @@ class Dolibarrpy():
 
     def setgroup_user_uid(self, objid, groupid, entity = 1):
         """
+        @endpoint 'get /users/{id}/setGroup/{group}'
         Set group for user based on user and group id
         @groupid int Group ID
         @entity int Entity ID (valid only for superadmin in multicompany transverse mode) default = 1
@@ -1708,8 +1782,9 @@ class Dolibarrpy():
 
     def get_user_by_email(self, email, includepermissions = 0):
         """
-        Get user groups based on user id
-        @return: list of user groups
+        @endpoint 'get /users/email/{email}'
+        Get properties of an user object by Email
+        @return: user object
         """
         if includepermissions:
             objid = 'email/' + urllib.parse.quote(email)  + '?includepermissions=' + includepermissions
