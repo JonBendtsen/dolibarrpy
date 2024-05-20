@@ -188,9 +188,15 @@ class Dolibarrpy():
         if self.debug:
             ic(url)
             ic(response)
-        json_result = json.loads(response.text)
-
-        return json_result
+            ic(response.text)
+        try:
+            result = json.loads(response.text)
+        except json.decoder.JSONDecodeError:
+            result = { "error": response }
+        except:
+            _logger.error('LIST API ERROR: ' + object)
+            result = response.text
+        return result
 
     def call_create_api(self, object, params={}):
         url = self.url + object
@@ -862,7 +868,7 @@ class Dolibarrpy():
     def get_thirdparty_by_email(self, email):
         """
         @endpoint 'get /thirdparties/email/{email}'
-        Get member based on thirdparty email
+        Get thirdparty based on thirdparty email
         @return: thirdparty
         """
         objid = 'email/' + str(email)
