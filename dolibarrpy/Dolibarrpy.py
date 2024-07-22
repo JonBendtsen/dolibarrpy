@@ -1799,3 +1799,12 @@ class Dolibarrpy():
         result = self.call_get_api('users', objid=objid)
         return result
 
+    def get_setup_company(self):
+        """
+        @endpoint 'get /setup'
+        Get company info from /setup
+        @return: Company information
+        """
+
+        result = self.call_get_api('setup', 'company')
+        return result

@@ -217,7 +217,7 @@
 1	get /proposals/ref_ext/{ref_ext}
 1	get /proposals/ref/{ref}
 0	get /setup/checkintegrity
-0	get /setup/company
+1	get /setup/company
 0	get /setup/conf/{constantname}
 0	get /setup/dictionary/availability
 0	get /setup/dictionary/civilities
