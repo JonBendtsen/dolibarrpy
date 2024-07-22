@@ -251,12 +251,12 @@
 0	get /setup/dictionary/units
 0	get /setup/establishments
 0	get /setup/establishments/{id}
-0	get /setup/extrafields
+1	get /setup/extrafields
 0	delete /setup/extrafields/{elementtype}/{attrname}
 0	get /setup/extrafields/{elementtype}/{attrname}
 0	post /setup/extrafields/{elementtype}/{attrname}
 0	put /setup/extrafields/{elementtype}/{attrname}
-0	get /setup/modules
+1	get /setup/modules
 2	get /shipments
 0	post /shipments
 0	delete /shipments/{id}

@@ -1799,12 +1799,33 @@ class Dolibarrpy():
         result = self.call_get_api('users', objid=objid)
         return result
 
+    # SETUP
     def get_setup_company(self):
         """
-        @endpoint 'get /setup'
+        @endpoint 'get /setup/company'
         Get company info from /setup
         @return: Company information
         """
 
         result = self.call_get_api('setup', 'company')
+        return result
+
+    def get_setup_extrafields(self):
+        """
+        @endpoint 'get /setup/extrafields'
+        Get extrafields info from /setup
+        @return: extrafields information
+        """
+
+        result = self.call_get_api('setup', 'extrafields')
+        return result
+
+    def get_setup_modules(self):
+        """
+        @endpoint 'get /setup/modules'
+        Get modules info from /setup
+        @return: modules information
+        """
+
+        result = self.call_get_api('setup', 'modules')
         return result
