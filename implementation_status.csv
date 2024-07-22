@@ -265,7 +265,7 @@
 0	post /shipments/{id}/close
 0	delete /shipments/{id}/lines/{lineid}
 1	post /shipments/{id}/validate
-0	get /status
+1	get /status
 0	get /stockmovements
 0	post /stockmovements
 1	get /subscriptions

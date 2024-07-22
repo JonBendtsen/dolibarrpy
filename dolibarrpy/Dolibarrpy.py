@@ -1799,6 +1799,17 @@ class Dolibarrpy():
         result = self.call_get_api('users', objid=objid)
         return result
 
+    # STATUS
+    def get_status(self):
+        """
+        @endpoint 'get /status'
+        Get status info from /status
+        @return: status information
+        """
+
+        result = self.call_get_api('status', '')
+        return result
+
     # SETUP
     def get_setup_company(self):
         """
