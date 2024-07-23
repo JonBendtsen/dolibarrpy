@@ -1,0 +1,94 @@
+ic| Dolibarrpy.py:1077 in find_all_contacts() at 20:32:52.124
+ic| from_ContactFilter: None
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:52.375
+ic| page: 0
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=None, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 0,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:52.866
+ic| page: 1
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=0, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 1,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:53.234
+ic| page: 2
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=1, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 2,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:53.586
+ic| page: 3
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=2, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 3,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:53.952
+ic| page: 4
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=3, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 4,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:32:54.282
+ic| page: 5
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=4, thirdparty_ids=None, category=None, sqlfilters=None, includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 5,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': None,
+             'thirdparty_ids': None}
+ic| response: <Response [404]>
+ic| len(result): 450
+ic| len(recursive_pop_none_and_variable(result)): 450

@@ -1,0 +1,34 @@
+ic| Dolibarrpy.py:1077 in find_all_contacts() at 20:36:51.170
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=None, thirdparty_ids=None, category=None, sqlfilters="t.firstname:like:'jon'", includecount=None, includeroles=None, properties=None)
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:36:51.428
+ic| page: 0
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=None, thirdparty_ids=None, category=None, sqlfilters="t.firstname:like:'jon'", includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 0,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': "t.firstname:like:'jon'",
+             'thirdparty_ids': None}
+ic| response: <Response [200]>
+ic| Dolibarrpy.py:1102 in find_some_contacts() at 20:36:51.720
+ic| page: 1
+ic| from_ContactFilter: ContactFilter(sortfield=None, sortorder=None, limit=None, page=0, thirdparty_ids=None, category=None, sqlfilters="t.firstname:like:'jon'", includecount=None, includeroles=None, properties=None)
+ic| url: 'http://localhost:8080/api/index.php/contacts'
+ic| params: {'category': None,
+             'includecount': None,
+             'includeroles': None,
+             'limit': None,
+             'page': 1,
+             'properties': None,
+             'sortfield': None,
+             'sortorder': None,
+             'sqlfilters': "t.firstname:like:'jon'",
+             'thirdparty_ids': None}
+ic| response: <Response [404]>
+ic| len(result): 3
+ic| len(recursive_pop_none_and_variable(result)): 3
