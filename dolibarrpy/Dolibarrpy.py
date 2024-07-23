@@ -72,6 +72,19 @@ class SubscriptionFilter():
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
+@dataclass
+class ProductFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None             # Dolibarr self inserts a default of 100 if you don't specify
+    page: Optional[int] = None              # page number
+    mode: Optional[int] = None              # Use this param to filter list (0 for all, 1 for only product, 2 for only service)
+    category: Optional[int] = None          # Use this param to filter list by category
+    sqlfilters: Optional[str] = None        # (t.email:like:'john.doe@example.com')
+    ids_only: Optional[bool] = None         # Return only IDs of product instead of all properties (faster, above all if list is long)
+    variant_filter: Optional[int] = None    # Use this param to filter list (0 = all, 1=products without variants, 2=parent of variants, 3=variants only)
+    pagination_data: Optional[bool] = None  # If this parameter is set to true the response will include pagination data. Default value is false. Page starts from 0
+    includestockdata: Optional[int] = None  # Load also information about stock (slower)
 
 @dataclass
 class ProposalFilter():
@@ -457,6 +470,91 @@ class Dolibarrpy():
         return self.call_action_api('orders', order_id, 'validate', params=params)
 
     # PRODUCTS
+    def find_all_products_services(self, from_productFilter = None):
+        """
+        @endpoint 'get /products'
+        Get all products and/or services
+        @param from_productFilter:
+        @return: list of a products and/or services
+        """
+        if self.debug:
+            ic()
+            ic(from_productFilter)
+        if from_productFilter is None:
+            search_filter = ProductFilter()
+        else:
+            search_filter = from_productFilter
+        all_products=[]
+        page = 0
+        while True:
+            some_products = self.find_some_products_services(search_filter, page)
+            if "error" in some_products:
+                break
+            elif [] == some_products:
+                break
+            elif {} == some_products:
+                break
+            else:
+                page += 1
+                if some_products == all_products:
+                    break
+                all_products = all_products + list(some_products)
+        return all_products
+
+    def find_some_products_services(self, from_productFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_productFilter)
+        if from_productFilter is None:
+            search_filter = ProductFilter()
+        else:
+            search_filter = from_productFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('products', params)
+        return result
+
+    def find_only_products(self, from_productFilter = None):
+        """
+        @endpoint 'get /products'
+        Get only products
+        @param from_productFilter:
+        @return: list of only products
+        """
+        if self.debug:
+            ic()
+            ic(from_productFilter)
+        if from_productFilter is None:
+            search_filter = ProductFilter(
+                mode=1
+            )
+        else:
+            from_productFilter.mode=1
+            search_filter = from_productFilter
+        only_products = self.find_some_products_services(search_filter)
+        return only_products
+
+    def find_only_services(self, from_productFilter = None):
+        """
+        @endpoint 'get /products'
+        Get only services
+        @param from_productFilter:
+        @return: list of only services
+        """
+        if self.debug:
+            ic()
+            ic(from_productFilter)
+        if from_productFilter is None:
+            search_filter = ProductFilter(
+                mode=2
+            )
+        else:
+            from_productFilter.mode=2
+            search_filter = from_productFilter
+        only_services = self.find_some_products_services(search_filter)
+        return only_services
+
     def get_product_by_id(self, objid, includestockdata=1):
         """
         @endpoint 'get /products/{id}'

@@ -146,7 +146,7 @@
 0	post /orders/createfromproposal/{proposalid}
 1	get /orders/ref_ext/{ref_ext}
 1	get /orders/ref/{ref}
-0	get /products
+1	get /products
 0	post /products
 0	delete /products/{id}
 1	get /products/{id}
