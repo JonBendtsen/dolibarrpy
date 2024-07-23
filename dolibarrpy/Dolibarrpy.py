@@ -46,7 +46,7 @@ class ThirdpartyFilter():
     limit: Optional[int] = None
     page: Optional[int] = None          # page number
     mode: Optional[int] = None          # Set to 1 to show only customers Set to 2 to show only prospects Set to 3 to show only those are not customer neither prospect Set to 4 to show only suppliers
-    category: Optional[int] = None      # only get members with this status: draft | unpaid | paid | cancelled
+    category: Optional[int] = None      # Use this param to filter list by category
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 
@@ -57,7 +57,7 @@ class ContactFilter():
     limit: Optional[int] = None
     page: Optional[int] = None          # page number
     thirdparty_ids: Optional[str] = None    # Thirdparty ids to filter contacts of (example '1' or '1,2,3')
-    category: Optional[int] = None      # only get members with this status: draft | unpaid | paid | cancelled
+    category: Optional[int] = None      # Use this param to filter list by category
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     includecount: Optional[int] = None      # Count and return also number of elements the contact is used as a link for
     includeroles: Optional[int] = None      # Includes roles of the contact
