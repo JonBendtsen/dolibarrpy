@@ -16,7 +16,7 @@
 0	get /bankaccounts/{id}/lines/{line_id}/links
 0	post /bankaccounts/{id}/lines/{line_id}/links
 0	post /bankaccounts/transfer
-0	get /categories
+1	get /categories
 0	post /categories
 0	delete /categories/{id}
 0	get /categories/{id}

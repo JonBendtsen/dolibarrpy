@@ -1851,3 +1851,14 @@ class Dolibarrpy():
 
         result = self.call_get_api('setup', 'dictionary/currencies')
         return result
+
+    # CATEGORIES
+    def get_categories(self):
+        """
+        @endpoint 'get /categories'
+        Get status info from /categories
+        @return: categories information
+        """
+
+        result = self.call_get_api('categories', '')
+        return result
