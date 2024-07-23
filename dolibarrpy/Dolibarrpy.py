@@ -9,6 +9,15 @@ install()
 _logger = logging.getLogger(__name__)
 
 @dataclass
+class categoryFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None          # page number
+    type: Optional[str] = None          # Type of category ('member', 'customer', 'supplier', 'product', 'contact')
+    sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
+
+@dataclass
 class ProjectFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
@@ -25,7 +34,7 @@ class MemberFilter():
     sortorder: Optional[str] = None
     limit: Optional[int] = None
     page: Optional[int] = None          # page number
-    typeid: Optional[str] = None        # only get members with this thirdparty_id
+    typeid: Optional[str] = None        # only get members with this typeid
     category: Optional[int] = None        # only get members with this status: draft | unpaid | paid | cancelled
     sqlfilters: Optional[str] = None    # (t.email:like:'john.doe@example.com')
     properties: Optional[str] = None    # Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
@@ -1853,12 +1862,47 @@ class Dolibarrpy():
         return result
 
     # CATEGORIES
-    def get_categories(self):
+    def find_all_categories(self, from_categoryFilter = None):
         """
         @endpoint 'get /categories'
-        Get status info from /categories
-        @return: categories information
+        Get all categories
+        @param from_categoryFilter:
+        @return: list of a categories
         """
+        if self.debug:
+            ic()
+            ic(from_categoryFilter)
+        if from_categoryFilter is None:
+            search_filter = categoryFilter()
+        else:
+            search_filter = from_categoryFilter
+        all_categories=[]
+        page = 0
+        while True:
+            some_categories = self.find_some_categories(search_filter, page)
+            if "error" in some_categories:
+                break
+            elif [] == some_categories:
+                break
+            elif {} == some_categories:
+                break
+            else:
+                page += 1
+                if some_categories == all_categories:
+                    break
+                all_categories = all_categories + list(some_categories)
+        return all_categories
 
-        result = self.call_get_api('categories', '')
+    def find_some_categories(self, from_categoryFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_categoryFilter)
+        if from_categoryFilter is None:
+            search_filter = categoryFilter()
+        else:
+            search_filter = from_categoryFilter
+        search_filter.page = page
+        params = asdict(search_filter)
+        result = self.call_list_api('categories', params)
         return result
