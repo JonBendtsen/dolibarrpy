@@ -9,7 +9,7 @@ install()
 _logger = logging.getLogger(__name__)
 
 @dataclass
-class categoryFilter():
+class CategoryFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
     limit: Optional[int] = None
@@ -1971,7 +1971,7 @@ class Dolibarrpy():
             ic()
             ic(from_categoryFilter)
         if from_categoryFilter is None:
-            search_filter = categoryFilter()
+            search_filter = CategoryFilter()
         else:
             search_filter = from_categoryFilter
         all_categories=[]
@@ -1997,7 +1997,7 @@ class Dolibarrpy():
             ic(page)
             ic(from_categoryFilter)
         if from_categoryFilter is None:
-            search_filter = categoryFilter()
+            search_filter = CategoryFilter()
         else:
             search_filter = from_categoryFilter
         search_filter.page = page
