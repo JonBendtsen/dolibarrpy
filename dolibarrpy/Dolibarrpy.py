@@ -1840,3 +1840,14 @@ class Dolibarrpy():
 
         result = self.call_get_api('setup', 'modules')
         return result
+
+    # SETUP / DICTIONARIES
+    def get_setup_dictionary_currencies(self):
+        """
+        @endpoint 'get /setup/dictionary/currencies'
+        Get currencies info from /setup/dictionary
+        @return: currencies information
+        """
+
+        result = self.call_get_api('setup', 'dictionary/currencies')
+        return result
