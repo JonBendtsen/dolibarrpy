@@ -2004,3 +2004,14 @@ class Dolibarrpy():
         params = asdict(search_filter)
         result = self.call_list_api('categories', params)
         return result
+
+    def get_category_by_id(self, catid, include_childs=False):
+        """
+        @endpoint 'get /categories/{id}'
+        """
+        if include_childs:
+            catid = str(catid) + '?include_childs=true'
+        else:
+            catid = str(catid) + '?include_childs=false'
+        result = self.call_get_api('categories', objid=catid)
+        return result

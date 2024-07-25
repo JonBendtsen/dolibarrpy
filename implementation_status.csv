@@ -19,7 +19,7 @@
 1	get /categories
 0	post /categories
 0	delete /categories/{id}
-0	get /categories/{id}
+1	get /categories/{id}
 0	put /categories/{id}
 0	get /categories/{id}/objects
 0	delete /categories/{id}/objects/{type}/{object_id}
