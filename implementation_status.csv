@@ -182,7 +182,7 @@
 0	get /products/barcode/{barcode}
 0	get /products/purchase_prices
 0	get /products/ref_ext/{ref_ext}
-0	get /products/ref/{ref}
+1	get /products/ref/{ref}
 0	get /products/ref/{ref}/variants
 0	post /products/ref/{ref}/variants
 0	delete /products/variants/{id}

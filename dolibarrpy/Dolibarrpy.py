@@ -583,6 +583,24 @@ class Dolibarrpy():
         result = self.call_get_api('products', objid=objid, params=params)
         return result
 
+    def get_product_by_ref(self, objref, from_ProductIdFilter = None ):
+        """
+        @endpoint 'get /products/{id}'
+        """
+        if self.debug:
+            ic()
+            ic(objref)
+            ic(from_ProductIdFilter)
+
+        if from_ProductIdFilter is None:
+            search_filter = ProductIdFilter()
+        else:
+            search_filter = from_ProductIdFilter
+        params = asdict(search_filter)
+
+        result = self.call_get_api('products/ref', objid=objref, params=params)
+        return result
+
     # Factory
     def get_factory_order_by_id(self, objid):
         result = self.call_get_api('factory', objid=objid)
