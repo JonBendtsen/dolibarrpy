@@ -87,6 +87,13 @@ class ProductFilter():
     includestockdata: Optional[int] = None  # Load also information about stock (slower)
 
 @dataclass
+class ProductIdFilter():
+    includestockdata:   Optional[int]   = None  # Load also information about stock (slower)
+    includesubproducts: Optional[bool]  = None  # Load information about subproducts ### dolibarr v18.0.5 doesn't seem to supply this ###
+    includeparentid:    Optional[bool]  = None  # Load also ID of parent product (if product is a variant of a parent product)
+    includetrans:       Optional[bool]  = None  # Load also the translations of product label and description
+
+@dataclass
 class ProposalFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
@@ -203,10 +210,13 @@ class Dolibarrpy():
             result = response.text
         return result
 
-    def call_get_api(self, object, objid):
+    def call_get_api(self, object, objid, params = None):
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
-        response = requests.get(url, headers=headers, timeout=self.timeout)
+        if params:
+            response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+        else:
+            response = requests.get(url, headers=headers, timeout=self.timeout)
         if self.debug:
             ic(url)
             ic(response)
@@ -555,13 +565,22 @@ class Dolibarrpy():
         only_services = self.find_some_products_services(search_filter)
         return only_services
 
-    def get_product_by_id(self, objid, includestockdata=1):
+    def get_product_by_id(self, objid, from_ProductIdFilter = None ):
         """
         @endpoint 'get /products/{id}'
         """
-        if includestockdata == 1:
-            objid = str(objid) + '?includestockdata=1'
-        result = self.call_get_api('products', objid=objid)
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(from_ProductIdFilter)
+
+        if from_ProductIdFilter is None:
+            search_filter = ProductIdFilter()
+        else:
+            search_filter = from_ProductIdFilter
+        params = asdict(search_filter)
+
+        result = self.call_get_api('products', objid=objid, params=params)
         return result
 
     # Factory
