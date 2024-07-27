@@ -214,32 +214,32 @@ class Dolibarrpy():
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
         if params:
-            response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+            dolibarrpy_response_call_get_api = requests.get(url, params=params, headers=headers, timeout=self.timeout)
         else:
-            response = requests.get(url, headers=headers, timeout=self.timeout)
+            dolibarrpy_response_call_get_api = requests.get(url, headers=headers, timeout=self.timeout)
         if self.debug:
             ic(url)
-            ic(response)
-            ic(response.text)
+            ic(dolibarrpy_response_call_get_api)
+            ic(dolibarrpy_response_call_get_api.text)
         try:
-            result = json.loads(response.text)
+            result = json.loads(dolibarrpy_response_call_get_api.text)
         except json.decoder.JSONDecodeError:
-            result = { "error": response }
+            result = { "error": dolibarrpy_response_call_get_api }
         except:
             _logger.error('LIST API ERROR: ' + object)
-            result = response.text
+            result = dolibarrpy_response_call_get_api.text
         return result
 
     def call_create_api(self, object, params={}):
         url = self.url + object
         headers = self.get_headers()
-        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
+        dolibarrpy_response_call_create_api = requests.post(url, json=params, headers=headers, timeout=self.timeout)
         try:
-            result = json.loads(response.text)
+            result = json.loads(dolibarrpy_response_call_create_api.text)
         except:
-            _logger.error(response)
-            _logger.error(response.text)
-            result = response
+            _logger.error(dolibarrpy_response_call_create_api)
+            _logger.error(dolibarrpy_response_call_create_api.text)
+            result = dolibarrpy_response_call_create_api
         return result
 
     def call_action_api(self, object, objid, action, params={}):
