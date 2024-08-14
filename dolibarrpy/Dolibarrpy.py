@@ -1481,6 +1481,36 @@ class Dolibarrpy():
         result = self.call_get_api('proposals', objid=objid)
         return result
 
+    def close_proposal_by_pid(self, objid, proposalsCloseModel):
+        """
+        @endpoint 'post /proposals/{id}/close'
+        Close (Accept or refuse) a quote / commercial proposal
+        @return: proposal
+        """
+        objid = str(objid)
+        trigger_defined = proposalsCloseModel.get('notrigger')
+        if trigger_defined is None:
+            proposalsCloseModel['notrigger'] = 0
+
+        result = self.call_action_api('proposals', objid=objid, action='close', params=proposalsCloseModel)
+        return result
+
+    def proposal_rejected(self, objid, note_private = "" ):
+        params = {
+            "status": 3,
+            "note_private": note_private
+        }
+        result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
+        return result
+
+    def proposal_accepted(self, objid, note_private = "" ):
+        params = {
+            "status": 2,
+            "note_private": note_private
+        }
+        result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
+        return result
+
     # ORDERS
     def find_all_orders(self, from_OrderFilter = None):
         """
