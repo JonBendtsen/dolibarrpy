@@ -1680,6 +1680,19 @@ class Dolibarrpy():
         result = self.call_get_api('orders', objid=objid)
         return result
 
+    def delete_order_by_oid(self, objid):
+        """
+        @endpoint 'put /orders/{id}'
+        Cancel an order
+        @return: order
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+
+        result = self.call_delete_api('orders', objid=objid)
+        return result
+
     # INVOICES
     def find_all_invoices(self, from_InvoiceFilter = None):
         """

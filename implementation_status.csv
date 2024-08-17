@@ -126,7 +126,7 @@
 0	put /members/types/{id}
 2	get /orders
 0	post /orders
-0	delete /orders/{id}
+1	delete /orders/{id}
 2	get /orders/{id}
 0	put /orders/{id}
 0	post /orders/{id}/close
