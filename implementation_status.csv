@@ -203,7 +203,7 @@
 0	delete /proposals/{id}
 1	get /proposals/{id}
 0	put /proposals/{id}
-0	post /proposals/{id}/close
+1	post /proposals/{id}/close
 0	delete /proposals/{id}/contact/{contactid}/{type}
 0	post /proposals/{id}/contact/{contactid}/{type}
 0	post /proposals/{id}/line

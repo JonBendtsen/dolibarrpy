@@ -1487,6 +1487,10 @@ class Dolibarrpy():
         Close (Accept or refuse) a quote / commercial proposal
         @return: proposal
         """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(proposalsCloseModel)
         objid = str(objid)
         trigger_defined = proposalsCloseModel.get('notrigger')
         if trigger_defined is None:
@@ -1495,18 +1499,25 @@ class Dolibarrpy():
         result = self.call_action_api('proposals', objid=objid, action='close', params=proposalsCloseModel)
         return result
 
-    def proposal_rejected(self, objid, note_private = "" ):
+    def proposal_rejected(self, objid, note_private = "", note_public=""):
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(note_private)
+            ic(note_public)
         params = {
             "status": 3,
-            "note_private": note_private
+            "note_private": note_private,
+            "note_public": note_public
         }
         result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
         return result
 
-    def proposal_accepted(self, objid, note_private = "" ):
+    def proposal_accepted(self, objid, note_private = "", note_public=""):
         params = {
             "status": 2,
-            "note_private": note_private
+            "note_private": note_private,
+            "note_public": note_public
         }
         result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
         return result
