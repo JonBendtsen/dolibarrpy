@@ -255,6 +255,22 @@ class Dolibarrpy():
             raise Exception(response.text)
         return result
 
+    def call_post_api(self, object, objid):
+        url = self.url + object + '/' + str(objid)
+        if self.debug:
+            ic()
+            ic(object)
+            ic(objid)
+            ic(url)
+
+        params = {}
+        params.update({'id': int(objid)})
+        headers = self.post_headers()
+        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
+        result = json.loads(response.text)
+
+        return result
+
     def call_update_api(self, object, objid, params={}):
         url = self.url + object + '/' + str(objid)
 
@@ -599,6 +615,19 @@ class Dolibarrpy():
         params = asdict(search_filter)
 
         result = self.call_get_api('products/ref', objid=objref, params=params)
+        return result
+
+    def create_order_from_proposal(self, objid):
+        """
+        @endpoint 'post /orders/createfromproposal/{proposalid}'
+        Create an order using an existing proposal.
+        @return: proposal
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+        objid = str(objid)
+        result = self.call_post_api('orders/createfromproposal', objid=objid)
         return result
 
     # Factory
@@ -1522,7 +1551,7 @@ class Dolibarrpy():
         result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
         return result
 
-    def validate_proposal_by_pid(self, objid, proposalsValidateModel):
+    def validate_proposal_by_pid(self, objid, notrigger = 0):
         """
         @endpoint 'post /proposals/{id}/validate'
         Validate a commercial proposal
@@ -1531,11 +1560,11 @@ class Dolibarrpy():
         if self.debug:
             ic()
             ic(objid)
-            ic(proposalsValidateModel)
+            ic(notrigger)
         objid = str(objid)
-        trigger_defined = proposalsValidateModel.get('notrigger')
-        if trigger_defined is None:
-            proposalsValidateModel['notrigger'] = 0
+        proposalsValidateModel = {
+            "notrigger": notrigger
+        }
 
         result = self.call_action_api('proposals', objid=objid, action='validate', params=proposalsValidateModel)
         return result

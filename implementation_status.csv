@@ -143,7 +143,7 @@
 2	get /orders/{id}/shipment
 1	post /orders/{id}/shipment/{warehouse_id}
 1	post /orders/{id}/validate
-0	post /orders/createfromproposal/{proposalid}
+1	post /orders/createfromproposal/{proposalid}
 1	get /orders/ref_ext/{ref_ext}
 1	get /orders/ref/{ref}
 1	get /products
