@@ -2153,3 +2153,33 @@ class Dolibarrpy():
             catid = str(catid) + '?include_childs=false'
         result = self.call_get_api('categories', objid=catid)
         return result
+
+    # DOCUMENTS
+    def get_documents(self, modulepart, id = '', ref = '', sortfield = 'date', sortorder = 'asc'):
+        """
+        @endpoint 'get /documents'
+        Return the list of documents of a dedicated element (from its ID or Ref)
+        @modulepart str Name of module or area concerned ('thirdparty', 'member', 'proposal', 'order', 'invoice', 'supplier_invoice', 'shipment', 'project', ...)
+        @id int         ID of element
+        @ref str        REF of element
+        @sortfield str  Sort criteria ('','fullname','relativename','name','date','size')
+        @sortorder str  Sort order ('asc' or 'desc')
+        @return: list of a documents
+        """
+        document_choices = "documents?"
+        if '' != modulepart:
+            document_choices = document_choices + 'modulepart=' + str(modulepart) + '&'
+        if '' != str(id):
+            document_choices = document_choices + 'id=' + str(id) + '&'
+        if '' != ref:
+            document_choices = document_choices + 'ref=' + ref + '&'
+        if '' != sortfield:
+            document_choices = document_choices + 'sortfield=' + sortfield + '&'
+        if '' != sortorder:
+            document_choices = document_choices + 'sortorder=' + sortorder
+
+        result = self.call_list_api(document_choices, {})
+        if "error" in result:
+            ic(result)
+            return []
+        return result
