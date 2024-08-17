@@ -213,7 +213,7 @@
 0	put /proposals/{id}/lines/{lineid}
 0	post /proposals/{id}/setinvoiced
 0	post /proposals/{id}/settodraft
-0	post /proposals/{id}/validate
+1	post /proposals/{id}/validate
 1	get /proposals/ref_ext/{ref_ext}
 1	get /proposals/ref/{ref}
 0	get /setup/checkintegrity

@@ -1522,6 +1522,24 @@ class Dolibarrpy():
         result = self.close_proposal_by_pid(objid=objid, proposalsCloseModel=params)
         return result
 
+    def validate_proposal_by_pid(self, objid, proposalsValidateModel):
+        """
+        @endpoint 'post /proposals/{id}/validate'
+        Validate a commercial proposal
+        @return: proposal
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(proposalsValidateModel)
+        objid = str(objid)
+        trigger_defined = proposalsValidateModel.get('notrigger')
+        if trigger_defined is None:
+            proposalsValidateModel['notrigger'] = 0
+
+        result = self.call_action_api('proposals', objid=objid, action='validate', params=proposalsValidateModel)
+        return result
+
     # ORDERS
     def find_all_orders(self, from_OrderFilter = None):
         """
