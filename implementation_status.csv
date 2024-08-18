@@ -50,7 +50,7 @@
 0	put /contracts/{id}/lines/{lineid}/activate
 0	put /contracts/{id}/lines/{lineid}/unactivate
 0	post /contracts/{id}/validate
-0	delete /documents
+1	delete /documents
 1	get /documents
 0	put /documents/builddoc
 0	get /documents/download

@@ -282,7 +282,10 @@ class Dolibarrpy():
         return result
 
     def call_delete_api(self, object, objid):
-        url = self.url + object + '/' + str(objid)
+        if '' == object:
+            url = self.url + str(objid)
+        else:
+            url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
         print(url)
         response = requests.delete(url, json={'id': objid}, headers=headers, timeout=self.timeout)
@@ -2182,4 +2185,27 @@ class Dolibarrpy():
         if "error" in result:
             ic(result)
             return []
+        return result
+
+    def delete_documents(self, modulepart, original_file = '', document_dict = {}):
+        """
+        @endpoint 'delete /documents'
+        Delete a document.
+        @modulepart     str     Name of module or area concerned by file download ('product', ...)
+        @original_file  str     Relative path with filename, relative to modulepart (for example: PRODUCT-REF-999/IMAGE-999.jpg)
+        @return: json with success or error
+        """
+        if '' == original_file and document_dict is not None:
+            level1name = document_dict.get("level1name")
+            relativename = document_dict.get("relativename")
+            if level1name and relativename:
+                original_file = str(level1name) + "/" + str(relativename)
+        else:
+            error = "Come on, give me at least 1 non empty variable"
+            ic(error)
+
+        combined_url = 'documents?modulepart=' + str(modulepart) + '&original_file=' + str(original_file)
+        result = self.call_delete_api('', combined_url)
+        if "error" in result:
+            ic(result)
         return result
