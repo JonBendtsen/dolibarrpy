@@ -1231,6 +1231,21 @@ class Dolibarrpy():
         result = self.call_get_api('thirdparties', objid)
         return result
 
+    def update_thirdparty_by_tid(self, objid, updateThirdpartiesModel):
+        """
+        @endpoint 'put /thirdparties/{id}'
+        Update thirdparty
+        @modulepart     str     Name of module or area concerned by file download ('product', ...)
+        @id int Id of thirdparty to update
+        @updateThirdpartiesModel     str     updateThirdpartiesModel {request_data (Array[string], optional): Datas }
+        @return: thirdparty
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(updateThirdpartiesModel)
+        result = self.call_update_api('thirdparties', objid,updateThirdpartiesModel )
+        return result
 
     # CONTACTS
     def find_all_contacts(self, from_ContactFilter = None):

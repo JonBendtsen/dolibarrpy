@@ -311,7 +311,7 @@
 0	post /thirdparties
 0	delete /thirdparties/{id}
 1	get /thirdparties/{id}
-0	put /thirdparties/{id}
+1	put /thirdparties/{id}
 0	delete /thirdparties/{id}/accounts
 1	get /thirdparties/{id}/accounts
 0	post /thirdparties/{id}/accounts
