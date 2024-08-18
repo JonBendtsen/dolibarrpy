@@ -1583,8 +1583,25 @@ class Dolibarrpy():
         proposalsValidateModel = {
             "notrigger": notrigger
         }
-
         result = self.call_action_api('proposals', objid=objid, action='validate', params=proposalsValidateModel)
+        return result
+
+    def proposal_add_contact(self, objid, contactid, type):
+        """
+        @endpoint 'post /proposals/{id}/contact/{contactid}/{type}
+        Add a contact type of given commercial proposal
+        @id         int     Id of commercial proposal to update
+        @contactid  int     Id of contact to add
+        @type       str     Type of the contact (BILLING, SHIPPING, CUSTOMER)
+        @return:    array   JSON with result
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(contactid)
+            ic(type)
+        action = "contact/" + str(contactid) + "/" + str(type)
+        result = self.call_action_api('proposals', objid=objid, action=action)
         return result
 
     # ORDERS
