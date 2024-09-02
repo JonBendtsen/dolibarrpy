@@ -272,13 +272,34 @@ class Dolibarrpy():
         return result
 
     def call_update_api(self, object, objid, params={}):
-        url = self.url + object + '/' + str(objid)
+        if self.debug:
+            ic()
+            ic(object)
+            ic(objid)
+            ic(params)
 
-        params.update({'id': int(objid)})
-        headers = self.get_headers()
+        if objid:
+            url = self.url + object + '/' + str(objid)
+            params.update({'id': int(objid)})
+        else:
+            url = self.url + object
+
+        headers = self.post_headers()
+        if self.debug:
+            ic(url)
+            ic(headers)
         response = requests.put(url, json=params, headers=headers, timeout=self.timeout)
-        result = json.loads(response.text)
 
+        if self.debug:
+            ic(response)
+            ic(response.text)
+        try:
+            result = json.loads(response.text)
+        except json.decoder.JSONDecodeError:
+            result = { "error": response }
+        except:
+            _logger.error('LIST API ERROR: ' + object)
+            result = response.text
         return result
 
     def call_delete_api(self, object, objid):
@@ -2240,4 +2261,29 @@ class Dolibarrpy():
         result = self.call_delete_api('', combined_url)
         if "error" in result:
             ic(result)
+        return result
+
+    def build_document_by_ref(self, modulepart, objref, documentsBuilddocModel = {}):
+        """
+        @endpoint 'put /documents/builddoc'
+        Build documents
+        @modulepart     str     Name of module or area concerned by file download ('product', ...)
+        @objref         str     The reference of the object we want a document for
+        @documentsBuilddocModel json    { modulepart, original_file, doctemplate, langcode }
+        @original_file  str     Relative path with filename, relative to modulepart (for example: IN201701-999/IN201701-999.pdf).
+        @doctemplate    str     (optional) Set here the doc template to use for document generation (If not set, use the default template).
+        @langcode       str     (optional) Language code like 'en_US', 'fr_FR', 'es_ES', ... (If not set, use the default language).
+        @return: thirdparty
+        """
+        if self.debug:
+            ic()
+            ic(modulepart)
+            ic(objref)
+            ic(documentsBuilddocModel)
+
+        if "proposal" == modulepart:
+            modulepart = "propal"
+        documentsBuilddocModel["modulepart"]    = modulepart
+        documentsBuilddocModel["original_file"] = str(objref + "/" + objref + ".pdf")
+        result = self.call_update_api(object='documents/builddoc', objid=None, params=documentsBuilddocModel)
         return result
