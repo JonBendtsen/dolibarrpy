@@ -331,8 +331,8 @@
 1	get /thirdparties/{id}/getinvoicesqualifiedforreplacement
 0	put /thirdparties/{id}/merge/{idtodelete}
 1	get /thirdparties/{id}/notifications
-0	post /thirdparties/{id}/notifications
-0	delete /thirdparties/{id}/notifications/{notification_id}
+1	post /thirdparties/{id}/notifications
+1	delete /thirdparties/{id}/notifications/{notification_id}
 0	put /thirdparties/{id}/notifications/{notification_id}
 1	get /thirdparties/{id}/outstandinginvoices
 1	get /thirdparties/{id}/outstandingorders

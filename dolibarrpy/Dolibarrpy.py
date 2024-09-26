@@ -271,18 +271,23 @@ class Dolibarrpy():
 
         return result
 
-    def call_update_api(self, object, objid, params={}):
+    def call_update_api(self, object, objid, params={}, extra_object=None, extra_id=None):
         if self.debug:
             ic()
             ic(object)
             ic(objid)
             ic(params)
+            ic(extra_object)
+            ic(extra_id)
 
         if objid:
             url = self.url + object + '/' + str(objid)
             params.update({'id': int(objid)})
         else:
             url = self.url + object
+
+        if extra_object and extra_id:
+            url = self.url + object + '/' + str(objid) + '/'  + extra_object + '/' + str(extra_id)
 
         headers = self.post_headers()
         if self.debug:
@@ -1111,6 +1116,55 @@ class Dolibarrpy():
         objid = str(objid) + '/notifications'
         result = self.call_get_api('thirdparties', objid)
         return result
+
+    def create_thirdparties_notifications_for_tid(self, objid, thirdpartiesCreateCompanyNotificationModel):
+        """
+        @endpoint 'post /thirdparties/{id}/notifications'
+        Create thirdparty notifications on thirdparty id
+        @id     int     ID of thirdparty
+        @thirdpartiesCreateCompanyNotificationModel     str     { request_data (Array[string], optional): Request data }
+        @return: json with new thirdparty notification
+        """
+        action = 'notifications'
+        result = self.call_action_api('thirdparties', objid, action, params=thirdpartiesCreateCompanyNotificationModel)
+        return result
+        # Example thirdpartiesCreateCompanyNotificationModel contents { "event": "114", "socid": "5", "contact_id": "8", "type": "email" }
+
+    def delete_thirdparties_notifications_for_tid(self, objid, notid):
+        """
+        @endpoint 'delete /thirdparties/{id}/notifications/{notification_id}'
+        Delete thirdparty notifications based on thirdparty id and notification id
+        @id               int     ID of thirdparty
+        @notification_id  int     ID of CompanyNotification
+        @return: 1 and response code 200 if successful. 403 if notification id does not exist
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(notid)
+        objstr = str(objid) + '/notifications/' + str(notid)
+        result = self.call_delete_api('thirdparties', objstr)
+        return result
+
+    # update does not seem to work with dolibarr v20.0.0
+    def update_thirdparties_notifications_for_tid(self, objid, notid=None, thirdpartiesUpdateCompanyNotificationModel={}):
+        """
+        @endpoint 'put /thirdparties/{id}/notifications/{notification_id}'
+        Update CompanyNotification object for thirdparty
+        @id               int     ID of thirdparty
+        @notification_id  int     ID of CompanyNotification
+        @thirdpartiesUpdateCompanyNotificationModel     str     { request_data (Array[string], optional): Request data }
+        @return: json with updated thirdparty notification
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(notid)
+            ic(thirdpartiesUpdateCompanyNotificationModel)
+        objstr = str(objid) + '/notifications' + str(notid)
+        result = self.call_update_api('thirdparties', objid, thirdpartiesUpdateCompanyNotificationModel, extra_object='notifications', extra_id=notid )
+        return result
+        # Example thirdpartiesUpdateCompanyNotificationModel contents { "event": "114", "socid": "5", "contact_id": "8", "type": "email" }
 
     def get_thirdparties_outstanding_by_tid(self, objid, otype, mode):
         """
