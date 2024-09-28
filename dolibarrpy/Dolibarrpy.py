@@ -1569,6 +1569,21 @@ class Dolibarrpy():
         result = self.call_get_api('proposals', objid=objid)
         return result
 
+    def update_proposal_with_pid(self, objid, updateProposalsModel):
+        """
+        @endpoint 'put /proposals/{id}'
+        Update proposal
+        @id     int     Id of proposal to update
+        @updateProposalsModel     str     updateProposalsModel {request_data (Array[string], optional): Datas }
+        @return: proposal
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(updateProposalsModel)
+        result = self.call_update_api('proposals', objid,updateProposalsModel )
+        return result
+
     def get_proposal_by_ref(self, objref, contact_list = 1):
         """
         @endpoint 'get /proposals/ref/{ref}'
@@ -1736,6 +1751,21 @@ class Dolibarrpy():
         result = self.call_get_api('orders', objid=objid)
         return result
 
+    def update_order_with_oid(self, objid, updateOrdersModel):
+        """
+        @endpoint 'put /orders/{id}'
+        Update order
+        @id     int     Id of order to update
+        @updateOrdersModel     str     updateOrdersModel {request_data (Array[string], optional): Datas }
+        @return: order
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(updateOrdersModel)
+        result = self.call_update_api('orders', objid,updateOrdersModel )
+        return result
+
     def get_order_contacts_by_oid(self, objid, ctype = ''):
         """
         @endpoint 'get /orders/{id}/contacts'
@@ -1858,6 +1888,21 @@ class Dolibarrpy():
         """
         objid = str(objid) + '?contact_list=' + str(contact_list)
         result = self.call_get_api('invoices', objid=objid)
+        return result
+
+    def update_invoice_with_iid(self, objid, updateInvoicesModel):
+        """
+        @endpoint 'put /invoices/{id}'
+        Update invoice
+        @id     int     Id of invoice to update
+        @updateInvoicesModel     str     updateInvoicesModel {request_data (Array[string], optional): Datas }
+        @return: invoice
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(updateInvoicesModel)
+        result = self.call_update_api('invoices', objid, updateInvoicesModel )
         return result
 
     def get_invoice_discounts_by_iid(self, objid):

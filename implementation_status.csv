@@ -81,7 +81,7 @@
 0	post /invoices
 0	delete /invoices/{id}
 1	get /invoices/{id}
-0	put /invoices/{id}
+1	put /invoices/{id}
 0	delete /invoices/{id}/contact/{contactid}/{type}
 0	post /invoices/{id}/contact/{contactid}/{type}
 0	post /invoices/{id}/contacts
@@ -128,7 +128,7 @@
 0	post /orders
 1	delete /orders/{id}
 2	get /orders/{id}
-0	put /orders/{id}
+1	put /orders/{id}
 0	post /orders/{id}/close
 0	delete /orders/{id}/contact/{contactid}/{type}
 0	post /orders/{id}/contact/{contactid}/{type}
@@ -202,7 +202,7 @@
 0	post /proposals
 0	delete /proposals/{id}
 1	get /proposals/{id}
-0	put /proposals/{id}
+1	put /proposals/{id}
 1	post /proposals/{id}/close
 0	delete /proposals/{id}/contact/{contactid}/{type}
 1	post /proposals/{id}/contact/{contactid}/{type}
