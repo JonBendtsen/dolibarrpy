@@ -1,7 +1,7 @@
 import requests
 import logging
 import json, urllib
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, replace
 from typing import Optional
 from icecream import install
 install()
@@ -97,10 +97,10 @@ class ProductIdFilter():
 class ProposalFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
-    limit: Optional[int] = None
-    page: Optional[int] = None
+    limit: Optional[int] = 100
+    page: Optional[int] = 0
     thirdparty_ids: Optional[str] = None
-    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+    sqlfilters: Optional[str] = None        # Syntax example "(t.statut:=:1)
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
 @dataclass
@@ -384,7 +384,7 @@ class Dolibarrpy():
             search_filter = ShipmentFilter()
         else:
             search_filter = from_ShipmentFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('shipments', params)
         return result
@@ -565,7 +565,7 @@ class Dolibarrpy():
             search_filter = ProductFilter()
         else:
             search_filter = from_productFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('products', params)
         return result
@@ -688,19 +688,18 @@ class Dolibarrpy():
         search_filter = ProjectFilter()
         if "draft" == with_status.lower():
             search_filter = ProjectFilter(
-                page=page,
                 sqlfilters="(t.fk_statut:=:0)"
             )
+
         if "open" == with_status.lower():
             search_filter = ProjectFilter(
-                page=page,
                 sqlfilters="(t.fk_statut:=:1)"
             )
         if "closed" == with_status.lower():
             search_filter = ProjectFilter(
-                page=page,
                 sqlfilters="(t.fk_statut:=:2)"
             )
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('projects', params=params)
         return result
@@ -827,7 +826,7 @@ class Dolibarrpy():
             search_filter = MemberFilter()
         else:
             search_filter = from_MemberFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         limit = params.get("limit")
         if 0 == limit:
@@ -922,7 +921,7 @@ class Dolibarrpy():
             search_filter = MemberFilter()
         else:
             search_filter = from_MemberFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         category = params.get("category")
         if category:
@@ -978,7 +977,7 @@ class Dolibarrpy():
             search_filter = MemberFilter()
         else:
             search_filter = from_MemberFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         category = params.get("category")
         if category:
@@ -1043,7 +1042,7 @@ class Dolibarrpy():
             search_filter = ThirdpartyFilter()
         else:
             search_filter = from_ThirdpartyFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('thirdparties', params)
         return result
@@ -1255,7 +1254,7 @@ class Dolibarrpy():
             search_filter = ThirdpartyFilter()
         else:
             search_filter = from_ThirdpartyFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         category = params.get("category")
         if category:
@@ -1363,7 +1362,7 @@ class Dolibarrpy():
             search_filter = ContactFilter()
         else:
             search_filter = from_ContactFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('contacts', params)
         return result
@@ -1436,7 +1435,7 @@ class Dolibarrpy():
             search_filter = ContactFilter()
         else:
             search_filter = from_ContactFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         category = params.get("category")
         if category:
@@ -1498,7 +1497,7 @@ class Dolibarrpy():
             search_filter = SubscriptionFilter()
         else:
             search_filter = from_SubscriptionFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('subscriptions', params)
         return result
@@ -1553,7 +1552,7 @@ class Dolibarrpy():
             search_filter = ProposalFilter()
         else:
             search_filter = from_ProposalFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('proposals', params)
         return result
@@ -1735,7 +1734,7 @@ class Dolibarrpy():
             search_filter = OrderFilter()
         else:
             search_filter = from_OrderFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('orders', params)
         return result
@@ -1874,7 +1873,7 @@ class Dolibarrpy():
             search_filter = InvoiceFilter()
         else:
             search_filter = from_InvoiceFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('invoices', params)
         return result
@@ -2011,7 +2010,7 @@ class Dolibarrpy():
             search_filter = InterventionFilter()
         else:
             search_filter = from_InterventionFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('interventions', params)
         return result
@@ -2068,7 +2067,7 @@ class Dolibarrpy():
             search_filter = TicketFilter()
         else:
             search_filter = from_TicketFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('tickets', params)
         return result
@@ -2145,7 +2144,7 @@ class Dolibarrpy():
             search_filter = UserFilter()
         else:
             search_filter = from_UserFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('users', params)
         return result
@@ -2293,7 +2292,7 @@ class Dolibarrpy():
             search_filter = CategoryFilter()
         else:
             search_filter = from_categoryFilter
-        search_filter.page = page
+        search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('categories', params)
         return result
