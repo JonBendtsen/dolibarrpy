@@ -241,7 +241,7 @@
 0	get /setup/dictionary/shipping_methods
 0	get /setup/dictionary/socialnetworks
 0	get /setup/dictionary/staff
-0	get /setup/dictionary/states
+1	get /setup/dictionary/states
 0	get /setup/dictionary/states/{id}
 0	get /setup/dictionary/states/byCode/{code}
 0	get /setup/dictionary/ticket_categories

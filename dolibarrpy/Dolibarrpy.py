@@ -39,6 +39,16 @@ class countryFilter():
     sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
 
 @dataclass
+class stateFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    country: Optional[str] = None    # To filter the country id
+    namefilter: Optional[str] = None    # To filter the states by name
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+
+@dataclass
 class MemberFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
@@ -2305,6 +2315,52 @@ class Dolibarrpy():
         params = asdict(search_filter)
         result = self.call_list_api('setup/dictionary/countries', params)
         return result
+
+    def find_all_states(self, from_stateFilter = None):
+        """
+        @endpoint 'get /setup/dictionary/states'
+        Get all states
+        @param from_stateFilter:
+        @return: list of a states
+        """
+        if self.debug:
+            ic()
+            ic(from_stateFilter)
+        if from_stateFilter is None:
+            search_filter = stateFilter()
+        else:
+            search_filter = from_stateFilter
+        all_states=[]
+        page = 0
+        while True:
+            some_states = self.find_some_states(search_filter, page)
+            if "error" in some_states:
+                break
+            elif [] == some_states:
+                break
+            elif {} == some_states:
+                break
+            else:
+                page += 1
+                if some_states == all_states:
+                    break
+                all_states = all_states + list(some_states)
+        return all_states
+
+    def find_some_states(self, from_stateFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_stateFilter)
+        if from_stateFilter is None:
+            search_filter = stateFilter()
+        else:
+            search_filter = from_stateFilter
+        search_filter = replace(search_filter, page=page)
+        params = asdict(search_filter)
+        result = self.call_list_api('setup/dictionary/states', params)
+        return result
+
 
     # CATEGORIES
     def find_all_categories(self, from_categoryFilter = None):
