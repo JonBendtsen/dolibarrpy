@@ -29,6 +29,16 @@ class ProjectFilter():
     properties: Optional[str] = None        # Restrict the data returned to theses properties. Ignored if empty. Comma separated list of properties names
 
 @dataclass
+class countryFilter():
+    sortfield: Optional[str] = None
+    sortorder: Optional[str] = None
+    limit: Optional[int] = None
+    page: Optional[int] = None
+    namefilter: Optional[str] = None    # To filter the countries by name
+    lang: Optional[str] = None      # Code of the language the label of the countries must be translated to
+    sqlfilters: Optional[str] = None    # Syntax example "(t.statut:=:1)
+
+@dataclass
 class MemberFilter():
     sortfield: Optional[str] = None
     sortorder: Optional[str] = None
@@ -2249,6 +2259,51 @@ class Dolibarrpy():
         """
 
         result = self.call_get_api('setup', 'dictionary/currencies')
+        return result
+
+    def find_all_countries(self, from_countryFilter = None):
+        """
+        @endpoint 'get /setup/dictionary/countries'
+        Get all countries
+        @param from_countryFilter:
+        @return: list of a countries
+        """
+        if self.debug:
+            ic()
+            ic(from_countryFilter)
+        if from_countryFilter is None:
+            search_filter = countryFilter()
+        else:
+            search_filter = from_countryFilter
+        all_countries=[]
+        page = 0
+        while True:
+            some_countries = self.find_some_countries(search_filter, page)
+            if "error" in some_countries:
+                break
+            elif [] == some_countries:
+                break
+            elif {} == some_countries:
+                break
+            else:
+                page += 1
+                if some_countries == all_countries:
+                    break
+                all_countries = all_countries + list(some_countries)
+        return all_countries
+
+    def find_some_countries(self, from_countryFilter = None, page = 0):
+        if self.debug:
+            ic()
+            ic(page)
+            ic(from_countryFilter)
+        if from_countryFilter is None:
+            search_filter = countryFilter()
+        else:
+            search_filter = from_countryFilter
+        search_filter = replace(search_filter, page=page)
+        params = asdict(search_filter)
+        result = self.call_list_api('setup/dictionary/countries', params)
         return result
 
     # CATEGORIES

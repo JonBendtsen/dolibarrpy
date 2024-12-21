@@ -222,7 +222,7 @@
 0	get /setup/dictionary/availability
 0	get /setup/dictionary/civilities
 0	get /setup/dictionary/contact_types
-0	get /setup/dictionary/countries
+1	get /setup/dictionary/countries
 0	get /setup/dictionary/countries/{id}
 0	get /setup/dictionary/countries/byCode/{code}
 0	get /setup/dictionary/countries/byISO/{iso}
