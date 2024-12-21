@@ -224,7 +224,7 @@
 0	get /setup/dictionary/contact_types
 1	get /setup/dictionary/countries
 0	get /setup/dictionary/countries/{id}
-0	get /setup/dictionary/countries/byCode/{code}
+1	get /setup/dictionary/countries/byCode/{code}
 0	get /setup/dictionary/countries/byISO/{iso}
 1	get /setup/dictionary/currencies
 0	get /setup/dictionary/event_types

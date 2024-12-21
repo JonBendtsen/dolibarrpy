@@ -2316,6 +2316,13 @@ class Dolibarrpy():
         result = self.call_list_api('setup/dictionary/countries', params)
         return result
 
+    def get_country_by_code(self, country_code):
+        """
+        @endpoint 'get /setup/dictionary/countries/byCode/{code}'
+        """
+        result = self.call_get_api('setup/dictionary/countries/byCode', objid=country_code)
+        return result
+
     def find_all_states(self, from_stateFilter = None):
         """
         @endpoint 'get /setup/dictionary/states'
