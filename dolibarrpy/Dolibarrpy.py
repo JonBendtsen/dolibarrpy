@@ -1695,13 +1695,14 @@ class Dolibarrpy():
         result = self.call_action_api('proposals', objid=objid, action='validate', params=proposalsValidateModel)
         return result
 
-    def proposal_add_contact(self, objid, contactid, type):
+    def proposal_add_contact(self, objid, contactid, type, source = None):
         """
         @endpoint 'post /proposals/{id}/contact/{contactid}/{type}
         Add a contact type of given commercial proposal
         @id         int     Id of commercial proposal to update
         @contactid  int     Id of contact to add
         @type       str     Type of the contact (BILLING, SHIPPING, CUSTOMER)
+        @source     str     Source of the contact (internal, external)
         @return:    array   JSON with result
         """
         if self.debug:
@@ -1709,7 +1710,10 @@ class Dolibarrpy():
             ic(objid)
             ic(contactid)
             ic(type)
-        action = "contact/" + str(contactid) + "/" + str(type)
+        if source:
+            action = "contact/" + str(contactid) + "/" + str(type) + "/" + str(source)
+        else:
+            action = "contact/" + str(contactid) + "/" + str(type) + "/external"
         result = self.call_action_api('proposals', objid=objid, action=action)
         return result
 
