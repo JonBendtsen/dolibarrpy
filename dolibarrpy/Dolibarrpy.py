@@ -2372,6 +2372,13 @@ class Dolibarrpy():
         result = self.call_list_api('setup/dictionary/states', params)
         return result
 
+    def get_state_by_code(self, state_code):
+        """
+        @endpoint 'get /setup/dictionary/states/byCode/{code}'
+        """
+        result = self.call_get_api('setup/dictionary/states/byCode', objid=state_code)
+        return result
+
 
     # CATEGORIES
     def find_all_categories(self, from_categoryFilter = None):

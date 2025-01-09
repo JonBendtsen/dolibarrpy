@@ -243,7 +243,7 @@
 0	get /setup/dictionary/staff
 1	get /setup/dictionary/states
 0	get /setup/dictionary/states/{id}
-0	get /setup/dictionary/states/byCode/{code}
+1	get /setup/dictionary/states/byCode/{code}
 0	get /setup/dictionary/ticket_categories
 0	get /setup/dictionary/ticket_severities
 0	get /setup/dictionary/ticket_types
