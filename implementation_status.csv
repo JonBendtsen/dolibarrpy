@@ -31,7 +31,7 @@
 0	post /contacts
 0	delete /contacts/{id}
 1	get /contacts/{id}
-0	put /contacts/{id}
+1	put /contacts/{id}
 1	get /contacts/{id}/categories
 0	delete /contacts/{id}/categories/{category_id}
 0	put /contacts/{id}/categories/{category_id}

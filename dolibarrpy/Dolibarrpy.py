@@ -1476,6 +1476,21 @@ class Dolibarrpy():
         result = self.call_list_api(api_path, params)
         return result
 
+    def update_contact_by_tid(self, objid, updateContactModel):
+        """
+        @endpoint 'put /contacts/{id}'
+        Update contact
+        @id int Id of contact to update
+        @updateContactModel     str     updateContactModel {request_data (Array[string], optional): Datas }
+        @return: contact
+        """
+        if self.debug:
+            ic()
+            ic(objid)
+            ic(updateContactModel)
+        result = self.call_update_api('contacts', objid,updateContactModel )
+        return result
+
     # SUBSCRIPTIONS
     def find_all_subscriptions(self, from_SubscriptionFilter = None):
         """
