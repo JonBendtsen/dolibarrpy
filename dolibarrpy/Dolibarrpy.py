@@ -1476,7 +1476,7 @@ class Dolibarrpy():
         result = self.call_list_api(api_path, params)
         return result
 
-    def update_contact_by_tid(self, objid, updateContactModel):
+    def update_contact_by_cid(self, objid, updateContactModel):
         """
         @endpoint 'put /contacts/{id}'
         Update contact
