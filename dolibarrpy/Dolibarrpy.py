@@ -275,6 +275,19 @@ class Dolibarrpy():
             raise Exception(response.text)
         return result
 
+    def call_create_api(self, object, params={}):
+        url = self.url + '/' + str(object)
+        headers = self.post_headers()
+        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
+        if self.debug:
+            ic(url)
+            ic(response)
+        try:
+            result = json.loads(response.text)
+        except:
+            raise Exception(response.text)
+        return result
+
     def call_post_api(self, object, objid):
         url = self.url + object + '/' + str(objid)
         if self.debug:
