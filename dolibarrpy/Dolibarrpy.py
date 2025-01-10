@@ -275,19 +275,6 @@ class Dolibarrpy():
             raise Exception(response.text)
         return result
 
-    def call_create_api(self, object, params={}):
-        url = self.url + '/' + str(object)
-        headers = self.post_headers()
-        response = requests.post(url, json=params, headers=headers, timeout=self.timeout)
-        if self.debug:
-            ic(url)
-            ic(response)
-        try:
-            result = json.loads(response.text)
-        except:
-            raise Exception(response.text)
-        return result
-
     def call_post_api(self, object, objid):
         url = self.url + object + '/' + str(objid)
         if self.debug:
@@ -867,6 +854,16 @@ class Dolibarrpy():
         result = self.call_list_api('members', params=params)
         return result
 
+    def create_member(self, memberModel):
+        """
+        @endpoint 'post /members'
+        Create member
+        @memberModel     str     { request_data (Array[string], optional): Request data }
+        @return: json with new member
+        """
+        result = self.call_create_api('/members', params=memberModel)
+        return result
+
     def get_member_by_mid(self, objid):
         """
         @endpoint 'get /members/{id}'
@@ -1078,6 +1075,16 @@ class Dolibarrpy():
         search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('thirdparties', params)
+        return result
+
+    def create_thirdparties(self, thirdpartiesModel):
+        """
+        @endpoint 'post /thirdparties'
+        Create thirdparty
+        @thirdpartiesModel     str     { request_data (Array[string], optional): Request data }
+        @return: json with new thirdparty
+        """
+        result = self.call_create_api('/thirdparties', params=thirdpartiesModel)
         return result
 
     def get_thirdparty_by_tid(self, objid):

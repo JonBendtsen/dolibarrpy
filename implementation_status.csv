@@ -109,7 +109,7 @@
 0	get /login
 0	post /login
 1	get /members
-0	post /members
+1	post /members
 0	delete /members/{id}
 1	get /members/{id}
 0	put /members/{id}
@@ -308,7 +308,7 @@
 0	put /tasks/{id}/timespent/{timespent_id}
 0	get /tasks/timespentrecordchecks/{id}
 1	get /thirdparties
-0	post /thirdparties
+1	post /thirdparties
 0	delete /thirdparties/{id}
 1	get /thirdparties/{id}
 1	put /thirdparties/{id}
