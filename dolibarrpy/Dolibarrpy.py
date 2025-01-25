@@ -269,10 +269,19 @@ class Dolibarrpy():
         if self.debug:
             ic(url)
             ic(response)
+        result = {}
         try:
             result = json.loads(response.text)
         except:
-            raise Exception(response.text)
+            try:
+                response_code = response.status_code
+            except:
+                response_code = None
+            try:
+                response_text = response.text
+            except:
+                response_text = None
+            result.update({ "response_code": response_code, "response_text": response_text })
         return result
 
     def call_post_api(self, object, objid):
