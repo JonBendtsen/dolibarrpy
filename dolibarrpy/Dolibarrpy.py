@@ -1647,6 +1647,23 @@ class Dolibarrpy():
         result = self.call_update_api('proposals', objid,updateProposalsModel )
         return result
 
+    def update_proposal_line_with_lineid(self, pid, lineid, updateProposalLineModel):
+        """
+        @endpoint 'put /proposals/{id}/lines({lineid})'
+        Update proposal
+        @pid     int     Id of proposal with line to update
+        @lineid     int     Id of line to update
+        @updateProposalLineModel     str     updateProposalLineModel {request_data (Array[string], optional): Datas }
+        @return: proposal
+        """
+        if self.debug:
+            ic()
+            ic(pid)
+            ic(lineid)
+            ic(updateProposalLineModel)
+        result = self.call_update_api('proposals', pid, updateProposalLineModel, "lines", lineid)
+        return result
+
     def get_proposal_by_ref(self, objref, contact_list = 1):
         """
         @endpoint 'get /proposals/ref/{ref}'
@@ -2286,6 +2303,16 @@ class Dolibarrpy():
         """
 
         result = self.call_get_api('setup', 'company')
+        return result
+
+    def get_setup_conf(self, constantname):
+        """
+        @endpoint 'get /setup/conf/{constantname}'
+        Get conf info from /setup - Note that conf variables that stores security key or password hashes can't be loaded with API.
+        @return: Configuration information
+        """
+
+        result = self.call_get_api('setup/conf', constantname)
         return result
 
     def get_setup_extrafields(self):

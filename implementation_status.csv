@@ -210,7 +210,7 @@
 1	get /proposals/{id}/lines
 0	post /proposals/{id}/lines
 0	delete /proposals/{id}/lines/{lineid}
-0	put /proposals/{id}/lines/{lineid}
+1	put /proposals/{id}/lines/{lineid}
 0	post /proposals/{id}/setinvoiced
 0	post /proposals/{id}/settodraft
 1	post /proposals/{id}/validate
@@ -218,7 +218,7 @@
 1	get /proposals/ref/{ref}
 0	get /setup/checkintegrity
 1	get /setup/company
-0	get /setup/conf/{constantname}
+1	get /setup/conf/{constantname}
 0	get /setup/dictionary/availability
 0	get /setup/dictionary/civilities
 0	get /setup/dictionary/contact_types
