@@ -252,8 +252,11 @@ class Dolibarrpy():
 
     def call_create_api(self, object, params={}):
         url = self.url + object
-        headers = self.get_headers()
+        headers = self.post_headers()
         dolibarrpy_response_call_create_api = requests.post(url, json=params, headers=headers, timeout=self.timeout)
+        if self.debug:
+            ic(url)
+            ic(dolibarrpy_response_call_create_api)
         try:
             result = json.loads(dolibarrpy_response_call_create_api.text)
         except:
@@ -870,7 +873,10 @@ class Dolibarrpy():
         @memberModel     str     { request_data (Array[string], optional): Request data }
         @return: json with new member
         """
-        result = self.call_create_api('/members', params=memberModel)
+        if self.debug:
+            ic()
+            ic(memberModel)
+        result = self.call_create_api('members', params=memberModel)
         return result
 
     def get_member_by_mid(self, objid):
@@ -1093,7 +1099,7 @@ class Dolibarrpy():
         @thirdpartiesModel     str     { request_data (Array[string], optional): Request data }
         @return: json with new thirdparty
         """
-        result = self.call_create_api('/thirdparties', params=thirdpartiesModel)
+        result = self.call_create_api('thirdparties', params=thirdpartiesModel)
         return result
 
     def get_thirdparty_by_tid(self, objid):
