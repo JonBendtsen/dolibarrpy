@@ -547,12 +547,13 @@ class Dolibarrpy():
         }
         return self.call_action_api('orders', order_id, 'settodraft', params=params)
 
-    def set_order_to_validated(self, order_id, idwarehouse=1):
+    def set_order_to_validated(self, order_id, idwarehouse=1, notrigger = 0):
         """
         @endpoint 'post /orders/{id}/validate'
         """
         params = {
-          "idwarehouse": idwarehouse
+          "idwarehouse": idwarehouse,
+          "notrigger": notrigger
         }
         return self.call_action_api('orders', order_id, 'validate', params=params)
 
