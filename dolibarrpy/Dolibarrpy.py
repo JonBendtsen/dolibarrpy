@@ -698,7 +698,7 @@ class Dolibarrpy():
         return result
 
     # PROJECTS
-    def find_all_projects(self, with_status = '', usage_organize_event = None):
+    def find_all_projects(self, with_status = '', additional_sqlfilter = None):
         """
         @endpoint 'get /projects'
         Get projects with status
@@ -708,24 +708,24 @@ class Dolibarrpy():
         if self.debug:
             ic()
             ic(with_status)
-            ic(usage_organize_event)
+            ic(additional_sqlfilter)
         all_projects=[]
         page = 0
-        some_projects = self.find_some_projects(with_status, usage_organize_event, page)
+        some_projects = self.find_some_projects(with_status, additional_sqlfilter, page)
         while some_projects:
             all_projects = all_projects + list(some_projects)
             page += 1
-            some_projects = self.find_some_projects(with_status, usage_organize_event, page)
+            some_projects = self.find_some_projects(with_status, additional_sqlfilter, page)
             if len(some_projects) < 100:
                 all_projects = all_projects + list(some_projects)
                 break
         return all_projects
 
-    def find_some_projects(self, with_status = '', usage_organize_event = None, page = 0):
+    def find_some_projects(self, with_status = '', additional_sqlfilter = None, page = 0):
         if self.debug:
             ic()
             ic(with_status)
-            ic(usage_organize_event)
+            ic(additional_sqlfilter)
             ic(page)
         search_filter = ProjectFilter()
         sqlfilter_status = ''
@@ -736,15 +736,10 @@ class Dolibarrpy():
         if "closed" == with_status.lower():
             sqlfilter_status="(t.fk_statut:=:2)"
 
-        if usage_organize_event is None:
-            sqlfilter_usage_organize_event = None
-        else:
-            sqlfilter_usage_organize_event =  "(t.usage_organize_event:=:" + str(usage_organize_event) + ")"
-
-        if sqlfilter_usage_organize_event is None:
+        if additional_sqlfilter is None:
             end_sqlfilters = sqlfilter_status
         else:
-            end_sqlfilters = sqlfilter_status + " and " + sqlfilter_usage_organize_event
+            end_sqlfilters = sqlfilter_status + " and " + additional_sqlfilter
 
         search_filter = ProjectFilter(
             sqlfilters=end_sqlfilters
