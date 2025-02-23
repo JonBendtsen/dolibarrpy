@@ -698,7 +698,7 @@ class Dolibarrpy():
         return result
 
     # PROJECTS
-    def find_all_projects(self, with_status = ''):
+    def find_all_projects(self, with_status = '', usage_organize_event = None):
         """
         @endpoint 'get /projects'
         Get projects with status
@@ -707,31 +707,41 @@ class Dolibarrpy():
         """
         all_projects=[]
         page = 0
-        some_projects = self.find_some_projects(with_status, page)
+        some_projects = self.find_some_projects(with_status, usage_organize_event, page)
         while some_projects:
             all_projects = all_projects + list(some_projects)
             page += 1
-            some_projects = self.find_some_projects(with_status, page)
+            some_projects = self.find_some_projects(with_status, usage_organize_event, page)
             if len(some_projects) < 100:
                 all_projects = all_projects + list(some_projects)
                 break
         return all_projects
 
-    def find_some_projects(self, with_status = '', page = 0):
+    def find_some_projects(self, with_status = '', usage_organize_event = None, page = 0):
         search_filter = ProjectFilter()
         if "draft" == with_status.lower():
-            search_filter = ProjectFilter(
-                sqlfilters="(t.fk_statut:=:0)"
-            )
-
+            sqlfilter_status = "(t.fk_statut:=:0)"
         if "open" == with_status.lower():
-            search_filter = ProjectFilter(
-                sqlfilters="(t.fk_statut:=:1)"
-            )
+            sqlfilter_status="(t.fk_statut:=:1)"
         if "closed" == with_status.lower():
-            search_filter = ProjectFilter(
-                sqlfilters="(t.fk_statut:=:2)"
-            )
+            sqlfilter_status="(t.fk_statut:=:2)"
+
+        if usage_organize_event is None:
+            sqlfilter_usage_organize_event = None
+        else:
+            try:
+                sqlfilter_usage_organize_event =  "(t.usage_organize_event:=:" + int(usage_organize_event) + ")"
+            except:
+                sqlfilter_usage_organize_event = None
+
+        if sqlfilter_usage_organize_event is None:
+            end_sqlfilters = sqlfilter_status
+        else:
+            end_sqlfilters = sqlfilter_status + " and " + sqlfilter_usage_organize_event
+
+        search_filter = ProjectFilter(
+            sqlfilters=end_sqlfilters
+        )
         search_filter = replace(search_filter, page=page)
         params = asdict(search_filter)
         result = self.call_list_api('projects', params=params)
