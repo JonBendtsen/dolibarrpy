@@ -705,6 +705,10 @@ class Dolibarrpy():
         @param with_status: 0 => draft, 1 => open, 2=> closed
         @return: list of projects
         """
+        if self.debug:
+            ic()
+            ic(with_status)
+            ic(usage_organize_event)
         all_projects=[]
         page = 0
         some_projects = self.find_some_projects(with_status, usage_organize_event, page)
@@ -718,7 +722,13 @@ class Dolibarrpy():
         return all_projects
 
     def find_some_projects(self, with_status = '', usage_organize_event = None, page = 0):
+        if self.debug:
+            ic()
+            ic(with_status)
+            ic(usage_organize_event)
+            ic(page)
         search_filter = ProjectFilter()
+        sqlfilter_status = ''
         if "draft" == with_status.lower():
             sqlfilter_status = "(t.fk_statut:=:0)"
         if "open" == with_status.lower():
@@ -729,10 +739,7 @@ class Dolibarrpy():
         if usage_organize_event is None:
             sqlfilter_usage_organize_event = None
         else:
-            try:
-                sqlfilter_usage_organize_event =  "(t.usage_organize_event:=:" + int(usage_organize_event) + ")"
-            except:
-                sqlfilter_usage_organize_event = None
+            sqlfilter_usage_organize_event =  "(t.usage_organize_event:=:" + str(usage_organize_event) + ")"
 
         if sqlfilter_usage_organize_event is None:
             end_sqlfilters = sqlfilter_status
