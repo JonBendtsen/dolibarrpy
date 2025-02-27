@@ -712,12 +712,17 @@ class Dolibarrpy():
         all_projects=[]
         page = 0
         some_projects = self.find_some_projects(with_status, additional_sqlfilter, page)
+        if "error" in some_projects:
+            return some_projects
         while some_projects:
-            all_projects = all_projects + list(some_projects)
+            all_projects = all_projects + some_projects
             page += 1
             some_projects = self.find_some_projects(with_status, additional_sqlfilter, page)
+            if "error" in some_projects:
+                all_projects = all_projects + some_projects
+                break
             if len(some_projects) < 100:
-                all_projects = all_projects + list(some_projects)
+                all_projects = all_projects + some_projects
                 break
         return all_projects
 
