@@ -1671,6 +1671,22 @@ class Dolibarrpy():
         result = self.call_update_api('proposals', objid,updateProposalsModel )
         return result
 
+    def delete_line_id_from_proposal_id_(self, pid, lineid):
+        """
+        @endpoint 'delete /proposals/{id}/lines({lineid})'
+        Delete proposal line
+        @pid        int     Id of proposal with line to delete
+        @lineid     int     Id of line to delete
+        @return: proposal
+        """
+        if self.debug:
+            ic()
+            ic(pid)
+            ic(lineid)
+        objstr = str(pid) + '/lines/' + str(lineid)
+        result = self.call_delete_api('proposals', objstr)
+        return result
+
     def update_proposal_line_with_lineid(self, pid, lineid, updateProposalLineModel):
         """
         @endpoint 'put /proposals/{id}/lines({lineid})'
@@ -1731,7 +1747,7 @@ class Dolibarrpy():
         if self.debug:
             ic()
             ic(objid)
-            ic(proposalsCloseModel)
+        ic(proposalsCloseModel)
         objid = str(objid)
         trigger_defined = proposalsCloseModel.get('notrigger')
         if trigger_defined is None:
