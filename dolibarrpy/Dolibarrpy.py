@@ -231,6 +231,10 @@ class Dolibarrpy():
         return result
 
     def call_get_api(self, object, objid, params = None):
+        if self.debug:
+            ic(object)
+            ic(params)
+            ic(objid)
         url = self.url + object + '/' + str(objid)
         headers = self.get_headers()
         if params:
@@ -2311,15 +2315,18 @@ class Dolibarrpy():
         return result
 
     def get_user_by_email(self, email, includepermissions = 0):
+        if self.debug:
+            ic(email)
+            ic(includepermissions)
         """
         @endpoint 'get /users/email/{email}'
         Get properties of an user object by Email
         @return: user object
         """
         if includepermissions:
-            objid = 'email/' + urllib.parse.quote(email)  + '?includepermissions=' + includepermissions
+            objid = 'email/' + urllib.parse.quote(email) + '?includepermissions=' + includepermissions
         else:
-            objid = str(objid)
+            objid = 'email/' + urllib.parse.quote(email)
         result = self.call_get_api('users', objid=objid)
         return result
 
