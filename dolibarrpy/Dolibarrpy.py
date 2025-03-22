@@ -2330,6 +2330,22 @@ class Dolibarrpy():
         result = self.call_get_api('users', objid=objid)
         return result
 
+    def get_user_by_login(self, login, includepermissions = 0):
+        if self.debug:
+            ic(login)
+            ic(includepermissions)
+        """
+        @endpoint 'get /users/login/{login}'
+        Get properties of an user object by login
+        @return: user object
+        """
+        if includepermissions:
+            objid = 'login/' + urllib.parse.quote(login) + '?includepermissions=' + includepermissions
+        else:
+            objid = 'login/' + urllib.parse.quote(login)
+        result = self.call_get_api('users', objid=objid)
+        return result
+
     # STATUS
     def get_status(self):
         """

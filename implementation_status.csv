@@ -365,7 +365,7 @@
 0	get /users/groups
 0	get /users/groups/{group}
 0	get /users/info
-0	get /users/login/{login}
+1	get /users/login/{login}
 0	get /warehouses
 0	post /warehouses
 0	delete /warehouses/{id}
