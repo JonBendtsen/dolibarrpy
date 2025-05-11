@@ -2378,14 +2378,55 @@ class Dolibarrpy():
         result = self.call_get_api('setup/conf', constantname)
         return result
 
-    def get_setup_extrafields(self):
+    def get_setup_extrafields(self, elementtype='', attrname=''):
         """
         @endpoint 'get /setup/extrafields'
         Get extrafields info from /setup
         @return: extrafields information
         """
+        if elementtype:
+            if attrname:
+                result = self.call_get_api('/setup', 'extrafields/' + elementtype + '/' + attrname)
+            else:
+                result = self.call_get_api('/setup', 'extrafields?elementtype=' + elementtype)
+        else:
+            result = self.call_get_api('/setup', 'extrafields')
+        return result
 
-        result = self.call_get_api('setup', 'extrafields')
+    def create_extrafield(self, elementtype, attrname, CreateExtrafieldsModel):
+        """
+        @endpoint 'post /setup/extrafields/{elementtype}/{attrname}'
+        Create extrafield
+        @elementtype    str  the module that the extrafield belongs to
+        @attrname       str  the Attribute code of the extrafield to update
+        @CreateExtrafieldsModel     str     { request_data (Array[string], optional): Request data }
+        @return:        int    id of the extrafield
+        """
+        if self.debug:
+            ic()
+            ic(elementtype)
+            ic(attrname)
+            ic(CreateExtrafieldsModel)
+        apiendpoint = '/setup/extrafields/' + elementtype + '/' + attrname
+        result = self.call_create_api(apiendpoint, params=CreateExtrafieldsModel)
+        return result
+
+    def update_extrafield(self, elementtype, attrname, UpdateExtrafieldsModel):
+        """
+        @endpoint 'put /setup/extrafields/{elementtype}/{attrname}'
+        Update extrafield
+        @elementtype    str  the module that the extrafield belongs to
+        @attrname       str  the Attribute code of the extrafield to update
+        @UpdateExtrafieldsModel     str     updateProposalsModel {request_data (Array[string], optional): Datas }
+        @return:        int    id of the extrafield
+        """
+        if self.debug:
+            ic()
+            ic(elementtype)
+            ic(attrname)
+            ic(UpdateExtrafieldsModel)
+        object='/setup/extrafields/' + elementtype + '/' + attrname
+        result = self.call_update_api(object, None, params=UpdateExtrafieldsModel )
         return result
 
     def get_setup_modules(self):
