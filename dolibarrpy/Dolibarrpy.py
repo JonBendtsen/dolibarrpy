@@ -758,6 +758,16 @@ class Dolibarrpy():
         result = self.call_list_api('projects', params=params)
         return result
 
+    def create_project(self, projectModel):
+        """
+        @endpoint 'post /project'
+        Create project
+        @projectModel     str     { request_data (Array[string], optional): Request data }
+        @return: json with new project
+        """
+        result = self.call_create_api('project', params=projectModel)
+        return result
+
     def get_project_by_pid(self, objid):
         """
         @endpoint 'get /projects/{id}'
