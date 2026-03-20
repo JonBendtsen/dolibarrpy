@@ -1828,7 +1828,7 @@ class Dolibarrpy():
         if source:
             action = "contact/" + str(contactid) + "/" + str(type) + "/" + str(source)
         else:
-            action = "contact/" + str(contactid) + "/" + str(type) + "/external"
+            action = "contact/" + str(contactid) + "/" + str(type)
         result = self.call_action_api('proposals', objid=objid, action=action)
         return result
 
