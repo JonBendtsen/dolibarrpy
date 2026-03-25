@@ -2564,7 +2564,7 @@ class Dolibarrpy():
         result = self.call_get_api('setup/dictionary/states/byCode', objid=state_code)
         return result
 
-    def get_state_by_ide(self, state_ide):
+    def get_state_by_id(self, state_id):
         """
         @endpoint 'get /setup/dictionary/states/{id}'
         """
