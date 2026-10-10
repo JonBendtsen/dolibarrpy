@@ -765,7 +765,7 @@ class Dolibarrpy():
         @projectModel     str     { request_data (Array[string], optional): Request data }
         @return: json with new project
         """
-        result = self.call_create_api('project', params=projectModel)
+        result = self.call_create_api('projects', params=projectModel)
         return result
 
     def get_project_by_pid(self, objid):
