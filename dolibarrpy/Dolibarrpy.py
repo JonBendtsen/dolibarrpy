@@ -211,23 +211,25 @@ class Dolibarrpy():
             'Accept': 'application/json',
         }
 
-
-    def call_list_api(self, object, params={}):
+    def call_list_api(self, object, params=None):
         url = self.url + object
         headers = self.get_headers()
-        response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+        response = requests.get(url, params=params if params is not None else {},
+                                headers=headers, timeout=self.timeout)
         if self.debug:
             ic(url)
             ic(params)
             ic(response)
-        if '<Response [501]>' == str(response):
-            _logger.error('LIST API ERROR: ' + str(response))
-            raise Exception(str(response))
+
+        response.raise_for_status()
+
         try:
             result = json.loads(response.text)
-        except:
-            _logger.error('LIST API ERROR: ' + object)
-            result = response.text
+        except json.JSONDecodeError:
+            _logger.error('LIST API ERROR for %s: invalid JSON in response', object)
+            raise Exception(f'LIST API ERROR for {object}: response was not valid JSON: '
+                            f'{response.text[:200]}')
+
         return result
 
     def call_get_api(self, object, objid, params = None):

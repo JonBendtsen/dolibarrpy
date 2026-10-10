@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='dolibarrpy',
     packages=['dolibarrpy'],
-    version="0.10.4",
+    version="0.11.0",
     license='MIT',
     description='Python wrapper for Dolibarr API',
     long_description='This project is a python wrapper for the API for Dolibarr ERP & CRM found at dolibarr.org. It is not yet complete, but most major GET endpoints has been implemented. In the beginning I will mostly focus on implementing the API endpoints that I use.',
