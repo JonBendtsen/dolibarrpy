@@ -1415,14 +1415,18 @@ class Dolibarrpy():
         Get all contacts
         @param from_ContactFilter:
         @return: list of a contacts
+        Note: if sortfield is set, it should be unique (e.g. t.rowid) for correct pagination
         """
         if self.debug:
             ic()
             ic(from_ContactFilter)
-        if from_ContactFilter is None:
-            search_filter = ContactFilter()
-        else:
-            search_filter = from_ContactFilter
+        search_filter = from_ContactFilter if from_ContactFilter else ContactFilter()
+        search_filter = replace(
+            search_filter,
+            sortfield=search_filter.sortfield or "t.rowid",
+            sortorder=search_filter.sortorder or "ASC",
+            limit=search_filter.limit or 100,
+        )
         all_contacts=[]
         page = 0
         while True:
@@ -1435,9 +1439,9 @@ class Dolibarrpy():
                 break
             else:
                 page += 1
-                if some_contacts == all_contacts:
-                    break
                 all_contacts = all_contacts + list(some_contacts)
+                if len(some_contacts) < search_filter.limit:
+                    break
         return all_contacts
 
     def find_some_contacts(self, from_ContactFilter = None, page = 0):
