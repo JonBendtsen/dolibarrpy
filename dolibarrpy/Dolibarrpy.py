@@ -6,6 +6,13 @@ from typing import Optional
 from icecream import install
 install()
 
+import random
+import time
+DEFAULT_PAGE_LIMIT = 100
+
+class DolibarrListError(Exception):
+    """Raised when a list endpoint returns something we can't paginate safely."""
+
 _logger = logging.getLogger(__name__)
 
 @dataclass
@@ -210,6 +217,135 @@ class Dolibarrpy():
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         }
+
+    def call_list_api_paginated(self, object, params=None,
+                                page_limit=DEFAULT_PAGE_LIMIT,
+                                sortfield='t.rowid', sortorder='ASC',
+                                sleep_between_full_pages=True):
+        """
+        Generic paginator for Dolibarr list endpoints.
+
+        Yields items one at a time. Termination relies on:
+        - stop on empty page or incomplete page (< page_limit)
+        - explicit positive integer limit + page number, stable t.rowid ordering
+
+        Raises DolibarrListError on any non-200 HTTP status (including 404,
+        which is treated as an error, not as "end of data"), invalid JSON,
+        non-list JSON, an API response containing an 'error' key, or
+        non-object list items.
+
+        Pagination pace is randomized between limit/2 and limit milliseconds
+        (interpreting limit as ms) to avoid synchronized concurrent exports.
+        """
+        # ─── Validate & normalize page_limit ──────────────────────────────────────
+        if page_limit is None:
+            page_limit = DEFAULT_PAGE_LIMIT
+
+        if isinstance(page_limit, bool):
+            raise TypeError(
+                f'limit must be an integer, got {type(page_limit).__name__} '
+                f'(bool is a subtype of int but not a valid page size)')
+
+        if isinstance(page_limit, float):
+            if page_limit.is_integer():
+                page_limit = int(page_limit)
+            else:
+                raise ValueError(
+                    f'limit must be an integer, got {page_limit} — a fractional '
+                    f'page size would desync client and server pagination '
+                    f'(server floors it, client would mis-detect the last page)')
+
+        if not isinstance(page_limit, int):
+            raise TypeError(
+                f'limit must be an integer, got {type(page_limit).__name__}')
+
+        if page_limit <= 0:
+            raise ValueError(
+                f'limit must be positive, got {page_limit} — '
+                f'a limit of 0 makes no sense (nothing to fetch)')
+
+        # ─── Main pagination loop ───────────────────────────────────────────────
+        page = 0
+
+        while True:
+            # Work on a copy so the caller's dict/dataclass params stay untouched
+            page_params = dict(params or {})
+            page_params.update({
+                'limit': page_limit,
+                'page': page,
+                'sortfield': page_params.get('sortfield') or sortfield,
+                'sortorder': page_params.get('sortorder') or sortorder,
+            })
+
+            url = self.url + object
+            response = requests.get(url, params=page_params,
+                                    headers=self.get_headers(),
+                                    timeout=self.timeout)
+            if self.debug:
+                ic(url, page_params, response.status_code, response.text[:200])
+
+            # Any non-200 status is an error — including 404. There is no
+            # documented Dolibarr behaviour where 404 means "end of data",
+            # so treating it as success would silently mask real failures
+            # (wrong URL, disabled API module, misconfigured webserver).
+            if response.status_code != 200:
+                raise DolibarrListError(
+                    f'{object}: unexpected HTTP {response.status_code}: '
+                    f'{response.text[:200]}')
+
+            try:
+                result = json.loads(response.text)
+            except json.JSONDecodeError as exc:
+                raise DolibarrListError(
+                    f'{object}: response was not valid JSON: '
+                    f'{response.text[:200]}') from exc
+
+            # An error dict must abort — never treated as "data".
+            if isinstance(result, dict) and 'error' in result:
+                raise DolibarrListError(
+                    f'{object}: API error: {result}')
+
+            if not isinstance(result, list):
+                # From issue #5: a string would be iterable downstream.
+                raise DolibarrListError(
+                    f'{object}: expected a JSON list, got '
+                    f'{type(result).__name__}')
+
+            if not result:
+                return  # empty page: we're done
+
+            for item in result:
+                if not isinstance(item, dict):
+                    raise DolibarrListError(
+                        f'{object}: expected list of objects, got '
+                        f'{type(item).__name__} inside list')
+                yield item
+
+            # Incomplete page: last page reached.
+            if len(result) < page_limit:
+                return
+
+            # Pace requests proportionally to page size, with jitter to avoid
+            # synchronizing concurrent exports: sleep is uniform between
+            # limit/2 and limit milliseconds (interpret limit as ms).
+            if sleep_between_full_pages:
+                sleep_ms = random.uniform(page_limit / 2.0, page_limit)
+                time.sleep(sleep_ms / 1000.0)
+
+            page += 1
+
+    def _paginate(self, api_path, search_filter):
+        """
+        Shared machinery behind every find_all_*: converts a filter dataclass
+        to params, hands pagination fields to the paginator, returns a list.
+        """
+        params = asdict(search_filter)
+        limit = params.pop('limit', None)
+        params.pop('page', None)
+        # sortfield/sortorder passes through: the user's own sort wins,
+        # otherwise the paginator falls back to t.rowid ASC.
+        return list(self.call_list_api_paginated(
+            api_path, params=params, page_limit=limit))
 
     def call_list_api(self, object, params=None):
         url = self.url + object
@@ -1417,48 +1553,9 @@ class Dolibarrpy():
         Get all contacts
         @param from_ContactFilter:
         @return: list of a contacts
-        Note: if sortfield is set, it should be unique (e.g. t.rowid) for correct pagination
         """
-        if self.debug:
-            ic()
-            ic(from_ContactFilter)
         search_filter = from_ContactFilter if from_ContactFilter else ContactFilter()
-        search_filter = replace(
-            search_filter,
-            sortfield=search_filter.sortfield or "t.rowid",
-            sortorder=search_filter.sortorder or "ASC",
-            limit=search_filter.limit or 100,
-        )
-        all_contacts=[]
-        page = 0
-        while True:
-            some_contacts = self.find_some_contacts(search_filter, page)
-            if "error" in some_contacts:
-                break
-            elif [] == some_contacts:
-                break
-            elif {} == some_contacts:
-                break
-            else:
-                page += 1
-                all_contacts = all_contacts + list(some_contacts)
-                if len(some_contacts) < search_filter.limit:
-                    break
-        return all_contacts
-
-    def find_some_contacts(self, from_ContactFilter = None, page = 0):
-        if self.debug:
-            ic()
-            ic(page)
-            ic(from_ContactFilter)
-        if from_ContactFilter is None:
-            search_filter = ContactFilter()
-        else:
-            search_filter = from_ContactFilter
-        search_filter = replace(search_filter, page=page)
-        params = asdict(search_filter)
-        result = self.call_list_api('contacts', params)
-        return result
+        return self._paginate('contacts', search_filter)
 
     def get_contact_by_cid(self, objid, includecount = 0, includeroles = 0):
         """

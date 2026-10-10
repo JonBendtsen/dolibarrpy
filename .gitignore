@@ -1,4 +1,5 @@
 .idea/
-venv/
 *.pyc
 *.egg-info
+test/
+venv/
